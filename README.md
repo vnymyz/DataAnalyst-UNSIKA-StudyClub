@@ -50,6 +50,12 @@ Setelah menyelesaikan program ini, peserta diharapkan mampu:
 
 > Belajar coding bukan tentang cepat menemukan jawaban, tetapi memahami alasan kode bekerja.
 
+### Membaca Markdown dengan nyaman di VS Code
+
+Jika membuka materi melalui VS Code, klik kanan file Markdown (misalnya `pertemuan-01.md` atau `kuis-latihan-1.md`), lalu pilih **Open Preview**. VS Code akan menampilkan judul, tabel, kode, dan daftar isi dengan format yang lebih rapi.
+
+Kamu juga dapat memakai shortcut `Ctrl + Shift + V` untuk membuka preview dari file Markdown yang sedang aktif.
+
 ## Struktur Folder
 
 ```text

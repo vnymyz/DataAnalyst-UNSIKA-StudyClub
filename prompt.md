@@ -1,149 +1,162 @@
-# Brief & Prompt Template — Data Analyst UNSIKA
+# Context Handoff — Data Analyst UNSIKA
 
-> Isi bagian yang bertanda `[ISI DI SINI]`. Hapus opsi atau catatan yang tidak diperlukan. Setelah lengkap, kirimkan isi file ini kepada saya agar saya dapat membantu merancang atau membuat materinya.
+> Jika percakapan ini dilanjutkan pada sesi baru atau setelah context compact, berikan instruksi berikut kepada AI:  
+> **“Baca dulu `D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA\prompt.md`, lalu lanjutkan diskusi dari konteks tersebut. Jangan mengubah file apa pun sebelum saya memberi instruksi.”**
 
----
+## Lokasi Kerja Utama
 
-## 1. Konteks Program
-
-- **Nama program/kelas:** Data Analyst UNSIKA
-
-- **Penyelenggara/mitra:** Haltev
-
-- **Tujuan program:** program ini dirancang untuk mengajarkan anak anak semester 3 atau yang masih maba, baik itu dari segi teori atau codingan dengan tujuan nanti diakhir sesi yaitu sesi 6 ada ujian project yang akan dikerjakan secara berkelompok dan juga setiap sesi. terus juga nanti setiap diakhir sesi dari sesi 1 sampai 5 bakalan ada kuis juga, untuk kuis nya mungkin nanti isian aja atau essay sebanyak 10 soal, nanti dibuat markdown dalam setiap sesi nya atau markdown kuisnya dengan nama "kuis-data1" untuk sesi 1 terus "kuis-data2" untuk sesi 2 dan sampai sesi 5.
-
-- **Masalah atau kebutuhan yang ingin diselesaikan:** masalah atau kebutuhan nanti disesuaikan selama materi ini dibuat atau project ini dibuat.
-
-- **Output akhir peserta:** peserta dapat memahami fundamental python coding, peserta memahami bagaimana mengelola data menggunakan pandas dan numpy, peserta dapat melakukan data visualisasi menggunakan matplotlib dan seaborn, peserta juga dapat melakukan data storytelling dan diakhir sesi peserta berkelompok dapat membuat project akhir yaitu membuat dashboard report dan dapat menyampaikan nya, peserta juga dapat berpikir analis atau analitik, peserta juga dapat menggunakan AI sebagai coding assistant nya.
-
-- **Durasi total:** 6x pertemuan, jam 19:30 - 21:00
-
-## 2. Profil Peserta
-
-- **Jumlah peserta:** sekitar 20 sampai 30 an
-
-- **Latar belakang peserta:** Mahasiswa jurusan sistem informasi, masih pada maba, kurang lebih semester 3, udah ada yang bisa ngoding tapi dikit atau beberapa aja, ada juga yag belum bisa sama sekali atau masih belajar
-
-- **Kemampuan awal:** pemula total ada, beginner atau paham dasar juga ada, yang bisa coding juga ada, buat yang umum aja tapi, tapi mungkin sebaiknya pemula aja juga gpp, disesuaikan ya.
-
-- **Perangkat yang digunakan:** VSCode sebagai code editor, Jupter Notebook, Google colab buat alternatif coding, Python, Laptop atau PC.
-
-- **Bahasa pengantar:** Bahasa Indonesia
-
-- **Gaya belajar yang diinginkan:** mereka pengen belajarnya seru, terus diselipin sedikit meme juga, ada ice breaking juga sama tanya jawab gtu nantinya.
-
-## 3. Peran AI yang Dibutuhkan
+Semua perubahan untuk program ini **wajib** dilakukan hanya di:
 
 ```text
-Berperanlah sebagai Curriculum Designer, Senior Data Analyst, dan instruktur Data Science berbahasa Indonesia.
-
-Kamu perlu membuat materi yang ramah untuk profil peserta yang saya sudah sediakan, berorientasi praktik, dan menjelaskan konsep teknis dengan bahasa sederhana. Gunakan studi kasus yang relevan dengan konteks.
-
-Saat membuat materi, prioritaskan:
-
-1. Alur belajar dari konsep paling dasar ke praktik.
-
-2. Contoh kode yang bersih, dapat dijalankan, dan diberi penjelasan.
-
-3. Terdapat soal latihan atau kuis di akhir sesi dari sesi 1 - 5 karena sesi 6 itu sudah ujian project. sertakan kunci jawaban juga dengan membuat folder baru yaitu dengan nama "answer" di dalam folder "Data-Analyst-UNSIKA". jadi kurang lebih di dalem folder data analyst unsika ini ada 3 folder, materi-pertemuan, latihan-soal-pertemuan, kunci-jawaban-pertemuan.
-
-4. Insight bisnis yang jelas, bukan sekadar membuat grafik. Dapat membuat dashboard report yang dilihat dengan enak atau UI UX Friendly.
-
-5. Bahasa Indonesia yang simple, profesional, dan mudah dipahami, jangan terlalu AI juga.
+D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA
 ```
 
-## 4. Tugas Utama yang Ingin Dibuat
+Jangan lagi mengubah folder lama `D:\HALTEV\2. Data Science Bootcamp\Materi dan Code\Data-Analyst-UNSIKA`.
 
-Pilih satu atau beberapa, lalu jelaskan detailnya.
+## Ringkasan Program
 
-- Buatlah Silabus nya untuk pertemuan 1 - 6 dengan waktu 19:30 - 21:00 dengan judul materi, rincian materi atau apa aja yang kita pelajarin secara detail, tools yang digunakan dan output yang didapatkan murid apa.
+- **Nama:** Data Analyst UNSIKA
+- **Penyelenggara:** Haltev
+- **Tutor:** Vanya Mayazura, Software Engineer Instructor
+- **Peserta:** sekitar 20–30 mahasiswa Sistem Informasi; mayoritas pemula atau masih memahami coding dasar.
+- **Durasi:** 6 pertemuan, pukul 19.30–21.00 WIB (90 menit/sesi).
+- **Bahasa:** Bahasa Indonesia yang sederhana, natural, profesional, dan tidak terasa terlalu “AI”.
+- **Gaya kelas:** praktik, studi kasus relevan, tanya jawab, ice breaking ringan, dan boleh diselipkan meme secara wajar.
 
-- untuk materi mungkin bisa disesuaikan berdasarkan materi di folder materi and code data science ini.
+## Tujuan Pembelajaran
 
-- kita bakalan belajar menggunakan Google Colab terlebih dahulu diawal awal, nanti beberapa pertemuan kedepan tergantung saya nanti bakal menggunakan Vs code dan menginstall Python juga.
+Peserta diharapkan mampu:
 
-- Untuk dokumentasi markdown buatin isi markdown berdasarkan materi per pertemuan.
+1. Memahami fundamental Python yang relevan untuk Data Analyst.
+2. Mengolah CSV dengan NumPy dan Pandas.
+3. Melakukan data cleaning, EDA, visualisasi, dan data storytelling.
+4. Membuat dashboard Streamlit sederhana.
+5. Menggunakan GitHub untuk dokumentasi dan kolaborasi dasar.
+6. Menggunakan AI secara bertanggung jawab sebagai coding assistant serta mampu menjelaskan kode yang digunakan.
 
-- untuk dataset nanti kemungkinan kita cukup pake CSV saja nanti kalau memang memungkin kan menggunakan SQLite atau MySQL nanti saya beri tau.
+## Keputusan Kurikulum yang Sudah Dikunci
 
-- buatkan latihan soal, kuis dan jawaban dalam bentuk markdown aja, dan pastikan murid paham terkait apa yang mereka kerjakan walaupun pake AI gpp cuman nanti kalau semisal ditanya harus paham aja.
+| Pertemuan | Materi utama |
+|---|---|
+| 1 | Pengenalan Data Analyst, Google Colab, Python dasar: input/output, variabel, tipe data, operator, list, dictionary |
+| 2 | Conditional, `for`, `while`, function, dan pengenalan OOP singkat (bukan fokus utama) |
+| 3 | NumPy, Pandas, CSV, DataFrame, seleksi, dan filtering |
+| 4 | Data cleaning, statistik deskriptif, `groupby`, agregasi, dan EDA |
+| 5 | Matplotlib, Seaborn, Plotly, KPI, dan data storytelling |
+| 6 | Streamlit dasar, dashboard report, GitHub dasar, dan arahan proyek akhir |
 
-- untuk ujian project mereka akan dilakukan secara berkelompok untuk topiknya nanti mereka masing masing yang pilih, kalau enggak ada nanti ada backup juga dari untuk aku pilihin gtu.
+### Batasan penting
 
-- untuk project akhirnya nanti setiap kelompok dapat membuat project dashboard report yang nanti akan ditampilkan menggunakan streamlit dan di hosting di streamlit juga.
+- Fokus pada jalur **Data Analyst**, bukan Machine Learning.
+- Dataset latihan bersama: **e-commerce dalam format CSV**.
+- SQLite/MySQL bersifat opsional dan belum masuk materi inti.
+- Sesi 1–5 memakai Google Colab terlebih dahulu.
+- Peserta diminta setup Python 3.13, VS Code, dan Streamlit **sebelum sesi 6**.
+- Proyek dashboard dikerjakan **setelah sesi 6**, bukan harus selesai di dalam sesi 6.
 
-**Deskripsi tugas utama:**
+## Tech Stack
+
+- Python 3.13
+- Google Colab, Jupyter Notebook, dan VS Code
+- NumPy dan Pandas
+- Matplotlib, Seaborn, dan Plotly
+- Streamlit
+- CSV dan Kaggle
+- GitHub dan Google Drive
+
+## Struktur yang Sudah Ada
 
 ```text
-[Jelaskan hasil yang ingin dibuat.]
-
-Contoh:
-Tolong buatkan kurikulum Data Analyst untuk 10 pertemuan. Setiap pertemuan berdurasi 2 jam, berisi materi, demonstrasi, latihan mandiri, dan tugas rumah. Peserta adalah mahasiswa pemula yang belum menguasai Python.
+Data-Analyst-UNSIKA/
+├── README.md
+├── prompt.md
+├── panduan-setup.md
+├── panduan-proyek-akhir.md
+├── materi-pertemuan/
+│   ├── pertemuan-01.md
+│   ├── pertemuan-02.md
+│   ├── pertemuan-03.md
+│   ├── pertemuan-04.md
+│   ├── pertemuan-05.md
+│   └── pertemuan-06.md
+├── latihan-soal-pertemuan/
+│   ├── kuis-latihan-1.md
+│   ├── kuis-latihan-2.md
+│   ├── kuis-latihan-3.md
+│   ├── kuis-latihan-4.md
+│   ├── kuis-latihan-5.md
+│   └── kuis-latihan-6.md
+└── kunci-jawaban-pertemuan/
+    ├── kunci-latihan-data1-6.md
+    └── kunci-kuis-data1-5.md
 ```
 
-## 5. Cakupan Materi
+## Progress / Yang Sudah Selesai
 
-Tandai topik yang akan dipakai.
+- [x] Membuat folder program Data Analyst UNSIKA.
+- [x] Menyusun kurikulum 6 pertemuan untuk level pemula.
+- [x] Membuat README dengan daftar isi, alur belajar, cara memakai materi, struktur folder, tech stack, aturan AI, penilaian, dan proyek akhir.
+- [x] Menambahkan panduan Google Colab, Python, VS Code, Streamlit, GitHub, serta Kaggle pada `panduan-setup.md`.
+- [x] Menambahkan panduan proyek dashboard kelompok 3–4 orang pada `panduan-proyek-akhir.md`.
+- [x] Menulis enam modul Markdown: Python dasar hingga Streamlit dan GitHub.
+- [x] Membuat enam file gabungan kuis dan latihan.
+- [x] Menambahkan identitas peserta (nama, jurusan, kelas, tanggal) pada setiap file kuis-latihan.
+- [x] Menambahkan area jawaban serta contoh output dalam code block untuk setiap soal coding.
+- [x] Membuat dua file kunci jawaban.
+- [x] Menambahkan panduan VS Code: klik kanan file Markdown → **Open Preview** atau gunakan `Ctrl + Shift + V`.
 
-### Fondasi
+## Change Log Terakhir
 
-- [ ] Pengenalan profesi Data Analyst dan alur kerja data
-- [ ] Python dasar
-- [ ] NumPy
-- [ ] Pandas dan data cleaning + Kaggle buat ambil data nya
-- [ ] Statistik deskriptif
+| Perubahan | Detail |
+|---|---|
+| Lokasi folder | Program dipindahkan ke `D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA`. Semua perubahan lanjutan wajib dilakukan di sini. |
+| README | Diperluas dengan daftar isi, panduan penggunaan materi, struktur folder, dan petunjuk Markdown Preview VS Code. |
+| Soal | File lama `kuis-data*.md` dan `latihan-data*.md` dihapus. Diganti dengan `kuis-latihan-1.md` sampai `kuis-latihan-6.md`. |
+| Soal coding | Ditambahkan contoh **Output yang Diharapkan** dalam code block; solusi kode lengkap tetap hanya berada di folder kunci jawaban. |
+| GitHub | Materi sudah diunggah pengguna ke GitHub. AI tidak melakukan push atau perubahan remote. |
 
-### Analisis dan Visualisasi
+## Aturan File Kuis & Latihan
 
-- [ ] Exploratory Data Analysis (EDA)
-- [ ] Matplotlib
-- [ ] Seaborn
-- [ ] Plotly
-- [ ] Data storytelling dan KPI bisnis
-- [ ] CSV, SQL / SQLite
-- [ ] Dashboard Report Streamlit
+- Gunakan nama `kuis-latihan-1.md` sampai `kuis-latihan-6.md`; jangan membuat file kuis dan latihan terpisah lagi.
+- Setiap file wajib memiliki kolom identitas: **nama lengkap, jurusan, kelas, dan tanggal**.
+- Setiap soal coding wajib memiliki:
+  1. instruksi yang jelas;
+  2. area kode kosong agar peserta menjawab;
+  3. bagian **Target Hasil** dengan contoh output dalam code block, misalnya:
 
-## 6. Tech Stack dan Teknologi
+  ```text
+  2
+  4
+  6
+  8
+  10
+  ```
 
-Pilih teknologi sesuai kebutuhan. Untuk kelas pemula, rekomendasi awal adalah **Google Colab + Python + Pandas + Matplotlib/Seaborn + SQLite** karena mudah dijalankan tanpa instalasi rumit.
+- Jangan langsung menuliskan solusi kode lengkap pada file soal.
+- Kunci jawaban disimpan terpisah di folder `kunci-jawaban-pertemuan`.
 
-| Kebutuhan             | Pilihan teknologi                            |
-| --------------------- | -------------------------------------------- |
-| Environment coding    | Google Colab, Jupyter Notebook, VS Code      |
-| Bahasa                | Python 3.13.0                                |
-| Pengolahan data       | Pandas, NumPy                                |
-| Visualisasi           | Matplotlib, Seaborn, Plotly                  |
-| Database              | CSV, sedangkan SQlite dan MySQL ini optional |
-| Dashboard             | Streamlit                                    |
-| Kolaborasi/portofolio | GitHub, Google Drive                         |
+## Proyek Akhir
 
-## 7. Kesimpulan
+- Kelompok: 3–4 peserta.
+- Peserta bebas memilih topik dan dataset publik dari Kaggle; tersedia ide cadangan di `panduan-proyek-akhir.md`.
+- Output minimal: dashboard Streamlit, minimal tiga insight/rekomendasi, README, dan repository GitHub.
+- Pengumpulan: GitHub atau Google Drive, menunggu arahan penyelenggara.
+- Status presentasi dan tenggat: **belum diputuskan**. Jangan mengasumsikan presentasi wajib sebelum pengguna mengonfirmasi.
 
-buatlah materi dengan 6 pertemuan mengenai :
+## Aturan Kolaborasi dengan Pengguna
 
-- fundamental python : input output, if else, for loop, while loop, variabel, OOP, Array atau lainnya yang perlu.
+1. Diskusikan kebutuhan terlebih dahulu jika pengguna belum meminta eksekusi.
+2. Jangan mengubah file atau melakukan push ke GitHub kecuali diminta secara eksplisit.
+3. Jika diminta perubahan, edit hanya folder pada bagian “Lokasi Kerja Utama”.
+4. Jangan menyentuh submission murid atau materi lain di luar folder Data Analyst UNSIKA.
+5. Setelah membuat perubahan, jelaskan singkat file mana yang berubah dan apa hasilnya.
 
-- pandas dan numpy untuk mengelola data dan buat tabel, dictionary, series.
+## To Do / Menunggu Keputusan
 
-- data visualisasi menggunakan matplotlib, seaborn, plotly.
-
-- membuat dashboard report menggunakan streamlit.
-
-- mengajarkan murid bagaimana cara mengupload project ke git atau github termasuk juga untuk kolaborasi.
-
-- bagaimana menggunakan AI dengan bijak. AI menjadikan codingan assistant kita.
-
-- pengumpulan project bisa dalam bentuk gdrive ataupun github link.
-
-- memberi tau murid bahwa dataset bisaa diambil dari website kaggle.
-
-- menyiapkan setup tools seperti installasi VS Code dan Python versi 3.13, berikut link download :
-  1. Python : https://www.python.org/downloads/release/python-3130/
-
-  2. Vs Code : https://code.visualstudio.com/Download?_exp_download=fb315fc982
-
-  3. non install or setup : https://colab.research.google.com/
-
-- Nama tutor : Vanya Mayazura sebagai software engineer instructor.
-
-udah ini aja dulu yang dibuat di dalem foder "Data-Analyst-UNSIKA"
+- [ ] Konfirmasi dari penyelenggara: apakah proyek akhir memiliki sesi presentasi atau hanya pengumpulan.
+- [ ] Konfirmasi tenggat pengumpulan proyek akhir dan platform final (GitHub, Google Drive, atau keduanya).
+- [ ] Tentukan apakah kunci jawaban tetap digabung dalam dua file atau dipecah menjadi satu file per pertemuan.
+- [ ] Tentukan apakah materi Markdown perlu diubah menjadi notebook Google Colab/Jupyter yang siap dijalankan.
+- [ ] Siapkan dataset e-commerce CSV yang akan dipakai saat kelas beserta sumber/lisensinya.
+- [ ] Buat template dashboard Streamlit dan `requirements.txt` untuk proyek kelompok bila diminta.
+- [ ] Tambahkan rubrik presentasi apabila format presentasi sudah disetujui.
