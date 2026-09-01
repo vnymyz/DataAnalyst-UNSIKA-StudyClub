@@ -1,17 +1,19 @@
 # Context Handoff — Data Analyst UNSIKA
 
-> Jika percakapan ini dilanjutkan pada sesi baru atau setelah context compact, berikan instruksi berikut kepada AI:  
-> **“Baca dulu `D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA\prompt.md`, lalu lanjutkan diskusi dari konteks tersebut. Jangan mengubah file apa pun sebelum saya memberi instruksi.”**
+> Jika percakapan ini dilanjutkan pada sesi baru atau setelah context compact, berikan instruksi berikut kepada AI:
+> **"Baca dulu `D:\HALTEV\UNSIKA-StudyClub\Data-Analyst-UNSIKA\prompt.md`, lalu lanjutkan diskusi dari konteks tersebut. Jangan mengubah file apa pun sebelum saya memberi instruksi."**
 
 ## Lokasi Kerja Utama
 
 Semua perubahan untuk program ini **wajib** dilakukan hanya di:
 
 ```text
-D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA
+D:\HALTEV\UNSIKA-StudyClub\Data-Analyst-UNSIKA
 ```
 
-Jangan lagi mengubah folder lama `D:\HALTEV\2. Data Science Bootcamp\Materi dan Code\Data-Analyst-UNSIKA`.
+> Catatan: path lama di file ini sebelumnya salah tertulis `D:\HALTEV\UNSIKA-DATA\...` — sudah diperbaiki. Folder ini juga pernah ada di lokasi lebih lama `D:\HALTEV\2. Data Science Bootcamp\Materi dan Code\Data-Analyst-UNSIKA` — jangan ubah folder itu lagi, sudah tidak dipakai.
+
+Folder ini bertetangga dengan `Website-UNSIKA` (program terpisah, kurikulum web development) di dalam `D:\HALTEV\UNSIKA-StudyClub\`. Struktur/pola file di kedua program sengaja dibuat konsisten, tapi isinya independen — jangan menyalin konten Website ke sini atau sebaliknya, hanya pola/template-nya yang sama.
 
 ## Ringkasan Program
 
@@ -20,8 +22,9 @@ Jangan lagi mengubah folder lama `D:\HALTEV\2. Data Science Bootcamp\Materi dan 
 - **Tutor:** Vanya Mayazura, Software Engineer Instructor
 - **Peserta:** sekitar 20–30 mahasiswa Sistem Informasi; mayoritas pemula atau masih memahami coding dasar.
 - **Durasi:** 6 pertemuan, pukul 19.30–21.00 WIB (90 menit/sesi).
-- **Bahasa:** Bahasa Indonesia yang sederhana, natural, profesional, dan tidak terasa terlalu “AI”.
+- **Bahasa:** Bahasa Indonesia yang sederhana, natural, profesional, dan tidak terasa terlalu "AI".
 - **Gaya kelas:** praktik, studi kasus relevan, tanya jawab, ice breaking ringan, dan boleh diselipkan meme secara wajar.
+- **Kebutuhan khusus (sama seperti Website-UNSIKA):** materi teori tiap pertemuan ditulis detail dan terstruktur per sub-bab, karena dijadikan bahan PowerPoint. Bahasa sederhana, pakai analogi.
 
 ## Tujuan Pembelajaran
 
@@ -73,12 +76,12 @@ Data-Analyst-UNSIKA/
 ├── panduan-setup.md
 ├── panduan-proyek-akhir.md
 ├── materi-pertemuan/
-│   ├── pertemuan-01.md
-│   ├── pertemuan-02.md
-│   ├── pertemuan-03.md
-│   ├── pertemuan-04.md
-│   ├── pertemuan-05.md
-│   └── pertemuan-06.md
+│   ├── pert1-materi/                  # README.md (Teori+Hands-on) + pertemuan-1.ipynb + pertemuan-1-data.pptx
+│   ├── pert2-materi/                  # menyusul, pola identik
+│   ├── pert3-materi/                  # menyusul
+│   ├── pert4-materi/                  # menyusul
+│   ├── pert5-materi/                  # menyusul
+│   └── pert6-materi/                  # menyusul
 ├── latihan-soal-pertemuan/
 │   ├── kuis-latihan-1.md
 │   ├── kuis-latihan-2.md
@@ -86,34 +89,75 @@ Data-Analyst-UNSIKA/
 │   ├── kuis-latihan-4.md
 │   ├── kuis-latihan-5.md
 │   └── kuis-latihan-6.md
-└── kunci-jawaban-pertemuan/
-    ├── kunci-latihan-data1-6.md
-    └── kunci-kuis-data1-5.md
+├── kunci-jawaban-pertemuan/
+│   ├── kunci-latihan-data1-6.md
+│   └── kunci-kuis-data1-5.md
+└── latihan-soal-pilgan-pertemuan/     # bank soal pilihan ganda untuk Slido, ditampilkan live oleh moderator
+    ├── pilgan-1.md / pilgan-1.csv     # selesai
+    ├── pilgan-2.md .. pilgan-6.md/csv # menyusul
+    └── cara-import-slido.md           # panduan moderator (disalin dari Website-UNSIKA, disesuaikan)
 ```
+
+## Status Kelas Saat Ini
+
+| Pertemuan | Materi (README Teori+Hands-on) | Notebook `.ipynb` | PPT | Pilgan | Status |
+|---|---|---|---|---|---|
+| 1 | Selesai (diperluas dari `pertemuan-01.md` lama) | Selesai | Selesai | Selesai | **Siap diajarkan** |
+| 2 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+| 3 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+| 4 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+| 5 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+| 6 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+
+Rencana kerja: pola pertemuan 1 direplikasi ke pertemuan 2–6 setelah dikonfirmasi user, satu per satu (bukan sekaligus), sama seperti alur pengerjaan Website-UNSIKA.
+
+## Anatomi Materi Baru (`pertN-materi/README.md`)
+
+Diperluas dari format lama (`## Materi inti` singkat) ke pola Website-UNSIKA:
+
+1. `# Pertemuan N — Judul`
+2. Meta: **Durasi**, **Tools**, **Output**
+3. `## Cara Menjalankan Kode di Folder Ini` — buka `.ipynb` lewat Colab/Jupyter
+4. `## Tujuan Belajar`
+5. `## Rundown` — tabel waktu 19.30–21.00
+6. `## Teori` — dipecah `###` sub-bab (1 sub-bab = 1 slide PPT), analogi sehari-hari, `> Slide visual: ...`, kode dijelaskan baris per baris
+7. `## Hands-on: Langkah demi Langkah` — bernomor, tiap langkah = 1 cell Colab baru, **Cek hasil** + **Kalau error**
+8. `## Catatan AI`
+9. `## Latihan Mandiri`
+10. `## Rangkuman` + teaser pertemuan berikutnya
+11. `## Istilah Penting` — glosarium tabel
+
+Target panjang serupa Website: ~250-480 baris per pertemuan.
+
+## Cara Generate PPT
+
+Script generator sama dengan yang dipakai Website-UNSIKA (reusable, sudah diparameterkan supaya nama kelas tidak hardcode):
+
+```bash
+python build_slides.py "materi-pertemuan/pertN-materi/README.md" "materi-pertemuan/pertN-materi/pertemuan-N-data.pptx" "Data Analyst UNSIKA" "Studi Kasus: Data Penjualan E-commerce"
+```
+
+Script ada di scratchpad sesi: `C:\Users\Vanya\AppData\Local\Temp\claude\D--HALTEV-UNSIKA-StudyClub\0a38cc8c-7973-42d6-ae70-154cd539832b\scratchpad\build_slides.py`. Kalau sesi baru dan file scratchpad sudah hilang, script perlu ditulis ulang berdasarkan pola yang sudah terbukti di kedua repo (parsing markdown generic + styling matcha).
 
 ## Progress / Yang Sudah Selesai
 
-- [x] Membuat folder program Data Analyst UNSIKA.
-- [x] Menyusun kurikulum 6 pertemuan untuk level pemula.
-- [x] Membuat README dengan daftar isi, alur belajar, cara memakai materi, struktur folder, tech stack, aturan AI, penilaian, dan proyek akhir.
-- [x] Menambahkan panduan Google Colab, Python, VS Code, Streamlit, GitHub, serta Kaggle pada `panduan-setup.md`.
-- [x] Menambahkan panduan proyek dashboard kelompok 3–4 orang pada `panduan-proyek-akhir.md`.
-- [x] Menulis enam modul Markdown: Python dasar hingga Streamlit dan GitHub.
-- [x] Membuat enam file gabungan kuis dan latihan.
-- [x] Menambahkan identitas peserta (nama, jurusan, kelas, tanggal) pada setiap file kuis-latihan.
-- [x] Menambahkan area jawaban serta contoh output dalam code block untuk setiap soal coding.
-- [x] Membuat dua file kunci jawaban.
-- [x] Menambahkan panduan VS Code: klik kanan file Markdown → **Open Preview** atau gunakan `Ctrl + Shift + V`.
+- [x] Program awal: README, prompt.md, panduan-setup.md, panduan-proyek-akhir.md, 6 modul materi format lama, 6 kuis-latihan, 2 kunci jawaban.
+- [x] Path lokasi kerja di `prompt.md` diperbaiki (dulu salah tertulis `UNSIKA-DATA`, seharusnya `UNSIKA-StudyClub`).
+- [x] `materi-pertemuan/pertemuan-01.md` (format lama) dihapus, digantikan `pert1-materi/README.md` — diperluas ke format Teori (11 sub-bab) + Hands-on (10 langkah bernomor), topik tetap sama (Data Analyst, Colab, Python dasar), studi kasus e-commerce.
+- [x] `pert1-materi/pertemuan-1.ipynb` dibuat — notebook asli 10 code cell + 12 markdown cell, semua cell sudah dites jalan dan outputnya cocok dengan "Cek hasil" di README.
+- [x] `pert1-materi/pertemuan-1-data.pptx` di-generate (15 slide: cover, gambaran sesi, rundown, 11 sub-bab teori, penutup), tema matcha sama seperti Website.
+- [x] Script generator PPT diupdate supaya nama kelas & tagline jadi parameter (`kelas_name`, `tagline`), tidak hardcode "Website UNSIKA" lagi — dipakai bergantian oleh kedua repo.
+- [x] `latihan-soal-pilgan-pertemuan/pilgan-1.md` + `.csv` — 10 soal MCQ baru topik pertemuan 1, jawaban inline ✅.
+- [x] `cara-import-slido.md` disalin dari Website-UNSIKA, disesuaikan (nama kelas di contoh event).
+- [ ] Replikasi pola pertemuan 1 (materi diperluas + notebook + PPT + pilgan) ke pertemuan 2–6.
+- [ ] Soal esai/coding (`kuis-latihan-N.md`) dan kunci jawabannya — **tidak disentuh**, sudah sesuai pola sejak awal.
 
 ## Change Log Terakhir
 
 | Perubahan | Detail |
 |---|---|
-| Lokasi folder | Program dipindahkan ke `D:\HALTEV\UNSIKA-DATA\Data-Analyst-UNSIKA`. Semua perubahan lanjutan wajib dilakukan di sini. |
-| README | Diperluas dengan daftar isi, panduan penggunaan materi, struktur folder, dan petunjuk Markdown Preview VS Code. |
-| Soal | File lama `kuis-data*.md` dan `latihan-data*.md` dihapus. Diganti dengan `kuis-latihan-1.md` sampai `kuis-latihan-6.md`. |
-| Soal coding | Ditambahkan contoh **Output yang Diharapkan** dalam code block; solusi kode lengkap tetap hanya berada di folder kunci jawaban. |
-| GitHub | Materi sudah diunggah pengguna ke GitHub. AI tidak melakukan push atau perubahan remote. |
+| Program awal dibuat | Kurikulum 6 pertemuan, README, panduan setup & proyek akhir, materi format lama, kuis-latihan, kunci jawaban. |
+| Upgrade ke parity dengan Website-UNSIKA | Materi pertemuan 1 diperluas ke format Teori+Hands-on, direstrukturisasi ke `pert1-materi/` (dari file flat), ditambah notebook `.ipynb`, PPT tema matcha, dan bank soal pilihan ganda untuk Slido. Path lokasi kerja yang salah di `prompt.md` diperbaiki. |
 
 ## Aturan File Kuis & Latihan
 
@@ -134,6 +178,14 @@ Data-Analyst-UNSIKA/
 
 - Jangan langsung menuliskan solusi kode lengkap pada file soal.
 - Kunci jawaban disimpan terpisah di folder `kunci-jawaban-pertemuan`.
+- File ini (`kuis-latihan-N.md` dan kunci jawabannya) **tidak ikut direstrukturisasi** saat upgrade ke parity Website — formatnya sudah dari awal identik dengan pola yang dipakai Website.
+
+## Aturan File Pilgan (Baru)
+
+- Nama file: `pilgan-1.md` sampai `pilgan-6.md`, plus versi `.csv`-nya, di folder `latihan-soal-pilgan-pertemuan/`.
+- 10 soal per pertemuan, 4 opsi (A-D), jawaban benar ditandai ✅ langsung di file (bukan dipisah ke folder kunci) — karena dokumen ini untuk kebutuhan internal moderator menyiapkan Slido, bukan dibaca peserta.
+- Topik soal harus benar-benar diangkat dari `## Teori` pertemuan yang sesuai — jangan mengarang topik di luar kurikulum yang sudah dikunci.
+- CSV harus transkripsi 1:1 dari markdown (bukan ditulis independen), supaya tidak ada risiko drift.
 
 ## Proyek Akhir
 
@@ -143,12 +195,21 @@ Data-Analyst-UNSIKA/
 - Pengumpulan: GitHub atau Google Drive, menunggu arahan penyelenggara.
 - Status presentasi dan tenggat: **belum diputuskan**. Jangan mengasumsikan presentasi wajib sebelum pengguna mengonfirmasi.
 
+## Catatan Konteks: Lomba di Akhir Program
+
+Sama seperti catatan di `prompt.md` Website-UNSIKA — ini catatan konteks buat AI, bukan dokumen resmi untuk peserta.
+
+- Kampus peserta berencana mengadakan lomba sendiri secara offline setelah **seluruh rangkaian pembelajaran** (Data Analyst maupun Website) selesai.
+- Tutor tidak hadir/tidak mengatur lomba tersebut — aturan, waktu, format, dan penjurian sepenuhnya kewenangan kampus masing-masing peserta.
+- Implikasi: tidak perlu membuat dokumen aturan lomba resmi untuk Data Analyst juga. Pastikan saja 6 pertemuan menghasilkan skill yang memadai (Python, Pandas/NumPy, EDA, visualisasi, dashboard Streamlit) untuk peserta tampil di lomba semacam itu.
+- Kalau nanti ada detail lomba lebih lanjut dari kampus, baru dipertimbangkan apakah perlu materi tambahan.
+
 ## Aturan Kolaborasi dengan Pengguna
 
 1. Diskusikan kebutuhan terlebih dahulu jika pengguna belum meminta eksekusi.
-2. Jangan mengubah file atau melakukan push ke GitHub kecuali diminta secara eksplisit.
-3. Jika diminta perubahan, edit hanya folder pada bagian “Lokasi Kerja Utama”.
-4. Jangan menyentuh submission murid atau materi lain di luar folder Data Analyst UNSIKA.
+2. Jangan mengubah file atau melakukan push ke GitHub kecuali diminta secara eksplisit. **Repo ini belum dapat izin push** (beda dari Website-UNSIKA yang sudah eksplisit diizinkan) — commit lokal boleh, push tunggu instruksi baru.
+3. Jika diminta perubahan, edit hanya folder pada bagian "Lokasi Kerja Utama".
+4. Jangan menyentuh submission murid, folder `Website-UNSIKA`, atau materi lain di luar folder Data Analyst UNSIKA.
 5. Setelah membuat perubahan, jelaskan singkat file mana yang berubah dan apa hasilnya.
 
 ## To Do / Menunggu Keputusan
@@ -156,7 +217,8 @@ Data-Analyst-UNSIKA/
 - [ ] Konfirmasi dari penyelenggara: apakah proyek akhir memiliki sesi presentasi atau hanya pengumpulan.
 - [ ] Konfirmasi tenggat pengumpulan proyek akhir dan platform final (GitHub, Google Drive, atau keduanya).
 - [ ] Tentukan apakah kunci jawaban tetap digabung dalam dua file atau dipecah menjadi satu file per pertemuan.
-- [ ] Tentukan apakah materi Markdown perlu diubah menjadi notebook Google Colab/Jupyter yang siap dijalankan.
 - [ ] Siapkan dataset e-commerce CSV yang akan dipakai saat kelas beserta sumber/lisensinya.
 - [ ] Buat template dashboard Streamlit dan `requirements.txt` untuk proyek kelompok bila diminta.
 - [ ] Tambahkan rubrik presentasi apabila format presentasi sudah disetujui.
+- [ ] Lanjutkan replikasi pola pertemuan 1 (materi diperluas, notebook, PPT, pilgan) ke pertemuan 2–6 setelah dikonfirmasi user.
+- [ ] Konfirmasi apakah repo ini boleh di-push ke GitHub (dan ke mana) — belum ada izin eksplisit seperti Website-UNSIKA.

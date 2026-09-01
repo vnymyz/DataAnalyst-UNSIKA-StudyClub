@@ -41,8 +41,8 @@ Setelah menyelesaikan program ini, peserta diharapkan mampu:
 
 ## Cara Menggunakan Materi
 
-1. Baca modul sesuai urutan pada folder `materi-pertemuan`.
-2. Jalankan dan modifikasi contoh kode di Google Colab atau VS Code.
+1. Baca modul sesuai urutan pada folder `materi-pertemuan`. Tiap folder `pertN-materi` berisi `README.md` (materi Teori + Hands-on lengkap), notebook `pertemuan-N.ipynb` hasil hands-on, dan `pertemuan-N-data.pptx` — slide presentasi ringkas dari bagian Teori.
+2. Pelajari bagian **Teori** untuk memahami konsep, lalu ikuti **Hands-on: Langkah demi Langkah** di Google Colab atau VS Code persis seperti instruksinya.
 3. Kerjakan file latihan untuk sesi tersebut di folder `latihan-soal-pertemuan`.
 4. Kerjakan kuis sesi 1–5 secara mandiri sebelum melihat kunci.
 5. Buka folder `kunci-jawaban-pertemuan` hanya setelah mencoba seluruh soal.
@@ -50,9 +50,22 @@ Setelah menyelesaikan program ini, peserta diharapkan mampu:
 
 > Belajar coding bukan tentang cepat menemukan jawaban, tetapi memahami alasan kode bekerja.
 
+### Bahan Presentasi (PPT)
+
+Tiap pertemuan punya file PowerPoint sendiri, isinya slide ringkas dari bagian Teori — dipakai mentor untuk mengajar di kelas. Klik link di bawah untuk langsung buka filenya:
+
+- [Pertemuan 1 — pertemuan-1-data.pptx](materi-pertemuan/pert1-materi/pertemuan-1-data.pptx)
+- Pertemuan 2 — `materi-pertemuan/pert2-materi/pertemuan-2-data.pptx` (belum tersedia)
+- Pertemuan 3 — `materi-pertemuan/pert3-materi/pertemuan-3-data.pptx` (belum tersedia)
+- Pertemuan 4 — `materi-pertemuan/pert4-materi/pertemuan-4-data.pptx` (belum tersedia)
+- Pertemuan 5 — `materi-pertemuan/pert5-materi/pertemuan-5-data.pptx` (belum tersedia)
+- Pertemuan 6 — `materi-pertemuan/pert6-materi/pertemuan-6-data.pptx` (belum tersedia)
+
+Polanya: `materi-pertemuan/pertN-materi/pertemuan-N-data.pptx`, di dalam folder pertemuan yang sama dengan `README.md` dan notebooknya. Isi slide selalu ringkasan dari `README.md` pertemuan itu — kalau butuh detail lebih lengkap, buka `README.md`-nya, bukan PPT-nya.
+
 ### Membaca Markdown dengan nyaman di VS Code
 
-Jika membuka materi melalui VS Code, klik kanan file Markdown (misalnya `pertemuan-01.md` atau `kuis-latihan-1.md`), lalu pilih **Open Preview**. VS Code akan menampilkan judul, tabel, kode, dan daftar isi dengan format yang lebih rapi.
+Jika membuka materi melalui VS Code, klik kanan file Markdown (misalnya `pert1-materi/README.md` atau `kuis-latihan-1.md`), lalu pilih **Open Preview**. VS Code akan menampilkan judul, tabel, kode, dan daftar isi dengan format yang lebih rapi.
 
 Kamu juga dapat memakai shortcut `Ctrl + Shift + V` untuk membuka preview dari file Markdown yang sedang aktif.
 
@@ -60,12 +73,12 @@ Kamu juga dapat memakai shortcut `Ctrl + Shift + V` untuk membuka preview dari f
 
 ```text
 Data-Analyst-UNSIKA/
-├── materi-pertemuan/             # Enam modul utama dan rundown kelas
+├── materi-pertemuan/             # Folder pertN-materi: README (teori + hands-on) + notebook + PPT per pertemuan
 ├── latihan-soal-pertemuan/       # Latihan praktik + kuis sesi 1–5
 ├── kunci-jawaban-pertemuan/      # Kunci latihan dan kuis
+├── latihan-soal-pilgan-pertemuan/ # Bank soal pilihan ganda untuk Slido, ditampilkan live saat kelas (khusus moderator)
 ├── panduan-setup.md              # Setup Google Colab, Python, VS Code, Streamlit
 ├── panduan-proyek-akhir.md       # Ketentuan dashboard proyek kelompok
-├── prompt.md                     # Brief awal pengembangan materi
 └── README.md                     # Panduan ini
 ```
 
