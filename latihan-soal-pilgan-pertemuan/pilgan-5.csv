@@ -1,0 +1,11 @@
+No,Pertanyaan,Opsi A,Opsi B,Opsi C,Opsi D,Jawaban Benar
+1,"Grafik apa yang paling tepat untuk membandingkan penjualan antar kategori produk?","Line chart","Bar chart","Scatter plot","Histogram",B
+2,"Grafik apa yang paling tepat untuk melihat tren penjualan dari bulan ke bulan?","Bar chart","Line chart","Pie chart","Boxplot",B
+3,"Kapan sebaiknya memakai scatter plot?","Untuk membandingkan total antar kategori","Untuk melihat hubungan antara dua variabel angka","Untuk menampilkan satu angka tunggal","Untuk menampilkan urutan waktu",B
+4,"Apa kepanjangan dan makna KPI dalam konteks data?","Key Performance Indicator — ukuran yang membantu pengambilan keputusan","Key Python Index — cara mengurutkan data di Python","Kumpulan Penjualan Individual — daftar transaksi harian","Kode Pemrograman Interaktif — istilah teknis di Plotly",A
+5,"Bagaimana cara memilih KPI yang tepat untuk sebuah analisis?","Pilih KPI yang paling mudah dihitung, apa pun kasusnya","Pilih KPI berdasarkan tujuan analisis, bukan sekadar yang gampang dihitung","Selalu pakai semua KPI yang ada tanpa memilih","Pilih KPI secara acak agar variatif",B
+6,"Formula insight yang baik menurut materi adalah...","Grafik + warna + judul","Temuan data + makna bisnis + rekomendasi","Angka + persentase + tanggal","Data mentah + kesimpulan tanpa bukti",B
+7,"Library mana yang dipakai untuk membuat grafik interaktif (bisa di-hover, di-zoom) di materi ini?","Matplotlib","Plotly","NumPy","Pandas",B
+8,"Manakah yang TERMASUK dalam checklist grafik yang baik menurut materi?","Judul jelas, label sumbu ada, satuan terbaca","Warna sebanyak mungkin supaya menarik","Kesimpulan boleh melebihi bukti data asal terlihat meyakinkan","Tidak perlu judul, cukup angka saja",A
+9,"Apa fungsi plt.title(...) pada kode Matplotlib?","Mengubah warna grafik","Memberi judul pada grafik","Mengurutkan data sebelum digambar","Menyimpan grafik ke file",B
+10,"Kenapa penting menyebutkan sumber data, skala, dan periode saat menyampaikan sebuah insight?","Supaya laporan terlihat lebih panjang","Supaya audiens bisa menilai konteks dan kualitas data yang mendasari insight itu","Karena itu wajib ditulis di setiap grafik menurut aturan Matplotlib","Tidak penting, insight cukup berupa kesimpulan saja",B

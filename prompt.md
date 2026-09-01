@@ -93,23 +93,27 @@ Data-Analyst-UNSIKA/
 │   ├── kunci-latihan-data1-6.md
 │   └── kunci-kuis-data1-5.md
 └── latihan-soal-pilgan-pertemuan/     # bank soal pilihan ganda untuk Slido, ditampilkan live oleh moderator
-    ├── pilgan-1.md / pilgan-1.csv     # selesai
-    ├── pilgan-2.md .. pilgan-6.md/csv # menyusul
+    ├── pilgan-1.md / pilgan-1.csv     # selesai — 10 soal
+    ├── pilgan-2.md / pilgan-2.csv     # selesai — 10 soal
+    ├── pilgan-3.md / pilgan-3.csv     # selesai — 10 soal
+    ├── pilgan-4.md / pilgan-4.csv     # selesai — 10 soal
+    ├── pilgan-5.md / pilgan-5.csv     # selesai — 10 soal
+    ├── pilgan-6.md / pilgan-6.csv     # selesai — 10 soal
     └── cara-import-slido.md           # panduan moderator (disalin dari Website-UNSIKA, disesuaikan)
 ```
 
 ## Status Kelas Saat Ini
 
-| Pertemuan | Materi (README Teori+Hands-on) | Notebook `.ipynb` | PPT | Pilgan | Status |
+| Pertemuan | Materi (README Teori+Hands-on) | Notebook `.ipynb` | PPT | Pilgan (Slido) | Status |
 |---|---|---|---|---|---|
-| 1 | Selesai (diperluas dari `pertemuan-01.md` lama) | Selesai | Selesai | Selesai | **Siap diajarkan** |
-| 2 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
-| 3 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
-| 4 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
-| 5 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
-| 6 | Belum diperluas | Belum | Belum | Belum | Menunggu dikerjakan |
+| 1 | Selesai (diperluas dari `pertemuan-01.md` lama) | Selesai | Selesai | Selesai (10 soal) | **Siap diajarkan** |
+| 2 | Belum diperluas (masih `pertemuan-02.md` format lama) | Belum | Belum | Selesai (10 soal) | Pilgan siap, materi/notebook/PPT menunggu arahan |
+| 3 | Belum diperluas (masih `pertemuan-03.md` format lama) | Belum | Belum | Selesai (10 soal) | Pilgan siap, materi/notebook/PPT menunggu arahan |
+| 4 | Belum diperluas (masih `pertemuan-04.md` format lama) | Belum | Belum | Selesai (10 soal) | Pilgan siap, materi/notebook/PPT menunggu arahan |
+| 5 | Belum diperluas (masih `pertemuan-05.md` format lama) | Belum | Belum | Selesai (10 soal) | Pilgan siap, materi/notebook/PPT menunggu arahan |
+| 6 | Belum diperluas (masih `pertemuan-06.md` format lama) | Belum | Belum | Selesai (10 soal) | Pilgan siap, materi/notebook/PPT menunggu arahan |
 
-Rencana kerja: pola pertemuan 1 direplikasi ke pertemuan 2–6 setelah dikonfirmasi user, satu per satu (bukan sekaligus), sama seperti alur pengerjaan Website-UNSIKA.
+**Penting:** user secara eksplisit minta pilgan (MCQ) dan essay (`kuis-latihan-N.md`, sudah lengkap dari awal) dikerjakan duluan untuk semua 6 pertemuan — **restrukturisasi materi jadi `pertN-materi/` + notebook + PPT untuk pertemuan 2–6 SENGAJA belum dikerjakan**, menunggu arahan lebih lanjut ("untuk codingan enggak usah jangan dulu. nanti nunggu arahan dari aku dulu"). Jangan mengerjakan materi/notebook/PPT pertemuan 2–6 sebelum ada instruksi baru dari user.
 
 ## Anatomi Materi Baru (`pertN-materi/README.md`)
 
@@ -147,17 +151,18 @@ Script ada di scratchpad sesi: `C:\Users\Vanya\AppData\Local\Temp\claude\D--HALT
 - [x] `pert1-materi/pertemuan-1.ipynb` dibuat — notebook asli 10 code cell + 12 markdown cell, semua cell sudah dites jalan dan outputnya cocok dengan "Cek hasil" di README.
 - [x] `pert1-materi/pertemuan-1-data.pptx` di-generate (15 slide: cover, gambaran sesi, rundown, 11 sub-bab teori, penutup), tema matcha sama seperti Website.
 - [x] Script generator PPT diupdate supaya nama kelas & tagline jadi parameter (`kelas_name`, `tagline`), tidak hardcode "Website UNSIKA" lagi — dipakai bergantian oleh kedua repo.
-- [x] `latihan-soal-pilgan-pertemuan/pilgan-1.md` + `.csv` — 10 soal MCQ baru topik pertemuan 1, jawaban inline ✅.
+- [x] `latihan-soal-pilgan-pertemuan/pilgan-1.md` sampai `pilgan-6.md` (+ `.csv` masing-masing) — 10 soal MCQ baru per pertemuan (60 soal total), topik diambil dari `## Materi inti` file `pertemuan-0N.md` format lama (belum diperluas), jawaban inline ✅.
 - [x] `cara-import-slido.md` disalin dari Website-UNSIKA, disesuaikan (nama kelas di contoh event).
-- [ ] Replikasi pola pertemuan 1 (materi diperluas + notebook + PPT + pilgan) ke pertemuan 2–6.
-- [ ] Soal esai/coding (`kuis-latihan-N.md`) dan kunci jawabannya — **tidak disentuh**, sudah sesuai pola sejak awal.
+- [x] Soal esai/coding (`kuis-latihan-N.md`) dan kunci jawabannya — **tidak disentuh**, sudah lengkap 6 pertemuan sejak awal, sesuai pola.
+- [ ] **SENGAJA DITUNDA** atas instruksi user: replikasi materi diperluas (Teori+Hands-on) + notebook `.ipynb` + PPT ke pertemuan 2–6. Menunggu arahan lebih lanjut, jangan dikerjakan sebelum diminta.
 
 ## Change Log Terakhir
 
 | Perubahan | Detail |
 |---|---|
 | Program awal dibuat | Kurikulum 6 pertemuan, README, panduan setup & proyek akhir, materi format lama, kuis-latihan, kunci jawaban. |
-| Upgrade ke parity dengan Website-UNSIKA | Materi pertemuan 1 diperluas ke format Teori+Hands-on, direstrukturisasi ke `pert1-materi/` (dari file flat), ditambah notebook `.ipynb`, PPT tema matcha, dan bank soal pilihan ganda untuk Slido. Path lokasi kerja yang salah di `prompt.md` diperbaiki. |
+| Upgrade ke parity dengan Website-UNSIKA (pertemuan 1) | Materi pertemuan 1 diperluas ke format Teori+Hands-on, direstrukturisasi ke `pert1-materi/` (dari file flat), ditambah notebook `.ipynb`, PPT tema matcha, dan bank soal pilihan ganda untuk Slido. Path lokasi kerja yang salah di `prompt.md` diperbaiki. |
+| Pilgan 6 pertemuan sekaligus | Atas instruksi user, `pilgan-2.md` sampai `pilgan-6.md` (+ CSV) dibuat langsung untuk semua sisa pertemuan, topiknya diambil dari `pertemuan-02.md` s.d. `pertemuan-06.md` (format lama, belum diperluas). Restrukturisasi materi/notebook/PPT pertemuan 2–6 **sengaja tidak dikerjakan**, menunggu arahan user. |
 
 ## Aturan File Kuis & Latihan
 
