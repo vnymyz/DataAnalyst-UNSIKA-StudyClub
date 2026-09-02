@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 1 — Ruang Belajar Visual Data Analyst UNSIKA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   PALET — Dark Matcha (sama dengan PPT pertemuan 1)
+   ═══════════════════════════════════════════════════════ */
+:root{
+  --bg:#1A231A; --bg2:#141C14; --panel:#22301C; --panel2:#2A3823; --line:#3A4C30;
+  --text:#F6F3E7; --dim:#B7C9A8; --sage:#7C9473; --gold:#C9A66B;
+  --code-bg:#0F160F; --code-tx:#DCEFD1; --warn:#E0A07A; --ok:#8FBF7F;
+  --head:'Poppins','Segoe UI',system-ui,sans-serif;
+  --body:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Consolas',ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.9,.28,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);
+  line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+::selection{background:var(--gold);color:var(--bg)}
+
+/* ── Scroll progress + XP bar ─────────────────────────── */
+#scrollbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--sage),var(--gold));
+  z-index:60;transition:width .1s linear}
+
+/* ── Nav ─────────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;background:rgba(20,28,20,.9);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.navrow{display:flex;align-items:center;gap:18px;padding:11px 0}
+.navlinks{display:flex;gap:5px;overflow-x:auto;flex:1;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;
+  padding:6px 13px;border-radius:999px;border:1px solid transparent;transition:.18s var(--ease)}
+.navlinks a:hover{color:var(--text);background:var(--panel);border-color:var(--line)}
+.navlinks a.active{color:var(--gold);background:var(--panel2);border-color:var(--gold)}
+.xp{flex:0 0 auto;display:flex;align-items:center;gap:10px}
+.xp .track{width:104px;height:7px;border-radius:99px;background:var(--panel);
+  border:1px solid var(--line);overflow:hidden}
+.xp .track i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .55s var(--ease)}
+.xp .num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gold);min-width:46px}
+@media(max-width:760px){.xp .track{width:64px}}
+
+/* ── Hero ────────────────────────────────────────────── */
+.hero{position:relative;overflow:hidden;padding:96px 0 76px;
+  background:radial-gradient(ellipse 900px 520px at 78% 12%,rgba(124,148,115,.14),transparent 68%)}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(2px)}
+.orb.a{width:480px;height:480px;background:var(--sage);opacity:.10;right:-120px;top:-160px;
+  animation:drift 22s ease-in-out infinite}
+.orb.b{width:280px;height:280px;background:var(--gold);opacity:.09;right:120px;top:250px;
+  animation:drift 17s ease-in-out infinite reverse}
+.orb.c{width:170px;height:170px;background:var(--sage);opacity:.10;right:400px;top:60px;
+  animation:drift 27s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(-26px,22px)}66%{transform:translate(18px,-16px)}}
+
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--gold);
+  text-transform:uppercase;margin:0 0 16px}
+.hero h1{font-family:var(--head);font-weight:700;font-size:clamp(34px,5.6vw,60px);
+  line-height:1.05;margin:0}
+.hero h1 .l2{color:var(--sage);display:block}
+.hero .sub{font-size:clamp(15px,1.9vw,19px);color:var(--dim);margin:24px 0 6px;max-width:60ch}
+.hero .case{color:var(--gold);font-style:italic;margin:0 0 28px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.chip{border:1px solid var(--sage);background:var(--panel2);color:var(--dim);
+  border-radius:999px;padding:7px 18px;font-size:13px;font-weight:600;transition:.2s var(--ease)}
+.chip:hover{border-color:var(--gold);color:var(--text);transform:translateY(-2px)}
+.cue{display:inline-flex;align-items:center;gap:9px;color:var(--sage);font-size:13px;font-weight:600}
+.cue .arw{display:inline-block;animation:bob 1.7s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* masuk bertahap */
+.rise{opacity:0;transform:translateY(26px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rise.in{opacity:1;transform:none}
+
+/* ── Section ─────────────────────────────────────────── */
+section{padding:78px 0;border-top:1px solid var(--line);position:relative}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--sage);
+  text-transform:uppercase;margin:0 0 12px;padding:4px 11px;border:1px solid var(--line);
+  border-radius:999px;background:var(--panel)}
+h2{font-family:var(--head);font-weight:700;font-size:clamp(25px,3.6vw,36px);margin:0 0 14px;line-height:1.18}
+.lead{color:var(--dim);font-size:16px;max-width:74ch;margin:0 0 34px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;
+  transition:transform .3s var(--ease),border-color .3s var(--ease)}
+.card.alt{background:var(--panel2)}
+.card.hov:hover{transform:translateY(-4px);border-color:var(--sage)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.h3{font-family:var(--head);font-weight:600;font-size:17px;margin:0 0 8px}
+.muted{color:var(--dim);font-size:14.5px;margin:0}
+code,.mono{font-family:var(--mono)}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;padding:16px 18px;
+  overflow-x:auto;margin:0;font-family:var(--mono);font-size:13.5px;color:var(--code-tx);line-height:1.75}
+.cm{color:#7F9470}.st{color:var(--gold)}.kw{color:#9FC48F}
+.out{background:#162014;border:1px solid var(--sage);border-radius:11px;padding:14px 18px;
+  font-family:var(--mono);font-size:13.5px;color:var(--text);white-space:pre-wrap;min-height:52px}
+.olabel{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--sage);display:block;margin-bottom:6px}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.btn{border:1px solid var(--sage);background:var(--panel2);color:var(--text);border-radius:999px;
+  padding:9px 20px;font-family:var(--body);font-size:13.5px;font-weight:600;cursor:pointer;
+  transition:.2s var(--ease);display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);transform:translateY(-2px)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ── 1. Pipeline alur kerja ──────────────────────────── */
+.pipe{position:relative;padding-top:8px}
+.track{position:absolute;left:0;right:0;top:52px;height:3px;background:var(--line);border-radius:3px}
+.track i{position:absolute;left:0;top:0;height:100%;width:0;border-radius:3px;
+  background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .55s var(--ease)}
+.stages{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.stage{background:transparent;border:0;padding:0;cursor:pointer;text-align:center;font-family:var(--body)}
+.stage .knob{width:46px;height:46px;margin:29px auto 12px;border-radius:50%;
+  background:var(--panel);border:2px solid var(--line);display:grid;place-items:center;
+  font-family:var(--head);font-weight:700;font-size:15px;color:var(--dim);
+  transition:.35s var(--ease);position:relative}
+.stage .nm{font-size:12.5px;font-weight:600;color:var(--dim);transition:.3s var(--ease);line-height:1.35}
+.stage:hover .knob{border-color:var(--sage);color:var(--text)}
+.stage.on .knob{background:var(--gold);border-color:var(--gold);color:var(--bg);transform:scale(1.16)}
+.stage.on .knob::after{content:"";position:absolute;inset:-9px;border-radius:50%;
+  border:2px solid var(--gold);opacity:.55;animation:ping 1.5s var(--ease) infinite}
+@keyframes ping{0%{transform:scale(.86);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.stage.past .knob{background:var(--panel2);border-color:var(--sage);color:var(--sage)}
+.stage.on .nm{color:var(--gold)}
+#stageDetail{margin-top:26px;min-height:126px}
+#stageDetail .h3{color:var(--gold)}
+.fadein{animation:fadeUp .45s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:820px){
+  .stages{grid-template-columns:repeat(3,1fr);row-gap:22px}
+  .track{display:none}
+  .stage .knob{margin-top:0}
+}
+
+/* ── 2. Mentah → dashboard ───────────────────────────── */
+.toggle{display:inline-flex;background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:4px;gap:4px;margin-bottom:20px}
+.toggle button{border:0;background:transparent;color:var(--dim);padding:9px 22px;border-radius:999px;
+  cursor:pointer;font-family:var(--body);font-size:13.5px;font-weight:600;transition:.22s var(--ease)}
+.toggle button[aria-selected="true"]{background:var(--gold);color:var(--bg)}
+.stage-box{position:relative;min-height:404px}
+.view{position:absolute;inset:0;opacity:0;pointer-events:none;
+  transform:translateY(14px) scale(.985);transition:.45s var(--ease)}
+.view.show{opacity:1;pointer-events:auto;transform:none}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13px}
+th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;color:var(--dim)}
+th{background:var(--panel2);color:var(--gold);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+tbody tr{opacity:0;animation:rowIn .4s var(--ease) forwards}
+@keyframes rowIn{to{opacity:1}}
+.bars{display:flex;align-items:flex-end;gap:22px;height:280px;padding:0 8px}
+.barcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.barval{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--dim);margin-bottom:8px}
+.bar{width:100%;max-width:96px;border-radius:7px 7px 0 0;height:0;
+  transition:height .85s var(--ease);background:var(--sage)}
+.bar.hi{background:var(--gold)}
+.barlab{font-size:12.5px;color:var(--dim);margin-top:11px;font-weight:600}
+
+/* ── 3. Notebook ─────────────────────────────────────── */
+.nb{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.nbbar{background:var(--panel2);border-bottom:1px solid var(--line);padding:12px 16px;
+  display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%}
+.nburl{font-family:var(--mono);font-size:12px;color:var(--dim);margin-left:14px}
+.nbbody{padding:18px}
+.cellwrap+.cellwrap{margin-top:20px}
+.cell{display:flex;gap:14px;align-items:flex-start;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:11px;padding:14px 16px;transition:.3s var(--ease)}
+.cell.shake{animation:shake .45s var(--ease)}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}
+  30%,50%,70%{transform:translateX(-7px)}40%,60%{transform:translateX(7px)}}
+.run{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:0;background:var(--sage);
+  color:var(--bg);cursor:pointer;font-size:11px;display:grid;place-items:center;
+  transition:.2s var(--ease);font-family:var(--mono);font-weight:700}
+.run:hover{background:var(--gold);transform:scale(1.1)}
+.run.busy{background:var(--panel2);color:var(--sage);cursor:wait}
+.run.busy::after{content:"";width:13px;height:13px;border-radius:50%;
+  border:2px solid var(--sage);border-top-color:transparent;animation:spin .65s linear infinite}
+.run.busy span{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cell code{font-size:13.5px;color:var(--code-tx);padding-top:5px;display:block;white-space:pre}
+.cellout{margin:12px 0 0 46px;font-family:var(--mono);font-size:13.5px;color:var(--text);min-height:24px}
+.cellout.err{color:var(--warn)}
+.caret::after{content:"▌";color:var(--sage);animation:blink .9s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ── 4. Anatomi error ────────────────────────────────── */
+.errbox{background:#2A1A16;border:1px solid var(--warn);border-radius:12px;padding:22px;
+  font-family:var(--mono);font-size:clamp(13px,1.7vw,16.5px);display:flex;flex-wrap:wrap;gap:10px}
+.errbox span{cursor:pointer;border-radius:6px;padding:3px 7px;transition:.25s var(--ease);
+  border:1px dashed transparent}
+.errbox span:hover{background:rgba(201,166,107,.14)}
+.errbox span.on{background:rgba(201,166,107,.2);border-color:var(--gold);transform:translateY(-3px)}
+.errbox .p1{color:var(--warn);font-weight:600}
+.errbox .p3{color:var(--gold);font-weight:600}
+.errbox .p2,.errbox .p4{color:var(--dim)}
+#errDetail{margin-top:18px;min-height:98px}
+
+/* ── 5. Tipe data ────────────────────────────────────── */
+input[type=text]{width:100%;background:var(--code-bg);border:1px solid var(--line);border-radius:10px;
+  color:var(--code-tx);font-family:var(--mono);font-size:14.5px;padding:12px 15px;transition:.2s var(--ease)}
+input[type=text]:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,166,107,.14)}
+.typechip{display:inline-block;border:1px solid var(--gold);color:var(--gold);border-radius:999px;
+  padding:4px 16px;font-family:var(--mono);font-size:13px;font-weight:600}
+.field+.field{margin-top:18px}
+.trow{display:flex;gap:14px;align-items:baseline;padding:12px 10px;border-radius:9px;
+  border-bottom:1px solid var(--line);transition:.3s var(--ease)}
+.trow.on{background:var(--code-bg);border-color:var(--gold);transform:translateX(6px)}
+.pop{animation:pop .45s var(--ease)}
+@keyframes pop{0%{transform:scale(.9);opacity:.4}55%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+.tryrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.try{border:1px solid var(--line);background:var(--code-bg);color:var(--dim);border-radius:8px;
+  padding:5px 12px;font-family:var(--mono);font-size:12.5px;cursor:pointer;transition:.18s var(--ease)}
+.try:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── 6. f-string ─────────────────────────────────────── */
+.tpl{font-family:var(--mono);font-size:clamp(13px,1.8vw,16px);background:var(--code-bg);
+  border:1px solid var(--line);border-radius:11px;padding:18px;line-height:2.2}
+.slot-v{display:inline-block;background:var(--panel2);border:1px solid var(--gold);color:var(--gold);
+  border-radius:7px;padding:2px 9px;transition:.3s var(--ease)}
+.slot-v.flash{animation:flash .55s var(--ease)}
+@keyframes flash{0%{background:var(--gold);color:var(--bg);transform:scale(1.12)}
+  100%{background:var(--panel2);color:var(--gold);transform:scale(1)}}
+
+/* ── 7. List & index ─────────────────────────────────── */
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:38px 0 0;position:relative}
+.slot{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:13px;
+  padding:36px 12px;text-align:center;cursor:pointer;transition:.3s var(--ease);
+  font-family:var(--head);font-weight:600;font-size:17.5px;color:var(--text)}
+.slot:hover{border-color:var(--sage);transform:translateY(-4px)}
+.slot.on{background:var(--panel2);border-color:var(--gold);color:var(--gold);transform:translateY(-6px)}
+.slot .idx{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:36px;height:36px;
+  border-radius:50%;background:var(--line);color:var(--dim);display:grid;place-items:center;
+  font-size:14px;font-weight:700;transition:.3s var(--ease)}
+.slot.on .idx{background:var(--gold);color:var(--bg);transform:translateX(-50%) scale(1.14)}
+.board{height:9px;border-radius:5px;background:var(--sage);margin-top:16px;opacity:.7}
+.pointer{height:26px;position:relative;margin-top:6px}
+.pointer i{position:absolute;top:0;width:0;height:0;border-left:9px solid transparent;
+  border-right:9px solid transparent;border-bottom:11px solid var(--gold);
+  transition:left .45s var(--ease);transform:translateX(-50%)}
+.idxlab{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center;
+  font-size:12px;font-weight:600;color:var(--sage)}
+
+/* ── 8. Dictionary ───────────────────────────────────── */
+.kv{display:flex;justify-content:space-between;gap:14px;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:10px;padding:14px 17px;cursor:pointer;
+  font-family:var(--mono);font-size:14px;transition:.28s var(--ease)}
+.kv+.kv{margin-top:11px}
+.kv:hover{border-color:var(--sage);transform:translateX(5px)}
+.kv.on{border-color:var(--gold);background:var(--panel2);transform:translateX(9px)}
+.kv b{color:var(--sage);font-weight:500}
+.kv.on b{color:var(--gold)}
+.kv i{color:var(--code-tx);font-style:normal}
+
+/* ── 9. Kuis ─────────────────────────────────────────── */
+.quiz{position:relative;min-height:330px}
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;
+  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.qbar{height:6px;background:var(--code-bg);border-radius:99px;overflow:hidden;margin-bottom:22px}
+.qbar i{display:block;height:100%;width:0;background:var(--gold);transition:width .4s var(--ease)}
+.qtext{font-family:var(--head);font-weight:600;font-size:clamp(17px,2.3vw,21px);
+  margin:0 0 22px;line-height:1.45}
+.qtext code{background:var(--code-bg);border:1px solid var(--line);border-radius:6px;
+  padding:3px 9px;font-size:.82em;color:var(--code-tx);display:inline-block;margin:3px 0;
+  line-height:1.5}
+.qtext{line-height:1.62}
+.opts{display:grid;gap:11px}
+.opt{display:flex;gap:14px;align-items:center;background:var(--code-bg);border:1px solid var(--line);
+  border-radius:11px;padding:14px 17px;cursor:pointer;transition:.22s var(--ease);
+  font-size:14.5px;color:var(--dim);text-align:left;font-family:var(--body);width:100%}
+.opt:hover:not(:disabled){border-color:var(--sage);transform:translateX(5px);color:var(--text)}
+.opt .k{flex:0 0 auto;width:27px;height:27px;border-radius:8px;background:var(--panel2);
+  border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);
+  font-size:12.5px;font-weight:700;color:var(--sage);transition:.22s var(--ease)}
+.opt.right{border-color:var(--ok);background:rgba(143,191,127,.1);color:var(--text)}
+.opt.right .k{background:var(--ok);color:var(--bg);border-color:var(--ok)}
+.opt.wrong{border-color:var(--warn);background:rgba(224,160,122,.1);color:var(--text)}
+.opt.wrong .k{background:var(--warn);color:var(--bg);border-color:var(--warn)}
+.opt:disabled{cursor:default}
+.qfb{margin-top:18px;padding:15px 18px;border-radius:11px;border:1px solid var(--line);
+  background:var(--panel2);font-size:14px;color:var(--dim);display:none}
+.qfb.show{display:block;animation:fadeUp .4s var(--ease)}
+.qfb b{color:var(--gold)}
+.result{text-align:center;padding:46px 24px}
+.result .big{font-family:var(--head);font-size:clamp(44px,8vw,74px);font-weight:700;
+  color:var(--gold);line-height:1;margin:0 0 6px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.cf{position:absolute;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(660deg);opacity:0}}
+
+/* ── 10. Checklist ───────────────────────────────────── */
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:15px 17px;cursor:pointer;transition:.24s var(--ease);user-select:none}
+.step:hover{border-color:var(--sage);transform:translateX(5px)}
+.step.done{background:var(--panel2);border-color:var(--sage)}
+.step.done .txt{color:var(--sage);text-decoration:line-through}
+.box{flex:0 0 auto;width:23px;height:23px;border-radius:7px;border:1.5px solid var(--sage);
+  display:grid;place-items:center;font-size:13px;color:transparent;background:transparent;
+  margin-top:1px;transition:.24s var(--ease)}
+.step.done .box{background:var(--gold);border-color:var(--gold);color:var(--bg);transform:scale(1.1)}
+.txt{font-size:14px;color:var(--dim);transition:.24s var(--ease)}
+.pbar{height:8px;background:var(--panel);border:1px solid var(--line);border-radius:99px;
+  overflow:hidden;margin:0 0 10px}
+.pbar i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .45s var(--ease)}
+
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:#6F8264;font-size:13px}
+
+@media(max-width:820px){.grid2,.grid3,.steps{grid-template-columns:1fr}
+  .shelf,.idxlab{grid-template-columns:1fr;gap:30px}
+  .slot .idx{left:24px;transform:none}
+  .slot.on .idx{transform:scale(1.14)}
+  .pointer{display:none}
+  .bars{gap:12px}}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rise{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="scrollbar"></div>
+
+<header class="hero">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="wrap">
+    <p class="eyebrow rise">Haltev Study Club · Data Analyst UNSIKA</p>
+    <h1 class="rise">Pertemuan 1<span class="l2">Kenalan dengan Data Analyst</span></h1>
+    <p class="sub rise">Ruang belajar visual. Di sini kamu tidak membaca materi — kamu mencobanya:
+      jalankan kodenya, bedah error-nya, klik index-nya, lalu uji pemahamanmu di kuis akhir.</p>
+    <p class="case rise">Studi Kasus: Data Penjualan E-commerce</p>
+    <div class="chips rise">
+      <span class="chip">19.30–21.00 WIB</span>
+      <span class="chip">Google Colab</span>
+      <span class="chip">Python 3</span>
+      <span class="chip">9 bagian interaktif</span>
+    </div>
+    <p class="rise"><span class="cue">Gulir untuk mulai <span class="arw">↓</span></span></p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap navrow">
+    <div class="navlinks">
+      <a href="#alur">Alur Kerja</a>
+      <a href="#dashboard">Mentah → Insight</a>
+      <a href="#colab">Colab</a>
+      <a href="#error">Error</a>
+      <a href="#tipe">Tipe Data</a>
+      <a href="#fstring">f-string</a>
+      <a href="#list">List</a>
+      <a href="#dict">Dictionary</a>
+      <a href="#kuis">Kuis</a>
+      <a href="#praktik">Praktik</a>
+    </div>
+    <div class="xp" title="Semakin banyak yang kamu coba, semakin penuh barnya">
+      <div class="track"><i id="xpBar"></i></div>
+      <span class="num" id="xpNum">0%</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ 1. ALUR KERJA ═══════════════════════════════ -->
+<section id="alur"><div class="wrap">
+  <p class="tag rise">Teori 1–2</p>
+  <h2 class="rise">Alur Kerja Data Analyst</h2>
+  <p class="lead rise">Enam tahap ini urutannya selalu sama, apa pun datanya. Tekan
+    <strong>Jalankan alur</strong> untuk melihatnya bergerak, atau klik tahap mana pun langsung.</p>
+
+  <div class="rise" style="margin-bottom:26px">
+    <button class="btn" id="playFlow" type="button"><span id="playIcon">▶</span> <span id="playLabel">Jalankan alur</span></button>
+  </div>
+
+  <div class="pipe rise">
+    <div class="track"><i id="pipeFill"></i></div>
+    <div class="stages" id="stages"></div>
+  </div>
+  <div class="card alt rise" id="stageDetail"></div>
+</div></section>
+
+<!-- ═══ 2. MENTAH → INSIGHT ═════════════════════════ -->
+<section id="dashboard"><div class="wrap">
+  <p class="tag rise">Teori 1</p>
+  <h2 class="rise">Dari Tabel Mentah ke Insight</h2>
+  <p class="lead rise">Data yang sama, dua tampilan berbeda. Ganti tampilannya dan perhatikan berapa lama
+    kamu butuh untuk menjawab: <em>“kategori mana yang paling laku?”</em></p>
+
+  <div class="toggle rise" id="dashToggle" role="tablist">
+    <button role="tab" aria-selected="true" data-view="raw" type="button">Data mentah</button>
+    <button role="tab" aria-selected="false" data-view="chart" type="button">Dashboard</button>
+  </div>
+
+  <div class="card rise stage-box" style="padding:26px">
+    <div class="view show" id="viewRaw"></div>
+    <div class="view" id="viewChart"></div>
+  </div>
+
+  <div class="card alt rise" style="margin-top:20px">
+    <p class="h3" style="color:var(--gold)">Insight, bukan sekadar angka</p>
+    <p class="muted">“Elektronik menyumbang 41% total penjualan, sementara Buku hanya 12%. Tim bisa meninjau
+      strategi promosi kategori lain supaya penjualan tidak bergantung pada satu kategori saja.”</p>
+    <p class="muted" style="margin-top:12px;color:var(--sage);font-style:italic">
+      Formulanya: temuan data + makna bisnis + rekomendasi.</p>
+  </div>
+</div></section>
+
+<!-- ═══ 3. COLAB ════════════════════════════════════ -->
+<section id="colab"><div class="wrap">
+  <p class="tag rise">Teori 3–4</p>
+  <h2 class="rise">Google Colab &amp; Cell</h2>
+  <p class="lead rise">Notebook tersusun dari cell — kotak kecil berisi kode atau teks. Tekan tombol Run di
+    tiap cell dan lihat hasilnya muncul tepat di bawah, persis seperti di Colab. Cell kedua sengaja error.</p>
+
+  <div class="nb rise">
+    <div class="nbbar">
+      <span class="dot" style="background:#E0A07A"></span>
+      <span class="dot" style="background:#C9A66B"></span>
+      <span class="dot" style="background:#7C9473"></span>
+      <span class="nburl">colab.research.google.com</span>
+    </div>
+    <div class="nbbody" id="nb"></div>
+  </div>
+
+  <div class="grid2 rise" style="margin-top:22px">
+    <div class="card hov">
+      <p class="h3">Code cell</p>
+      <p class="muted">Tempat menulis kode Python. Dijalankan dengan tombol Run di kiri cell,
+        atau <code>Shift + Enter</code>.</p>
+    </div>
+    <div class="card hov">
+      <p class="h3">Text cell</p>
+      <p class="muted">Tempat menulis catatan dalam format Markdown. Tidak dieksekusi sebagai kode.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 4. ERROR ════════════════════════════════════ -->
+<section id="error"><div class="wrap">
+  <p class="tag rise">Teori 5</p>
+  <h2 class="rise">Membedah Satu Pesan Error</h2>
+  <p class="lead rise">Error itu wajar — yang membedakan cuma kecepatan membacanya. Klik tiap potongan pesan,
+    atau biar dipandu otomatis.</p>
+
+  <div class="rise" style="margin-bottom:20px">
+    <button class="btn ghost" id="tourErr" type="button">Pandu saya bagian per bagian</button>
+  </div>
+
+  <pre class="rise" style="margin-bottom:16px">print(nama_pelanggan)</pre>
+
+  <div class="errbox rise" id="errbox">
+    <span class="p1" data-k="0" tabindex="0">NameError</span>
+    <span class="p2" data-k="1" tabindex="0">: name</span>
+    <span class="p3" data-k="2" tabindex="0">'nama_pelanggan'</span>
+    <span class="p4" data-k="3" tabindex="0">is not defined</span>
+  </div>
+  <div class="card alt rise" id="errDetail" style="margin-top:18px"></div>
+
+  <div class="grid2 rise" style="margin-top:20px">
+    <div class="card hov">
+      <p class="h3" style="color:var(--warn)">Yang salah</p>
+      <pre>print(nama_pelanggan)</pre>
+    </div>
+    <div class="card hov">
+      <p class="h3" style="color:var(--ok)">Perbaikannya</p>
+      <pre>nama_pelanggan = <span class="st">"Alya"</span>
+print(nama_pelanggan)</pre>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 5. TIPE DATA ════════════════════════════════ -->
+<section id="tipe"><div class="wrap">
+  <p class="tag rise">Teori 6</p>
+  <h2 class="rise">Tebak Tipe Datanya</h2>
+  <p class="lead rise">Ketik nilai persis seperti kalau ditulis di Python, lalu lihat apa yang dilaporkan
+    <code>type()</code>. Perhatikan bedanya <code>25</code> dan <code>"25"</code> — inilah jebakan yang
+    sering muncul saat membaca CSV nanti.</p>
+
+  <div class="grid2 rise">
+    <div class="card">
+      <div class="field">
+        <label for="typeInput">Nilai</label>
+        <input type="text" id="typeInput" value='"Alya"' spellcheck="false" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Hasil type()</label>
+        <div class="out" id="typeOut"></div>
+      </div>
+      <div class="tryrow" id="tryRow"></div>
+    </div>
+    <div class="card alt">
+      <p class="h3">Empat tipe dasar</p>
+      <div id="typeList"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 6. F-STRING ═════════════════════════════════ -->
+<section id="fstring"><div class="wrap">
+  <p class="tag rise">Teori 7</p>
+  <h2 class="rise">f-string: Lihat Penggantiannya</h2>
+  <p class="lead rise">Ubah isi variabelnya. Bagian di dalam <code>{ }</code> akan berkedip saat nilainya
+    diganti — itulah yang dikerjakan Python di balik layar.</p>
+
+  <div class="grid2 rise">
+    <div class="card">
+      <div class="field">
+        <label for="fsNama">nama</label>
+        <input type="text" id="fsNama" value="Alya" spellcheck="false" autocomplete="off" maxlength="24">
+      </div>
+      <div class="field">
+        <label for="fsJumlah">jumlah_pesanan</label>
+        <input type="text" id="fsJumlah" value="25" spellcheck="false" autocomplete="off" maxlength="10">
+      </div>
+      <p class="muted" style="margin-top:18px;font-size:13.5px;color:var(--sage);font-style:italic">
+        Tanpa f-string, semua ini harus digabung manual pakai <code>+</code> dan
+        <code>str()</code> — jauh lebih ribet.</p>
+    </div>
+    <div class="card">
+      <div class="field">
+        <label>Yang ditulis</label>
+        <div class="tpl" id="fsTpl"></div>
+      </div>
+      <div class="field">
+        <label>Yang tampil</label>
+        <div class="out" id="fsOut"></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 7. LIST ═════════════════════════════════════ -->
+<section id="list"><div class="wrap">
+  <p class="tag rise">Teori 9</p>
+  <h2 class="rise">List &amp; Index Dimulai dari Nol</h2>
+  <p class="lead rise">Klik rak mana pun untuk melihat kode pengambilannya. Item pertama selalu ada di
+    index <strong>0</strong>, bukan 1 — sumber kebingungan paling umum di minggu pertama.</p>
+
+  <pre class="rise">kategori = [<span class="st">"Elektronik"</span>, <span class="st">"Fashion"</span>, <span class="st">"Makanan"</span>]</pre>
+
+  <div class="rise">
+    <div class="shelf" id="shelf"></div>
+    <div class="board"></div>
+    <div class="pointer" id="pointer"><i></i></div>
+    <div class="idxlab"><span>index 0</span><span>index 1</span><span>index 2</span></div>
+  </div>
+
+  <div class="grid2 rise" style="margin-top:28px">
+    <div class="card">
+      <label>Kode</label>
+      <pre id="listCode"></pre>
+    </div>
+    <div class="card">
+      <label>Output</label>
+      <div class="out" id="listOut"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 8. DICTIONARY ═══════════════════════════════ -->
+<section id="dict"><div class="wrap">
+  <p class="tag rise">Teori 10–11</p>
+  <h2 class="rise">Dictionary: Diakses Lewat Nama</h2>
+  <p class="lead rise">Kalau list diambil lewat nomor urut, dictionary diambil lewat nama key-nya.
+    Klik salah satu baris untuk melihat kodenya.</p>
+
+  <div class="grid2 rise">
+    <div class="card">
+      <p class="h3" style="font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase">
+        Satu data produk</p>
+      <div id="kvlist"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:14px;
+                  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">
+        <span style="color:var(--sage)">key</span><span style="color:var(--gold)">value</span>
+      </div>
+    </div>
+    <div class="card">
+      <label>Kode</label>
+      <pre id="dictCode"></pre>
+      <div class="field">
+        <label>Output</label>
+        <div class="out" id="dictOut"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card alt rise" style="margin-top:22px">
+    <p class="h3" style="color:var(--gold)">Gabungan keduanya = DataFrame (Pandas)</p>
+    <p class="muted">Tabel data punya kolom bernama seperti dictionary, dan baris berurutan seperti list.
+      Itu sebabnya list dan dictionary bukan sekadar teori Python — keduanya fondasi DataFrame yang
+      dipelajari di Pertemuan 3.</p>
+  </div>
+</div></section>
+
+<!-- ═══ 9. KUIS ═════════════════════════════════════ -->
+<section id="kuis"><div class="wrap">
+  <p class="tag rise">Uji Pemahaman</p>
+  <h2 class="rise">Kuis Cepat — 6 Soal</h2>
+  <p class="lead rise">Bukan penilaian, cuma cek diri. Salah itu bagus — penjelasannya langsung muncul
+    setelah kamu menjawab.</p>
+  <div class="quiz rise" id="quiz"></div>
+</div></section>
+
+<!-- ═══ 10. PRAKTIK ═════════════════════════════════ -->
+<section id="praktik"><div class="wrap">
+  <p class="tag rise">Hands-on</p>
+  <h2 class="rise">Checklist 10 Langkah</h2>
+  <p class="lead rise">Satu langkah = satu cell baru di Colab. Centang sambil mengerjakan supaya tidak ada
+    yang terlewat. Detail tiap langkah, bagian <em>Cek hasil</em> dan <em>Kalau error</em>, ada di README
+    pertemuan ini.</p>
+
+  <div class="rise">
+    <div class="pbar"><i id="pbar"></i></div>
+    <p class="muted" id="pText" style="margin:0 0 24px;font-size:13.5px"></p>
+    <div class="steps" id="steps"></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px;color:var(--dim)">Data Analyst UNSIKA · Haltev Study Club · Pertemuan 1</p>
+  <p style="margin:0">Halaman ini pendamping visual. Materi lengkapnya ada di
+    <code>materi-pertemuan/pert1-materi/README.md</code>, latihannya di
+    <code>latihan-soal-pertemuan/kuis-latihan-1.md</code>.</p>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ═══ XP: hadiah kecil tiap aktivitas baru dicoba ═══ */
+/* 10 bagian interaktif; angka di akhir key diabaikan supaya satu bagian = satu poin */
+var TOTAL_XP = 10, earned = {};
+function xp(key){
+  var g = String(key).replace(/\d+$/, "");
+  if (earned[g]) return;
+  earned[g] = true;
+  var n = Object.keys(earned).length, pct = Math.round(n / TOTAL_XP * 100);
+  $("#xpBar").style.width = pct + "%";
+  $("#xpNum").textContent = pct + "%";
+  if (n === TOTAL_XP) { $("#xpNum").textContent = "Lengkap"; burst(); }
+}
+
+/* ═══ Reveal saat digulir ═══ */
+if ("IntersectionObserver" in window && !REDUCE) {
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var sib = $$(".rise", e.target.closest("section, .hero, .wrap") || document);
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -8% 0px" });
+  $$(".rise").forEach(function(el, i){
+    el.style.transitionDelay = (i % 7) * 55 + "ms";
+    io.observe(el);
+  });
+} else {
+  $$(".rise").forEach(function(el){ el.classList.add("in"); });
+}
+
+/* ═══ Progress bar gulir + nav aktif ═══ */
+var secs = $$("section[id]"), links = $$(".navlinks a");
+function onScroll(){
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  $("#scrollbar").style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+  var cur = null;
+  secs.forEach(function(s){ if (s.getBoundingClientRect().top <= 140) cur = s.id; });
+  links.forEach(function(a){
+    a.classList.toggle("active", cur !== null && a.getAttribute("href") === "#" + cur);
+  });
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+/* ═══ Konfeti ═══ */
+function burst(){
+  if (REDUCE) return;
+  var box = document.createElement("div");
+  box.className = "confetti";
+  document.body.appendChild(box);
+  var cols = ["#C9A66B", "#7C9473", "#F6F3E7", "#8FBF7F", "#E0A07A"];
+  for (var i = 0; i < 70; i++) {
+    var c = document.createElement("div");
+    c.className = "cf";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "-24px";
+    c.style.background = cols[i % cols.length];
+    c.style.animationDuration = (2 + Math.random() * 1.9) + "s";
+    c.style.animationDelay = (Math.random() * .55) + "s";
+    c.style.opacity = .55 + Math.random() * .45;
+    box.appendChild(c);
+  }
+  setTimeout(function(){ box.remove(); }, 5200);
+}
+
+/* ═══ 1. PIPELINE ALUR KERJA ═══ */
+var FLOW = [
+  {t:"Pertanyaan", d:"Semua berawal dari pertanyaan bisnis, bukan dari data. Misalnya: “kategori produk mana yang paling laku bulan ini?” Tanpa pertanyaan, kita cuma menatap angka tanpa tahu mau mencari apa."},
+  {t:"Kumpulkan Data", d:"Mengambil data yang relevan dengan pertanyaan tadi — misalnya file CSV penjualan. Baca dulu arti tiap kolom, periode datanya, dan satuan nilainya sebelum dianalisis."},
+  {t:"Bersihkan", d:"Data mentah sering berantakan: ada yang kosong, salah ketik, atau duplikat. Dibersihkan dulu supaya kesimpulannya bisa dipercaya — dan catat setiap keputusan cleaning-nya."},
+  {t:"Analisis", d:"Menghitung, mengelompokkan, dan mencari pola dalam data yang sudah bersih. Di sinilah groupby dan agregasi dipakai — dipelajari di Pertemuan 4."},
+  {t:"Visualisasi", d:"Mengubah angka jadi grafik supaya gampang dipahami orang lain. Pilih grafiknya berdasarkan pertanyaannya, bukan berdasarkan mana yang kelihatan paling keren."},
+  {t:"Rekomendasi", d:"Menyimpulkan apa yang sebaiknya dilakukan berdasarkan hasil analisis. Kesimpulan tidak boleh melebihi bukti yang ada di data."}
+];
+var stagesEl = $("#stages"), stageDetail = $("#stageDetail"),
+    pipeFill = $("#pipeFill"), curStage = 0, timer = null;
+
+FLOW.forEach(function(s, i){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "stage";
+  b.innerHTML = '<span class="knob">' + String(i+1).padStart(2,"0") + '</span><span class="nm">' + s.t + "</span>";
+  b.addEventListener("click", function(){ stopFlow(); setStage(i); });
+  stagesEl.appendChild(b);
+});
+function setStage(i){
+  curStage = i;
+  $$(".stage").forEach(function(b, j){
+    b.classList.toggle("on", j === i);
+    b.classList.toggle("past", j < i);
+  });
+  pipeFill.style.width = (i / (FLOW.length - 1) * 100) + "%";
+  stageDetail.innerHTML = '<div class="fadein"><p class="h3">' + (i+1) + ". " + FLOW[i].t +
+    '</p><p class="muted">' + FLOW[i].d + "</p></div>";
+  xp("alur" + i);
+}
+function stopFlow(){
+  if (timer) { clearInterval(timer); timer = null; }
+  $("#playIcon").textContent = "▶"; $("#playLabel").textContent = "Jalankan alur";
+}
+$("#playFlow").addEventListener("click", function(){
+  if (timer) { stopFlow(); return; }
+  $("#playIcon").textContent = "■"; $("#playLabel").textContent = "Hentikan";
+  setStage(0);
+  timer = setInterval(function(){
+    if (curStage >= FLOW.length - 1) { stopFlow(); return; }
+    setStage(curStage + 1);
+  }, 2100);
+});
+setStage(0);
+
+/* ═══ 2. MENTAH → DASHBOARD ═══ */
+var ROWS = [
+  ["1","Headset","Elektronik","250.000"],
+  ["2","Kaos Polos","Fashion","75.000"],
+  ["3","Kopi 200g","Makanan","48.000"],
+  ["4","Mouse","Elektronik","150.000"],
+  ["5","Novel","Buku","92.000"],
+  ["6","Sepatu Lari","Fashion","420.000"],
+  ["7","Keyboard","Elektronik","300.000"],
+  ["8","Teh Celup","Makanan","25.000"]
+];
+var BARS = [{k:"Elektronik",v:48},{k:"Fashion",v:31},{k:"Makanan",v:22},{k:"Buku",v:14}];
+var MAXV = 60;
+
+(function buildRaw(){
+  var h = '<div class="tablewrap"><table><thead><tr>' +
+    ["id","produk","kategori","harga"].map(function(c){ return "<th>" + c + "</th>"; }).join("") +
+    "</tr></thead><tbody>";
+  ROWS.concat([["…","…","…","…"]]).forEach(function(r, i){
+    h += '<tr style="animation-delay:' + (i * 45) + 'ms">' +
+      r.map(function(c){ return "<td>" + c + "</td>"; }).join("") + "</tr>";
+  });
+  h += "</tbody></table></div><p class=\"muted\" style=\"margin-top:16px;font-style:italic;" +
+    "color:var(--sage);font-size:13.5px\">8 baris pertama dari ribuan baris transaksi. " +
+    "Berapa lama kamu butuh untuk tahu kategori mana yang paling laku?</p>";
+  $("#viewRaw").innerHTML = h;
+})();
+
+(function buildChart(){
+  var h = '<div class="bars">';
+  BARS.forEach(function(b, i){
+    h += '<div class="barcol"><span class="barval" data-v="' + b.v + '">0</span>' +
+      '<div class="bar' + (i === BARS.length - 1 ? " hi" : "") + '" data-h="' +
+      (b.v / MAXV * 100) + '"></div><span class="barlab">' + b.k + "</span></div>";
+  });
+  h += "</div><p class=\"muted\" style=\"margin-top:14px;font-style:italic;color:var(--gold);" +
+    "font-size:13.5px\">Terjawab dalam dua detik: Elektronik paling laku, Buku paling rendah. " +
+    "Grafik yang sama, data yang sama — bedanya cuma cara menyajikan.</p>";
+  $("#viewChart").innerHTML = h;
+})();
+
+var chartPlayed = false;
+function animateChart(){
+  $$("#viewChart .bar").forEach(function(bar, i){
+    bar.style.height = "0";
+    setTimeout(function(){ bar.style.height = bar.dataset.h + "%"; }, 90 + i * 130);
+  });
+  $$("#viewChart .barval").forEach(function(el, i){
+    var target = Number(el.dataset.v), t0 = null, dur = 850;
+    setTimeout(function(){
+      function frame(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }, 90 + i * 130);
+  });
+}
+$$("#dashToggle button").forEach(function(b){
+  b.addEventListener("click", function(){
+    $$("#dashToggle button").forEach(function(o){
+      o.setAttribute("aria-selected", o === b ? "true" : "false");
+    });
+    var chart = b.dataset.view === "chart";
+    $("#viewRaw").classList.toggle("show", !chart);
+    $("#viewChart").classList.toggle("show", chart);
+    if (chart) { animateChart(); xp("chart"); }
+  });
+});
+
+/* ═══ 3. NOTEBOOK ═══ */
+var CELLS = [
+  {code:'# Ini komentar, tidak dieksekusi\nprint("Halo, Data Analyst!")', out:"Halo, Data Analyst!"},
+  {code:"print(nama_pelanggan)", out:"NameError: name 'nama_pelanggan' is not defined", err:true},
+  {code:'nama_pelanggan = "Alya"\nprint(nama_pelanggan)', out:"Alya"}
+];
+CELLS.forEach(function(c, i){
+  var w = document.createElement("div");
+  w.className = "cellwrap";
+  w.innerHTML =
+    '<div class="cell" id="cell' + i + '">' +
+      '<button class="run" type="button" aria-label="Jalankan cell ' + (i+1) + '"><span>▶</span></button>' +
+      "<code>" + esc(c.code) + "</code></div>" +
+    '<div class="cellout' + (c.err ? " err" : "") + '" id="co' + i + '"></div>';
+  $("#nb").appendChild(w);
+
+  var btn = w.querySelector(".run"), out = w.querySelector(".cellout"), running = false;
+  btn.addEventListener("click", function(){
+    if (running) return;
+    running = true;
+    out.textContent = ""; out.classList.remove("caret");
+    btn.classList.add("busy");
+    setTimeout(function(){
+      btn.classList.remove("busy");
+      if (c.err && !REDUCE) {
+        var cell = $("#cell" + i);
+        cell.classList.add("shake");
+        setTimeout(function(){ cell.classList.remove("shake"); }, 500);
+      }
+      type(out, c.out, function(){ running = false; });
+      xp("cell" + i);
+    }, REDUCE ? 60 : 620);
+  });
+});
+function type(el, text, done){
+  if (REDUCE) { el.textContent = text; if (done) done(); return; }
+  el.classList.add("caret");
+  var n = 0;
+  (function step(){
+    el.textContent = text.slice(0, ++n);
+    if (n < text.length) setTimeout(step, 17);
+    else { el.classList.remove("caret"); if (done) done(); }
+  })();
+}
+
+/* ═══ 4. ANATOMI ERROR ═══ */
+var ERR = [
+  {t:"Jenis error-nya", d:"Kategori masalahnya. NameError berarti ada nama yang dipanggil, tapi Python tidak pernah melihat nama itu dibuat sebelumnya. Jenis lain yang sering muncul: SyntaxError (salah tulis) dan TypeError (tipe data tidak cocok)."},
+  {t:"Kata kunci “name”", d:"Menegaskan bahwa yang bermasalah adalah sebuah nama — variabel atau fungsi — bukan nilai atau tipe datanya. Petunjuk ini membantu kita tahu harus mencari ke mana."},
+  {t:"Nama yang bermasalah", d:"Python menyebut variabelnya persis. Perbaikannya: definisikan variabel ini dulu di baris sebelum dipakai. Kalau nama ini terlihat asing, mungkin cuma salah ketik."},
+  {t:"“is not defined”", d:"Artinya belum pernah didefinisikan — bukan salah nilai. Di Colab, penyebab paling umum: cell yang mendefinisikan variabelnya belum dijalankan, atau runtime-nya baru di-restart."}
+];
+var errbox = $("#errbox"), errDetail = $("#errDetail"), errTimer = null;
+function showErr(k){
+  $$("#errbox span").forEach(function(sp){ sp.classList.toggle("on", sp.dataset.k === String(k)); });
+  errDetail.innerHTML = '<div class="fadein"><p class="h3" style="color:var(--gold)">' + ERR[k].t +
+    '</p><p class="muted">' + ERR[k].d + "</p></div>";
+  xp("err" + k);
+}
+$$("#errbox span").forEach(function(sp){
+  function go(){ if (errTimer) { clearInterval(errTimer); errTimer = null; } showErr(Number(sp.dataset.k)); }
+  sp.addEventListener("click", go);
+  sp.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+  });
+});
+$("#tourErr").addEventListener("click", function(){
+  if (errTimer) { clearInterval(errTimer); errTimer = null; return; }
+  var k = 0; showErr(0);
+  errTimer = setInterval(function(){
+    k++;
+    if (k >= ERR.length) { clearInterval(errTimer); errTimer = null; return; }
+    showErr(k);
+  }, 2600);
+});
+showErr(0);
+
+/* ═══ 5. TIPE DATA ═══ */
+var TYPES = [
+  ["str", '"Alya"', "Teks, diapit tanda kutip"],
+  ["int", "25", "Bilangan bulat"],
+  ["float", "87.5", "Bilangan desimal"],
+  ["bool", "True / False", "Benar atau salah"]
+];
+$("#typeList").innerHTML = TYPES.map(function(t){
+  return '<div class="trow" data-t="' + t[0] + '"><span class="typechip">' + t[0] + "</span>" +
+    '<span><span class="mono" style="color:var(--code-tx);font-size:13.5px">' + esc(t[1]) +
+    '</span><br><span class="muted" style="font-size:13px">' + t[2] + "</span></span></div>";
+}).join("");
+
+var SAMPLES = ['"Alya"', "25", '"25"', "87.5", "True", '[1, 2, 3]', '{"a": 1}'];
+$("#tryRow").innerHTML = SAMPLES.map(function(s){
+  return '<button class="try" type="button" data-v=\'' + s + "'>" + esc(s) + "</button>";
+}).join("");
+$$("#tryRow .try").forEach(function(b){
+  b.addEventListener("click", function(){
+    typeInput.value = b.dataset.v; renderType(); typeInput.focus();
+  });
+});
+
+var typeInput = $("#typeInput"), typeOut = $("#typeOut"), lastType = null;
+function guessType(raw){
+  var v = raw.trim();
+  if (!v) return null;
+  var q = v[0], last = v[v.length - 1];
+  if ((q === '"' || q === "'") && last === q && v.length > 1) return "str";
+  if (v === "True" || v === "False") return "bool";
+  if (v === "None") return "NoneType";
+  if (/^-?\d+$/.test(v)) return "int";
+  if (/^-?(\d+\.\d*|\.\d+)$/.test(v)) return "float";
+  if (q === "[" && last === "]") return "list";
+  if (q === "{" && last === "}") return "dict";
+  if (q === "(" && last === ")") return "tuple";
+  return null;
+}
+function renderType(){
+  var v = typeInput.value, t = guessType(v);
+  if (t) {
+    typeOut.innerHTML = '<span class="olabel">type(' + esc(v.trim()) + ")</span>" +
+      "<span class='" + (t !== lastType ? "pop" : "") + "' style='display:inline-block'>&lt;class '" +
+      t + "'&gt;</span>";
+    xp("tipe");
+  } else {
+    typeOut.innerHTML = '<span class="olabel">Belum dikenali</span>' +
+      "Tulis persis seperti di Python — teks pakai tanda kutip, angka tanpa kutip, " +
+      "True/False dengan huruf besar di depan.";
+  }
+  lastType = t;
+  $$("#typeList .trow").forEach(function(r){ r.classList.toggle("on", r.dataset.t === t); });
+}
+typeInput.addEventListener("input", renderType);
+renderType();
+
+/* ═══ 6. F-STRING ═══ */
+var fsNama = $("#fsNama"), fsJumlah = $("#fsJumlah"),
+    fsTpl = $("#fsTpl"), fsOut = $("#fsOut"), first = true;
+function renderFs(){
+  var n = fsNama.value || "…", j = fsJumlah.value || "…";
+  fsTpl.innerHTML =
+    '<span class="cm">nama</span> = <span class="st">"' + esc(n) + '"</span><br>' +
+    '<span class="cm">jumlah_pesanan</span> = ' + esc(j) + "<br><br>" +
+    'print(f<span class="st">"</span><span class="slot-v" id="sv1">' + esc(n) +
+    '</span><span class="st"> memiliki </span><span class="slot-v" id="sv2">' + esc(j) +
+    '</span><span class="st"> pesanan."</span>)';
+  fsOut.innerHTML = '<span class="olabel">Output</span>' + esc(n) + " memiliki " + esc(j) + " pesanan.";
+  if (!first && !REDUCE) {
+    ["sv1","sv2"].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+    });
+  }
+  first = false;
+}
+fsNama.addEventListener("input", function(){ renderFs(); xp("fstring"); });
+fsJumlah.addEventListener("input", function(){ renderFs(); xp("fstring"); });
+renderFs();
+
+/* ═══ 7. LIST & INDEX ═══ */
+var KAT = ["Elektronik", "Fashion", "Makanan"];
+var shelf = $("#shelf"), listCode = $("#listCode"), listOut = $("#listOut"), ptr = $("#pointer i");
+KAT.forEach(function(k, i){
+  var d = document.createElement("div");
+  d.className = "slot"; d.tabIndex = 0; d.setAttribute("role", "button");
+  d.innerHTML = '<span class="idx">' + i + "</span>" + k;
+  d.addEventListener("click", function(){ pickSlot(i); });
+  d.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickSlot(i); }
+  });
+  shelf.appendChild(d);
+});
+function pickSlot(i){
+  $$("#shelf .slot").forEach(function(s, j){ s.classList.toggle("on", i === j); });
+  var el = shelf.children[i];
+  ptr.style.left = (el.offsetLeft + el.offsetWidth / 2) + "px";
+  listCode.innerHTML = "print(kategori[" + i + "])";
+  listOut.innerHTML = '<span class="olabel">Output</span>' + KAT[i];
+  xp("list" + i);
+}
+pickSlot(0);
+window.addEventListener("resize", function(){
+  var on = $("#shelf .slot.on");
+  if (on) ptr.style.left = (on.offsetLeft + on.offsetWidth / 2) + "px";
+});
+
+/* ═══ 8. DICTIONARY ═══ */
+var PRODUK = [["nama", '"Headset"', "Headset"], ["harga", "250000", "250000"], ["stok", "12", "12"]];
+var kvlist = $("#kvlist"), dictCode = $("#dictCode"), dictOut = $("#dictOut");
+PRODUK.forEach(function(p, i){
+  var d = document.createElement("div");
+  d.className = "kv"; d.tabIndex = 0; d.setAttribute("role", "button");
+  d.innerHTML = "<b>" + p[0] + "</b><i>" + esc(p[1]) + "</i>";
+  d.addEventListener("click", function(){ pickKv(i); });
+  d.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickKv(i); }
+  });
+  kvlist.appendChild(d);
+});
+function pickKv(i){
+  $$("#kvlist .kv").forEach(function(s, j){ s.classList.toggle("on", i === j); });
+  dictCode.innerHTML = 'print(produk[<span class="st">"' + PRODUK[i][0] + '"</span>])';
+  dictOut.innerHTML = '<span class="olabel">Output</span>' + PRODUK[i][2];
+  xp("dict" + i);
+}
+pickKv(0);
+
+/* ═══ 9. KUIS ═══ */
+var QUIZ = [
+  { q: 'Kalau <code>kategori = ["Elektronik", "Fashion", "Makanan"]</code><br>apa output dari <code>print(kategori[1])</code>?',
+    o: ["Elektronik", "Fashion", "Makanan", "Error"], a: 1,
+    e: "Index dimulai dari 0. Jadi kategori[0] = Elektronik, kategori[1] = Fashion." },
+  { q: "Apa tipe data dari nilai <code>87.5</code>?",
+    o: ["int", "str", "float", "bool"], a: 2,
+    e: "Bilangan yang punya koma desimal bertipe float. Kalau bulat seperti 25, tipenya int." },
+  { q: "Error apa yang muncul kalau memakai variabel yang belum pernah dibuat?",
+    o: ["SyntaxError", "IndexError", "TypeError", "NameError"], a: 3,
+    e: "NameError. Python membaca kode dari atas ke bawah — variabel harus didefinisikan dulu sebelum dipakai." },
+  { q: "Untuk menyimpan satu produk dengan nama, harga, dan stok, struktur mana yang paling tepat?",
+    o: ["List", "Dictionary", "String", "Integer"], a: 1,
+    e: "Dictionary, karena tiap nilai punya label sendiri: {\"nama\": ..., \"harga\": ..., \"stok\": ...}. List dipakai kalau yang penting urutannya." },
+  { q: "Setelah tahap <strong>Bersihkan</strong>, apa tahap berikutnya dalam alur kerja Data Analyst?",
+    o: ["Kumpulkan Data", "Rekomendasi", "Analisis", "Pertanyaan"], a: 2,
+    e: "Urutannya: Pertanyaan → Kumpulkan → Bersihkan → Analisis → Visualisasi → Rekomendasi." },
+  { q: "Mana penulisan f-string yang benar?",
+    o: ['print("{nama} hadir")', 'print(f"{nama} hadir")', 'print(f{nama} hadir)', 'print("f{nama} hadir")'], a: 1,
+    e: 'Huruf f ditulis sebelum tanda kutip pembuka: f"...". Tanpa huruf f itu, { } dianggap teks biasa.' }
+];
+var qi = 0, score = 0, quizEl = $("#quiz");
+
+function renderQ(){
+  var q = QUIZ[qi];
+  var h = '<div class="qcard fadein"><div class="qmeta"><span>Soal ' + (qi+1) + " dari " + QUIZ.length +
+    "</span><span>Benar: " + score + "</span></div>" +
+    '<div class="qbar"><i style="width:' + (qi / QUIZ.length * 100) + '%"></i></div>' +
+    '<p class="qtext">' + q.q + '</p><div class="opts">';
+  q.o.forEach(function(o, i){
+    h += '<button class="opt" type="button" data-i="' + i + '"><span class="k">' +
+      "ABCD"[i] + '</span><span>' + o + "</span></button>";
+  });
+  h += '</div><div class="qfb" id="qfb"></div></div>';
+  quizEl.innerHTML = h;
+  $$("#quiz .opt").forEach(function(b){ b.addEventListener("click", function(){ answer(Number(b.dataset.i)); }); });
+}
+function answer(pick){
+  var q = QUIZ[qi], ok = pick === q.a;
+  if (ok) score++;
+  xp("kuis");
+  $$("#quiz .opt").forEach(function(b, i){
+    b.disabled = true;
+    if (i === q.a) b.classList.add("right");
+    else if (i === pick) b.classList.add("wrong");
+  });
+  var fb = $("#qfb");
+  fb.innerHTML = "<b>" + (ok ? "Tepat. " : "Belum tepat. ") + "</b>" + q.e;
+  fb.classList.add("show");
+  setTimeout(function(){
+    qi++;
+    if (qi < QUIZ.length) renderQ(); else renderResult();
+  }, ok ? 1900 : 3200);
+}
+function renderResult(){
+  var pct = Math.round(score / QUIZ.length * 100), msg;
+  if (pct === 100) msg = "Sempurna. Kamu siap masuk Pertemuan 2.";
+  else if (pct >= 67) msg = "Bagus. Baca ulang bagian yang tadi salah, lalu lanjut ke checklist praktik.";
+  else msg = "Tidak apa-apa — ini pertemuan pertama. Buka lagi bagian di atas, lalu coba kuisnya sekali lagi.";
+  quizEl.innerHTML = '<div class="qcard result fadein"><p class="big">' + score + "/" + QUIZ.length +
+    '</p><p class="muted" style="font-size:16px;margin-bottom:22px">' + msg + "</p>" +
+    '<button class="btn" id="again" type="button">Ulangi kuis</button></div>';
+  $("#again").addEventListener("click", function(){ qi = 0; score = 0; renderQ(); });
+  if (pct >= 67) burst();
+}
+renderQ();
+
+/* ═══ 10. CHECKLIST PRAKTIK ═══ */
+var STEPS = [
+  "Buat notebook baru, ganti namanya jadi pertemuan-1.ipynb",
+  'Cell pertama: komentar + print("Halo, Data Analyst!")',
+  "Bikin error dengan sengaja, lalu baca pesannya",
+  "Variabel + f-string: tulis kalimat perkenalan",
+  "Cek tipe data setiap variabel dengan type()",
+  "Operator: hitung total belanja lalu bandingkan",
+  "Buat list kategori, ambil item lewat index",
+  "Buat dictionary produk, ambil nilai lewat key",
+  "Ubah nilai di dictionary — stok berkurang 2",
+  "Gabungan: tiga produk, tampilkan nama dan harganya"
+];
+var stepsEl = $("#steps"), done = STEPS.map(function(){ return false; });
+STEPS.forEach(function(t, i){
+  var d = document.createElement("div");
+  d.className = "step"; d.tabIndex = 0;
+  d.setAttribute("role", "checkbox"); d.setAttribute("aria-checked", "false");
+  d.innerHTML = '<span class="box">&#10003;</span><span class="txt">' + (i+1) + ". " + esc(t) + "</span>";
+  function toggle(){
+    done[i] = !done[i];
+    d.classList.toggle("done", done[i]);
+    d.setAttribute("aria-checked", done[i] ? "true" : "false");
+    updateP();
+    xp("praktik");
+  }
+  d.addEventListener("click", toggle);
+  d.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+  });
+  stepsEl.appendChild(d);
+});
+var allDone = false;
+function updateP(){
+  var n = done.filter(Boolean).length;
+  $("#pbar").style.width = (n / STEPS.length * 100) + "%";
+  $("#pText").textContent = n + " dari " + STEPS.length + " langkah selesai" +
+    (n === STEPS.length ? " — mantap, notebook Pertemuan 1 kamu sudah lengkap." : ".");
+  if (n === STEPS.length && !allDone) { allDone = true; burst(); }
+  if (n < STEPS.length) allDone = false;
+}
+updateP();
+
+})();
+</script>
+</body>
+</html>
