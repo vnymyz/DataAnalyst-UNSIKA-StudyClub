@@ -13,6 +13,7 @@
 - Memahami peran Data Analyst dan alur kerja dari data mentah sampai insight.
 - Menggunakan Google Colab: membuat cell, menjalankan kode, membaca error sederhana.
 - Menggunakan variabel, tipe data, `print()`, dan f-string.
+- Mengambil input dari pengguna dengan `input()` dan mengubah tipe datanya (type casting).
 - Menggunakan operator aritmatika dan perbandingan dasar.
 - Menyimpan dan mengakses data dengan list dan dictionary.
 
@@ -21,11 +22,12 @@
 | Waktu | Aktivitas |
 |---|---|
 | 19.30–19.40 | Pembukaan, ice breaking: "data apa yang paling sering kalian lihat hari ini?" |
-| 19.40–19.55 | Teori: apa itu Data Analyst, alur kerja, contoh dashboard |
-| 19.55–20.10 | Teori + hands-on: Google Colab, cell, run, error sederhana |
-| 20.10–20.35 | Teori + hands-on: variabel, tipe data, print, f-string, operator |
-| 20.35–20.55 | Teori + hands-on: list, dictionary, indexing |
-| 20.55–21.00 | Rangkuman dan pengantar kuis 1 |
+| 19.40–19.50 | Teori: apa itu Data Analyst, alur kerja, contoh dashboard |
+| 19.50–20.00 | Teori + hands-on: Google Colab, cell, run, error sederhana |
+| 20.00–20.20 | Hands-on: variabel, print, f-string, input, type casting |
+| 20.20–20.35 | Hands-on: operator, list, dictionary, indexing |
+| 20.35–20.50 | Hands-on: latihan cepat dan kalkulator sederhana (penutup) |
+| 20.50–21.00 | Rangkuman dan pengantar kuis 1 |
 
 ## Teori
 
@@ -136,6 +138,33 @@ print(f"{nama} memiliki {jumlah_pesanan} pesanan.")
 - Bagian di dalam `{ }` otomatis diganti dengan nilai variabelnya saat dijalankan.
 - Tanpa f-string, harus digabung manual pakai `+` dan konversi tipe data secara eksplisit — jauh lebih ribet, terutama kalau variabelnya bukan teks.
 
+### Mengambil Input dari Pengguna (`input()`)
+
+`input()` dipakai buat nanya sesuatu ke orang yang menjalankan program, kayak kasir nanya nama pembeli.
+
+```python
+nama = input("Siapa nama kamu? ")
+print(f"Halo, {nama}! Selamat datang.")
+```
+
+- Program berhenti sebentar nunggu diketik, lalu lanjut setelah Enter.
+- Jawabannya masuk ke variabel `nama`.
+- Hasil `input()` **selalu `str`**, walau yang diketik angka. Ini penting buat sub-bab berikutnya.
+
+### Mengubah Tipe Data (Type Casting)
+
+Karena `input()` selalu `str`, kalau mau dihitung sebagai angka harus diubah dulu tipenya — disebut **type casting**.
+
+```python
+umur = int(input("Umur kamu berapa? "))
+tahun_lahir = 2026 - umur
+print(f"Kamu kemungkinan lahir tahun {tahun_lahir}.")
+```
+
+- `int()` ubah ke bilangan bulat, `float()` ke desimal, `str()` balik ke teks.
+- Lupa `int()` → error `TypeError`, Python nggak bisa ngurangin angka dengan teks.
+- Jebakan umum: `"20" + "5"` hasilnya `"205"` (nyambung teks), bukan `25`.
+
 ### Operator Dasar
 
 Operator dipakai untuk melakukan operasi terhadap nilai/variabel.
@@ -164,6 +193,7 @@ print(kategori[1])   # "Fashion"
 - List ditulis dengan tanda kurung siku `[ ]`, tiap item dipisah koma.
 - Tiap item punya **posisi/index**, dimulai dari `0` (bukan `1`) — jadi `kategori[0]` adalah item pertama, `kategori[1]` item kedua, dan seterusnya.
 - Analoginya seperti rak sepatu bernomor: rak nomor 0 berisi barang pertama, bukan rak nomor 1.
+- Bonus: `kategori[-1]` = item terakhir. Index negatif dihitung dari belakang.
 
 > Slide visual: ilustrasi rak dengan 3 kotak berlabel index 0, 1, 2 berisi "Elektronik", "Fashion", "Makanan".
 
@@ -254,7 +284,48 @@ Jalankan cell.
 Saya Bima, mahasiswa Sistem Informasi semester 3.
 ```
 
-### Langkah 5 — Mengecek Tipe Data
+### Langkah 5 — Menyapa Pengguna dengan `input()`
+
+Buat cell baru, ketik:
+
+```python
+nama_pengguna = input("Siapa nama kamu? ")
+print(f"Halo, {nama_pengguna}! Selamat datang di Data Analyst UNSIKA.")
+```
+
+Jalankan cell — akan muncul kotak isian di bawah cell, ketik nama kamu, lalu tekan Enter.
+
+**Cek hasil:** setelah Enter, muncul kalimat sapaan dengan nama yang tadi diketik, misalnya:
+```text
+Siapa nama kamu? Bima
+Halo, Bima! Selamat datang di Data Analyst UNSIKA.
+```
+
+**Kalau error:** kalau cell terlihat "menggantung" (ada tanda `[*]` terus tanpa output), itu bukan error — Colab sedang **menunggu** kamu mengetik jawaban di kotak yang muncul. Ketik jawabannya lalu tekan Enter.
+
+### Langkah 6 — Menghitung dari Input (Type Casting)
+
+Buat cell baru, ketik:
+
+```python
+umur_teks = input("Umur kamu berapa? ")
+umur = int(umur_teks)
+
+tahun_lahir = 2026 - umur
+print(f"Kamu kemungkinan lahir tahun {tahun_lahir}.")
+```
+
+Jalankan, ketik angka umur (misalnya `20`), tekan Enter.
+
+**Cek hasil:**
+```text
+Umur kamu berapa? 20
+Kamu kemungkinan lahir tahun 2006.
+```
+
+**Kalau error:** kalau muncul `TypeError: unsupported operand type(s) for -: 'int' and 'str'`, cek lagi apakah baris `umur = int(umur_teks)` sudah ditulis — tanpa itu, `umur_teks` masih berupa `str` dan tidak bisa dikurangkan dari angka.
+
+### Langkah 7 — Mengecek Tipe Data
 
 Buat cell baru:
 
@@ -273,7 +344,7 @@ print(type(True))
 <class 'bool'>
 ```
 
-### Langkah 6 — Operator Aritmatika dan Perbandingan
+### Langkah 8 — Operator Aritmatika dan Perbandingan
 
 Buat cell baru:
 
@@ -292,7 +363,7 @@ Total harga: 150000
 True
 ```
 
-### Langkah 7 — Membuat List Kategori Produk
+### Langkah 9 — Membuat List Kategori Produk
 
 Buat cell baru:
 
@@ -311,7 +382,7 @@ Makanan
 
 **Kalau error:** kalau muncul `IndexError: list index out of range`, biasanya karena angka index yang diminta lebih besar dari jumlah item di list — ingat, index dimulai dari 0.
 
-### Langkah 8 — Membuat Dictionary Produk
+### Langkah 10 — Membuat Dictionary Produk
 
 Buat cell baru:
 
@@ -328,7 +399,7 @@ Mouse
 150000
 ```
 
-### Langkah 9 — Mengubah Nilai di Dictionary
+### Langkah 11 — Mengubah Nilai di Dictionary
 
 Buat cell baru:
 
@@ -344,7 +415,7 @@ print(produk)
 
 `produk["stok"] -= 2` artinya "ambil nilai stok sekarang, kurangi 2, simpan lagi ke stok" — bentuk singkat dari `produk["stok"] = produk["stok"] - 2`.
 
-### Langkah 10 — Latihan Gabungan: Tiga Data Produk
+### Langkah 12 — Latihan Gabungan: Tiga Data Produk
 
 Buat cell baru, simpan tiga data produk berbeda dalam tiga dictionary terpisah, lalu tampilkan nama dan harganya:
 
@@ -367,9 +438,43 @@ Keyboard - Rp 300000
 
 **Kalau error:** kalau muncul `SyntaxError` di baris f-string, cek tanda kutip di dalam `{ }` — karena f-string-nya sendiri pakai kutip ganda `" "`, bagian di dalam `{ }` harus pakai kutip tunggal `' '` (seperti `produk_1['nama']`), supaya Python tidak bingung tanda kutip mana yang menutup string.
 
+### Langkah 13 — Coba Sendiri
+
+Buat cell kosong. Minta 2 angka lewat `input()`, jadikan `int`, jumlahkan, print pakai f-string. Tebak dulu hasilnya sebelum run.
+
+**Cek hasil:** masukin `4` dan `5` harus keluar `9`, bukan `45` (kalau `45` berarti lupa `int()`).
+
+### Langkah 14 — Kalkulator dari Input (Penutup)
+
+Gabungan input + casting + operator + f-string. Buat cell baru, ketik:
+
+```python
+angka1 = float(input("Masukkan angka pertama: "))
+angka2 = float(input("Masukkan angka kedua: "))
+
+print(f"Penjumlahan: {angka1 + angka2}")
+print(f"Pengurangan: {angka1 - angka2}")
+print(f"Perkalian: {angka1 * angka2}")
+print(f"Pembagian: {angka1 / angka2}")
+```
+
+Jalankan, masukkan dua angka (misalnya `10` dan `4`).
+
+**Cek hasil:**
+```text
+Masukkan angka pertama: 10
+Masukkan angka kedua: 4
+Penjumlahan: 14.0
+Pengurangan: 6.0
+Perkalian: 40.0
+Pembagian: 2.5
+```
+
+**Kalau error:** kalau muncul `ZeroDivisionError`, itu karena angka kedua diisi `0` — pembagian dengan nol memang tidak bisa dihitung, ini wajar dan akan dibahas cara menanganinya lebih lanjut nanti.
+
 ### Hasil Akhir Sesi Ini
 
-Notebook `pertemuan-1.ipynb` berisi 10 cell berurutan: perkenalan print, contoh error dan perbaikannya, variabel dan f-string, pengecekan tipe data, operator, list kategori, dictionary produk, pengubahan nilai dictionary, dan tiga data produk ditampilkan sekaligus. Semua kerja masih berupa variabel lepas di Python — belum ada file data sungguhan yang dibaca. Itu wajar, karena membaca file CSV dengan Pandas baru dipelajari pertemuan 3.
+Notebook `pertemuan-1.ipynb` berisi 14 cell: print, error, variabel/f-string, input, type casting, list, dictionary, sampai kalkulator dari input. Semua masih variabel lepas, belum baca file CSV beneran — itu baru mulai pertemuan 3.
 
 ## Catatan AI
 
@@ -381,7 +486,7 @@ Simpan tiga data produk dalam dictionary (nama, harga, stok), lalu tampilkan nam
 
 ## Rangkuman
 
-Data Analyst mengikuti alur pertanyaan → kumpulkan data → bersihkan → analisis → visualisasi → rekomendasi, dengan Python sebagai alat bantu, bukan tujuan akhir. Python menyimpan data dalam variabel; list dipakai untuk urutan data, dictionary dipakai untuk pasangan `key: value`. Minggu depan kita membuat program yang bisa mengambil keputusan sendiri (`if`/`else`) dan mengulang pekerjaan (`for`/`while`).
+Data Analyst mengikuti alur pertanyaan → kumpulkan data → bersihkan → analisis → visualisasi → rekomendasi, dengan Python sebagai alat bantu, bukan tujuan akhir. Python menyimpan data dalam variabel; `input()` mengambil data dari pengguna (selalu bertipe `str`, perlu di-casting ke `int`/`float` untuk dihitung); list dipakai untuk urutan data, dictionary dipakai untuk pasangan `key: value`. Minggu depan kita membuat program yang bisa mengambil keputusan sendiri (`if`/`else`) dan mengulang pekerjaan (`for`/`while`).
 
 ## Istilah Penting
 
@@ -393,5 +498,7 @@ Data Analyst mengikuti alur pertanyaan → kumpulkan data → bersihkan → anal
 | Cell | Blok kode atau teks di dalam notebook Colab |
 | Variabel | Nama yang dipakai untuk menyimpan sebuah nilai |
 | f-string | Cara menyisipkan variabel ke dalam teks memakai `f"..."` dan `{}` |
+| `input()` | Function untuk mengambil data yang diketik pengguna, hasilnya selalu bertipe `str` |
+| Type casting | Mengubah tipe data suatu nilai, misalnya `str` ke `int` lewat `int(nilai)` |
 | List | Struktur data untuk kumpulan nilai berurutan |
 | Dictionary | Struktur data untuk pasangan key-value bernama |
