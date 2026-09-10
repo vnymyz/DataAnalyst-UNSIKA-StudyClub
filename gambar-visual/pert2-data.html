@@ -1,0 +1,2354 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pertemuan 2 — Ruang Belajar Visual Data Analyst UNSIKA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ═══════════════════════════════════════════════════════
+   PALET — Dark Matcha (sama dengan pert1-analyst.html & PPT)
+   ═══════════════════════════════════════════════════════ */
+      :root {
+        --bg: #1a231a;
+        --bg2: #141c14;
+        --panel: #22301c;
+        --panel2: #2a3823;
+        --line: #3a4c30;
+        --text: #f6f3e7;
+        --dim: #b7c9a8;
+        --sage: #7c9473;
+        --gold: #c9a66b;
+        --code-bg: #0f160f;
+        --code-tx: #dcefd1;
+        --warn: #e0a07a;
+        --ok: #8fbf7f;
+        --head: "Poppins", "Segoe UI", system-ui, sans-serif;
+        --body: "Segoe UI", system-ui, -apple-system, sans-serif;
+        --mono: "JetBrains Mono", "Consolas", ui-monospace, monospace;
+        --ease: cubic-bezier(0.22, 0.9, 0.28, 1);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 78px;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--body);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      .wrap {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      ::selection {
+        background: var(--gold);
+        color: var(--bg);
+      }
+
+      #scrollbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: linear-gradient(90deg, var(--sage), var(--gold));
+        z-index: 60;
+        transition: width 0.1s linear;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(20, 28, 20, 0.9);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      .navrow {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 11px 0;
+      }
+      .navlinks {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+        flex: 1;
+        scrollbar-width: none;
+      }
+      .navlinks::-webkit-scrollbar {
+        display: none;
+      }
+      .navlinks a {
+        color: var(--dim);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 6px 13px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: 0.18s var(--ease);
+      }
+      .navlinks a:hover {
+        color: var(--text);
+        background: var(--panel);
+        border-color: var(--line);
+      }
+      .navlinks a.active {
+        color: var(--gold);
+        background: var(--panel2);
+        border-color: var(--gold);
+      }
+      .xp {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .xp .track {
+        width: 104px;
+        height: 7px;
+        border-radius: 99px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .xp .track i {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--sage), var(--gold));
+        transition: width 0.55s var(--ease);
+      }
+      .xp .num {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gold);
+        min-width: 46px;
+      }
+      @media (max-width: 760px) {
+        .xp .track {
+          width: 64px;
+        }
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 96px 0 76px;
+        background: radial-gradient(
+          ellipse 900px 520px at 78% 12%,
+          rgba(124, 148, 115, 0.14),
+          transparent 68%
+        );
+      }
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(2px);
+      }
+      .orb.a {
+        width: 480px;
+        height: 480px;
+        background: var(--sage);
+        opacity: 0.1;
+        right: -120px;
+        top: -160px;
+        animation: drift 22s ease-in-out infinite;
+      }
+      .orb.b {
+        width: 280px;
+        height: 280px;
+        background: var(--gold);
+        opacity: 0.09;
+        right: 120px;
+        top: 250px;
+        animation: drift 17s ease-in-out infinite reverse;
+      }
+      .orb.c {
+        width: 170px;
+        height: 170px;
+        background: var(--sage);
+        opacity: 0.1;
+        right: 400px;
+        top: 60px;
+        animation: drift 27s ease-in-out infinite;
+      }
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        33% {
+          transform: translate(-26px, 22px);
+        }
+        66% {
+          transform: translate(18px, -16px);
+        }
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin: 0 0 16px;
+      }
+      .hero h1 {
+        font-family: var(--head);
+        font-weight: 700;
+        font-size: clamp(34px, 5.6vw, 60px);
+        line-height: 1.05;
+        margin: 0;
+      }
+      .hero h1 .l2 {
+        color: var(--sage);
+        display: block;
+      }
+      .hero .sub {
+        font-size: clamp(15px, 1.9vw, 19px);
+        color: var(--dim);
+        margin: 24px 0 6px;
+        max-width: 60ch;
+      }
+      .hero .case {
+        color: var(--gold);
+        font-style: italic;
+        margin: 0 0 28px;
+      }
+      .chips {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 34px;
+      }
+      .chip {
+        border: 1px solid var(--sage);
+        background: var(--panel2);
+        color: var(--dim);
+        border-radius: 999px;
+        padding: 7px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: 0.2s var(--ease);
+      }
+      .chip:hover {
+        border-color: var(--gold);
+        color: var(--text);
+        transform: translateY(-2px);
+      }
+      .cue {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--sage);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .cue .arw {
+        display: inline-block;
+        animation: bob 1.7s ease-in-out infinite;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(6px);
+        }
+      }
+
+      .rise {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.7s var(--ease),
+          transform 0.7s var(--ease);
+      }
+      .rise.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      section {
+        padding: 78px 0;
+        border-top: 1px solid var(--line);
+        position: relative;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--sage);
+        text-transform: uppercase;
+        margin: 0 0 12px;
+        padding: 4px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--panel);
+      }
+      h2 {
+        font-family: var(--head);
+        font-weight: 700;
+        font-size: clamp(25px, 3.6vw, 36px);
+        margin: 0 0 14px;
+        line-height: 1.18;
+      }
+      .lead {
+        color: var(--dim);
+        font-size: 16px;
+        max-width: 74ch;
+        margin: 0 0 34px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+        transition:
+          transform 0.3s var(--ease),
+          border-color 0.3s var(--ease);
+      }
+      .card.alt {
+        background: var(--panel2);
+      }
+      .card.hov:hover {
+        transform: translateY(-4px);
+        border-color: var(--sage);
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .h3 {
+        font-family: var(--head);
+        font-weight: 600;
+        font-size: 17px;
+        margin: 0 0 8px;
+      }
+      .muted {
+        color: var(--dim);
+        font-size: 14.5px;
+        margin: 0;
+      }
+      code,
+      .mono {
+        font-family: var(--mono);
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        margin: 0;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        color: var(--code-tx);
+        line-height: 1.75;
+      }
+      .cm {
+        color: #7f9470;
+      }
+      .st {
+        color: var(--gold);
+      }
+      .kw {
+        color: #9fc48f;
+      }
+      .out {
+        background: #162014;
+        border: 1px solid var(--sage);
+        border-radius: 11px;
+        padding: 14px 18px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        color: var(--text);
+        white-space: pre-wrap;
+        min-height: 52px;
+      }
+      .olabel {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: var(--sage);
+        display: block;
+        margin-bottom: 6px;
+      }
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--sage);
+        margin-bottom: 8px;
+      }
+      .btn {
+        border: 1px solid var(--sage);
+        background: var(--panel2);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 9px 20px;
+        font-family: var(--body);
+        font-size: 13.5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s var(--ease);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn:hover {
+        background: var(--gold);
+        color: var(--bg);
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .btn.ghost {
+        background: transparent;
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ── Slider ──────────────────────────────────────────── */
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 99px;
+        background: var(--panel2);
+        border: 1px solid var(--line);
+        outline: 0;
+        cursor: pointer;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gold);
+        border: 3px solid var(--bg);
+        box-shadow: 0 0 0 1px var(--gold);
+        cursor: pointer;
+        transition: 0.2s var(--ease);
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gold);
+        border: 3px solid var(--bg);
+        cursor: pointer;
+      }
+      .sliderval {
+        font-family: var(--mono);
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
+
+      /* ── Switch ──────────────────────────────────────────── */
+      .swrow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 14px 17px;
+        cursor: pointer;
+        transition: 0.22s var(--ease);
+      }
+      .swrow + .swrow {
+        margin-top: 11px;
+      }
+      .swrow:hover {
+        border-color: var(--sage);
+      }
+      .swrow .swlab {
+        font-size: 14px;
+        color: var(--dim);
+        font-weight: 600;
+      }
+      .swrow .swval {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--sage);
+      }
+      .sw {
+        width: 44px;
+        height: 25px;
+        border-radius: 99px;
+        background: var(--panel2);
+        border: 1.5px solid var(--line);
+        position: relative;
+        flex: 0 0 auto;
+        transition: 0.25s var(--ease);
+      }
+      .sw::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--dim);
+        transition: 0.25s var(--ease);
+      }
+      .sw.on {
+        background: var(--gold);
+        border-color: var(--gold);
+      }
+      .sw.on::after {
+        left: 23px;
+        background: var(--bg);
+      }
+
+      /* ── 1. Decision flow (if/elif/else) ──────────────────── */
+      .dtrack {
+        position: relative;
+        height: 10px;
+        border-radius: 99px;
+        background: var(--panel2);
+        border: 1px solid var(--line);
+        margin: 22px 0 6px;
+        overflow: hidden;
+      }
+      .dtrack i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        border-radius: 99px;
+        transition: width 0.4s var(--ease);
+      }
+      .dmarks {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--sage);
+      }
+      .dpath {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .dstep {
+        border: 1px solid var(--line);
+        background: var(--code-bg);
+        color: var(--dim);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        transition: 0.25s var(--ease);
+      }
+      .dstep.hit {
+        border-color: var(--gold);
+        background: var(--panel2);
+        color: var(--gold);
+      }
+      .dstep.skip {
+        opacity: 0.35;
+        text-decoration: line-through;
+      }
+
+      /* ── 3. range() stepper ──────────────────────────────── */
+      .chain {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        background: var(--code-bg);
+        color: var(--dim);
+        border-radius: 11px;
+        padding: 12px 18px;
+        font-family: var(--mono);
+        font-size: 16px;
+        font-weight: 700;
+        transition: 0.3s var(--ease);
+      }
+      .pill.ghost {
+        opacity: 0.3;
+        border-style: dashed;
+      }
+      .pill.on {
+        border-color: var(--gold);
+        background: var(--panel2);
+        color: var(--gold);
+        transform: scale(1.12);
+      }
+      .pill.done {
+        border-color: var(--sage);
+        color: var(--sage);
+      }
+
+      /* ── 4/5/6. enumerate / accumulate / while table rows ── */
+      .rowlist {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .rowitem {
+        display: grid;
+        grid-template-columns: 52px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 11px 16px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: 0.4s var(--ease);
+      }
+      .rowitem.on {
+        opacity: 1;
+        transform: none;
+        border-color: var(--sage);
+      }
+      .rowitem .idxbadge {
+        background: var(--panel2);
+        border-radius: 7px;
+        padding: 3px 0;
+        text-align: center;
+        color: var(--gold);
+        font-weight: 700;
+      }
+      .rowitem.zero {
+        color: var(--warn);
+      }
+      .rowitem.skipped {
+        opacity: 0.4;
+      }
+      .rowitem.stopped {
+        border-color: var(--warn);
+      }
+
+      /* ── 7/8. Function machine ───────────────────────────── */
+      .machine {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 22px 0;
+      }
+      .mbox {
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 18px 22px;
+        text-align: center;
+        min-width: 130px;
+      }
+      .mbox .mlab {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: var(--sage);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .mbox .mval {
+        font-family: var(--mono);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .marrow {
+        font-size: 22px;
+        color: var(--gold);
+        padding: 0 14px;
+        font-weight: 700;
+      }
+      .mbox.proc {
+        border-color: var(--gold);
+        background: var(--panel2);
+      }
+      .mbox.out {
+        border-color: var(--ok);
+      }
+
+      /* ── 9. Toggle (list comprehension) ──────────────────── */
+      .toggle {
+        display: inline-flex;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px;
+        gap: 4px;
+        margin-bottom: 20px;
+      }
+      .toggle button {
+        border: 0;
+        background: transparent;
+        color: var(--dim);
+        padding: 9px 22px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-family: var(--body);
+        font-size: 13.5px;
+        font-weight: 600;
+        transition: 0.22s var(--ease);
+      }
+      .toggle button[aria-selected="true"] {
+        background: var(--gold);
+        color: var(--bg);
+      }
+      .stage-box {
+        position: relative;
+        min-height: 200px;
+      }
+      .view {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(14px) scale(0.985);
+        transition: 0.45s var(--ease);
+      }
+      .view.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        position: relative;
+      }
+
+      /* ── 10. Object cards (OOP) ──────────────────────────── */
+      .objcard {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        cursor: pointer;
+        transition: 0.28s var(--ease);
+      }
+      .objcard:hover {
+        border-color: var(--sage);
+        transform: translateY(-3px);
+      }
+      .objcard.on {
+        border-color: var(--gold);
+        background: var(--panel2);
+      }
+      .objcard .otag {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: var(--sage);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .objcard .oname {
+        font-family: var(--head);
+        font-weight: 600;
+        font-size: 17px;
+      }
+
+      /* ── Kuis (sama pola pert1) ───────────────────────────── */
+      .quiz {
+        position: relative;
+        min-height: 330px;
+      }
+      .qcard {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 28px;
+      }
+      .qmeta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--sage);
+      }
+      .qbar {
+        height: 6px;
+        background: var(--code-bg);
+        border-radius: 99px;
+        overflow: hidden;
+        margin-bottom: 22px;
+      }
+      .qbar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--gold);
+        transition: width 0.4s var(--ease);
+      }
+      .qtext {
+        font-family: var(--head);
+        font-weight: 600;
+        font-size: clamp(17px, 2.3vw, 21px);
+        margin: 0 0 22px;
+        line-height: 1.45;
+      }
+      .qtext code {
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 9px;
+        font-size: 0.82em;
+        color: var(--code-tx);
+        display: inline-block;
+        margin: 3px 0;
+        line-height: 1.5;
+      }
+      .opts {
+        display: grid;
+        gap: 11px;
+      }
+      .opt {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 14px 17px;
+        cursor: pointer;
+        transition: 0.22s var(--ease);
+        font-size: 14.5px;
+        color: var(--dim);
+        text-align: left;
+        font-family: var(--body);
+        width: 100%;
+      }
+      .opt:hover:not(:disabled) {
+        border-color: var(--sage);
+        transform: translateX(5px);
+        color: var(--text);
+      }
+      .opt .k {
+        flex: 0 0 auto;
+        width: 27px;
+        height: 27px;
+        border-radius: 8px;
+        background: var(--panel2);
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--sage);
+        transition: 0.22s var(--ease);
+      }
+      .opt.right {
+        border-color: var(--ok);
+        background: rgba(143, 191, 127, 0.1);
+        color: var(--text);
+      }
+      .opt.right .k {
+        background: var(--ok);
+        color: var(--bg);
+        border-color: var(--ok);
+      }
+      .opt.wrong {
+        border-color: var(--warn);
+        background: rgba(224, 160, 122, 0.1);
+        color: var(--text);
+      }
+      .opt.wrong .k {
+        background: var(--warn);
+        color: var(--bg);
+        border-color: var(--warn);
+      }
+      .opt:disabled {
+        cursor: default;
+      }
+      .qfb {
+        margin-top: 18px;
+        padding: 15px 18px;
+        border-radius: 11px;
+        border: 1px solid var(--line);
+        background: var(--panel2);
+        font-size: 14px;
+        color: var(--dim);
+        display: none;
+      }
+      .qfb.show {
+        display: block;
+        animation: fadeUp 0.4s var(--ease);
+      }
+      .qfb b {
+        color: var(--gold);
+      }
+      .result {
+        text-align: center;
+        padding: 46px 24px;
+      }
+      .result .big {
+        font-family: var(--head);
+        font-size: clamp(44px, 8vw, 74px);
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin: 0 0 6px;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .confetti {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 70;
+        overflow: hidden;
+      }
+      .cf {
+        position: absolute;
+        width: 9px;
+        height: 14px;
+        border-radius: 2px;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(660deg);
+          opacity: 0;
+        }
+      }
+
+      /* ── Checklist ────────────────────────────────────────── */
+      .steps {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 15px 17px;
+        cursor: pointer;
+        transition: 0.24s var(--ease);
+        user-select: none;
+      }
+      .step:hover {
+        border-color: var(--sage);
+        transform: translateX(5px);
+      }
+      .step.done {
+        background: var(--panel2);
+        border-color: var(--sage);
+      }
+      .step.done .txt {
+        color: var(--sage);
+        text-decoration: line-through;
+      }
+      .box {
+        flex: 0 0 auto;
+        width: 23px;
+        height: 23px;
+        border-radius: 7px;
+        border: 1.5px solid var(--sage);
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        color: transparent;
+        background: transparent;
+        margin-top: 1px;
+        transition: 0.24s var(--ease);
+      }
+      .step.done .box {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--bg);
+        transform: scale(1.1);
+      }
+      .txt {
+        font-size: 14px;
+        color: var(--dim);
+        transition: 0.24s var(--ease);
+      }
+      .pbar {
+        height: 8px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        overflow: hidden;
+        margin: 0 0 10px;
+      }
+      .pbar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--sage), var(--gold));
+        transition: width 0.45s var(--ease);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 40px 0 64px;
+        color: #6f8264;
+        font-size: 13px;
+      }
+
+      @media (max-width: 820px) {
+        .grid2,
+        .grid3,
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        .machine {
+          flex-direction: column;
+        }
+        .marrow {
+          transform: rotate(90deg);
+          padding: 8px 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+        .rise {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scrollbar"></div>
+
+    <header class="hero">
+      <div class="orb a"></div>
+      <div class="orb b"></div>
+      <div class="orb c"></div>
+      <div class="wrap">
+        <p class="eyebrow rise">Haltev Study Club · Data Analyst UNSIKA</p>
+        <h1 class="rise">
+          Pertemuan 2<span class="l2">Logika, Perulangan &amp; Function</span>
+        </h1>
+        <p class="sub rise">
+          Ruang belajar visual. Geser slider-nya, nyalakan switch-nya, jalankan
+          loop-nya — lihat langsung bagaimana program mengambil keputusan dan
+          mengulang pekerjaan, sebelum kamu menulisnya sendiri di Colab.
+        </p>
+        <p class="case rise">Studi Kasus: Data Penjualan E-commerce</p>
+        <div class="chips rise">
+          <span class="chip">19.30–21.00 WIB</span>
+          <span class="chip">Google Colab</span>
+          <span class="chip">Python 3</span>
+          <span class="chip">12 bagian interaktif</span>
+        </div>
+        <p class="rise">
+          <span class="cue">Gulir untuk mulai <span class="arw">↓</span></span>
+        </p>
+      </div>
+    </header>
+
+    <nav>
+      <div class="wrap navrow">
+        <div class="navlinks">
+          <a href="#diskon">Diskon</a>
+          <a href="#logika">Logika</a>
+          <a href="#range">for &amp; range</a>
+          <a href="#enumerate">enumerate</a>
+          <a href="#akumulasi">Akumulasi</a>
+          <a href="#while">while</a>
+          <a href="#breakcont">break/continue</a>
+          <a href="#function">Function</a>
+          <a href="#comprehension">Comprehension</a>
+          <a href="#oop">OOP</a>
+          <a href="#kuis">Kuis</a>
+          <a href="#praktik">Praktik</a>
+        </div>
+        <div
+          class="xp"
+          title="Semakin banyak yang kamu coba, semakin penuh barnya"
+        >
+          <div class="track"><i id="xpBar"></i></div>
+          <span class="num" id="xpNum">0%</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ═══ 1. DISKON (if/elif/else) ════════════════════ -->
+    <section id="diskon">
+      <div class="wrap">
+        <p class="tag rise">Teori 2–4</p>
+        <h2 class="rise">Geser Total Belanja, Lihat Diskonnya</h2>
+        <p class="lead rise">
+          Ini persis kode <code>if</code>/<code>elif</code>/<code>else</code>
+          yang dipakai di kelas. Geser slider-nya dan lihat jalur mana yang
+          "menyala" — Python selalu cek dari atas ke bawah, berhenti begitu satu
+          kondisi <code>True</code>.
+        </p>
+
+        <div class="card rise">
+          <label for="belanjaSlider">total_belanja</label>
+          <div class="sliderval" id="belanjaVal">Rp 175.000</div>
+          <input
+            type="range"
+            id="belanjaSlider"
+            min="0"
+            max="300000"
+            step="5000"
+            value="175000"
+          />
+          <div class="dpath" id="dpath"></div>
+        </div>
+
+        <div class="grid2 rise" style="margin-top: 20px">
+          <div class="card">
+            <label>Kode</label>
+            <pre id="diskonCode"></pre>
+          </div>
+          <div class="card">
+            <label>Output</label>
+            <div class="out" id="diskonOut"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 2. OPERATOR LOGIKA ══════════════════════════ -->
+    <section id="logika">
+      <div class="wrap">
+        <p class="tag rise">Teori 5</p>
+        <h2 class="rise">and, or, not — Nyalakan Switch-nya</h2>
+        <p class="lead rise">
+          Syarat promo: member <strong>dan</strong> belanja minimal Rp 100.000.
+          Nyalakan atau matikan tiap switch, lihat hasilnya berubah langsung.
+        </p>
+
+        <div class="grid2 rise">
+          <div class="card">
+            <div class="swrow" id="swMember">
+              <span class="swlab">member</span>
+              <span class="swval" id="swMemberVal">True</span>
+              <div class="sw on"></div>
+            </div>
+            <div class="swrow" id="swBelanja">
+              <span class="swlab">total_belanja &gt;= 100000</span>
+              <span class="swval" id="swBelanjaVal">True</span>
+              <div class="sw on"></div>
+            </div>
+          </div>
+          <div class="card">
+            <label>Kode</label>
+            <pre>if member <span class="kw">and</span> total_belanja &gt;= <span class="st">100000</span>:
+    print(<span class="st">"Dapat promo member!"</span>)
+<span class="kw">else</span>:
+    print(<span class="st">"Belum memenuhi syarat promo"</span>)</pre>
+            <div class="field" style="margin-top: 14px">
+              <label>Output</label>
+              <div class="out" id="logikaOut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 3. FOR & RANGE ══════════════════════════════ -->
+    <section id="range">
+      <div class="wrap">
+        <p class="tag rise">Teori 7</p>
+        <h2 class="rise">range(1, 5) Berhenti di Mana?</h2>
+        <p class="lead rise">
+          Jebakan paling umum: dikira sampai angka batas atas, padahal berhenti
+          <strong>sebelum</strong>-nya. Tekan jalankan dan hitung sendiri berapa
+          kali kotaknya menyala.
+        </p>
+
+        <div class="rise" style="margin-bottom: 18px">
+          <button class="btn" id="playRange" type="button">
+            <span id="rangeIcon">▶</span>
+            <span id="rangeLabel">Jalankan for i in range(1, 5)</span>
+          </button>
+        </div>
+
+        <div class="card rise">
+          <div class="chain" id="rangeChain"></div>
+          <div class="field" style="margin-top: 6px">
+            <label>Output</label>
+            <div class="out" id="rangeOut"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 4. ENUMERATE ════════════════════════════════ -->
+    <section id="enumerate">
+      <div class="wrap">
+        <p class="tag rise">Teori 8</p>
+        <h2 class="rise">enumerate(): Loop Sambil Bawa Nomor Urut</h2>
+        <p class="lead rise">
+          Tekan jalankan — tiap baris data penjualan muncul satu per satu,
+          lengkap dengan nomor hari yang otomatis dihitung
+          <code>enumerate()</code>, mulai dari <code>start=1</code>.
+        </p>
+
+        <div class="rise" style="margin-bottom: 18px">
+          <button class="btn" id="playEnum" type="button">
+            ▶ Jalankan loop
+          </button>
+        </div>
+
+        <pre
+          class="rise"
+          style="margin-bottom: 16px"
+        >penjualan = [<span class="st">120</span>, <span class="st">80</span>, <span class="st">150</span>]
+<span class="kw">for</span> nomor, nilai <span class="kw">in</span> enumerate(penjualan, start=<span class="st">1</span>):
+    print(f<span class="st">"Hari {nomor}: {nilai} transaksi"</span>)</pre>
+
+        <div class="card rise">
+          <div class="rowlist" id="enumRows"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 5. AKUMULASI ════════════════════════════════ -->
+    <section id="akumulasi">
+      <div class="wrap">
+        <p class="tag rise">Teori 9</p>
+        <h2 class="rise">Akumulasi: total += nilai</h2>
+        <p class="lead rise">
+          Perhatikan angka <strong>total</strong> di kanan — tiap item yang
+          lewat, angkanya naik. Ini pola dasar yang nanti jadi
+          <code>.sum()</code> di Pandas.
+        </p>
+
+        <div class="rise" style="margin-bottom: 18px">
+          <button class="btn" id="playAkum" type="button">
+            ▶ Jalankan loop
+          </button>
+        </div>
+
+        <div class="grid2 rise">
+          <div class="card">
+            <div class="rowlist" id="akumRows"></div>
+          </div>
+          <div
+            class="card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <label>total</label>
+            <div class="sliderval" id="akumTotal" style="font-size: 32px">
+              0
+            </div>
+            <p class="muted" style="text-align: center; margin-top: 8px">
+              total = 0 <em>(nilai awal, sebelum loop)</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 6. WHILE ════════════════════════════════════ -->
+    <section id="while">
+      <div class="wrap">
+        <p class="tag rise">Teori 10</p>
+        <h2 class="rise">while: Kejar Target Penjualan</h2>
+        <p class="lead rise">
+          Loop terus berjalan <strong>selama</strong> kondisinya masih benar.
+          Coba juga tombol kedua — versi yang lupa update counter, biar
+          kelihatan kenapa itu jadi infinite loop (otomatis dihentikan di sini
+          setelah 12 langkah, supaya halaman tidak macet).
+        </p>
+
+        <div
+          class="rise"
+          style="margin-bottom: 18px; display: flex; gap: 10px; flex-wrap: wrap"
+        >
+          <button class="btn" id="playWhile" type="button">
+            ▶ Jalankan (benar)
+          </button>
+          <button
+            class="btn ghost"
+            id="playWhileBug"
+            type="button"
+            style="border-color: var(--warn); color: var(--warn)"
+          >
+            ⚠ Coba versi lupa update (infinite loop)
+          </button>
+        </div>
+
+        <div class="grid2 rise">
+          <div class="card">
+            <label>Kode</label>
+            <pre id="whileCode">target = <span class="st">500000</span>
+total_terkumpul = <span class="st">0</span>
+hari = <span class="st">0</span>
+
+<span class="kw">while</span> total_terkumpul &lt; target:
+    total_terkumpul += <span class="st">100000</span>
+    hari += <span class="st">1</span></pre>
+          </div>
+          <div class="card">
+            <label>Progres</label>
+            <div class="dtrack">
+              <i
+                id="whileFill"
+                style="
+                  background: linear-gradient(90deg, var(--sage), var(--gold));
+                  width: 0%;
+                "
+              ></i>
+            </div>
+            <div class="out" id="whileOut" style="margin-top: 14px"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 7. BREAK / CONTINUE ═════════════════════════ -->
+    <section id="breakcont">
+      <div class="wrap">
+        <p class="tag rise">Teori 11</p>
+        <h2 class="rise">break vs continue</h2>
+        <p class="lead rise">
+          <code>break</code> menghentikan seluruh loop.
+          <code>continue</code> cuma melewati satu item, loop tetap lanjut.
+          Jalankan keduanya dan bandingkan mana yang berhenti duluan.
+        </p>
+
+        <div class="grid2 rise">
+          <div class="card">
+            <p class="h3" style="color: var(--warn)">
+              break — berhenti saat stok habis
+            </p>
+            <pre
+              style="margin-bottom: 14px"
+            >stok = [<span class="st">5</span>, <span class="st">3</span>, <span class="st">0</span>, <span class="st">8</span>]
+<span class="kw">for</span> jumlah <span class="kw">in</span> stok:
+    <span class="kw">if</span> jumlah == <span class="st">0</span>:
+        <span class="kw">break</span>
+    print(f<span class="st">"Sisa stok: {jumlah}"</span>)</pre>
+            <button
+              class="btn"
+              id="playBreak"
+              type="button"
+              style="margin-bottom: 14px"
+            >
+              ▶ Jalankan
+            </button>
+            <div class="rowlist" id="breakRows"></div>
+          </div>
+          <div class="card">
+            <p class="h3" style="color: var(--ok)">
+              continue — lewati data kosong
+            </p>
+            <pre
+              style="margin-bottom: 14px"
+            >penjualan = [<span class="st">120000</span>, <span class="st">0</span>, <span class="st">95000</span>, <span class="st">0</span>, <span class="st">200000</span>]
+<span class="kw">for</span> nilai <span class="kw">in</span> penjualan:
+    <span class="kw">if</span> nilai == <span class="st">0</span>:
+        <span class="kw">continue</span>
+    print(f<span class="st">"Transaksi: {nilai}"</span>)</pre>
+            <button
+              class="btn"
+              id="playCont"
+              type="button"
+              style="margin-bottom: 14px"
+            >
+              ▶ Jalankan
+            </button>
+            <div class="rowlist" id="contRows"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 8. FUNCTION ═════════════════════════════════ -->
+    <section id="function">
+      <div class="wrap">
+        <p class="tag rise">Teori 12–13</p>
+        <h2 class="rise">Function: Masukkan Bahan, Keluar Hasil</h2>
+        <p class="lead rise">
+          Atur harga dan jumlah, lalu jalankan
+          <code>hitung_total(harga, jumlah)</code>. Function memproses seperti
+          mesin: parameter masuk, <code>return</code> mengirim hasil keluar.
+        </p>
+
+        <div class="card rise">
+          <div class="grid2" style="margin-bottom: 20px">
+            <div class="field">
+              <label for="fnHarga">harga</label>
+              <input
+                type="range"
+                id="fnHarga"
+                min="5000"
+                max="50000"
+                step="1000"
+                value="15000"
+              />
+              <div
+                class="sliderval"
+                id="fnHargaVal"
+                style="font-size: 16px; margin-top: 6px"
+              >
+                Rp 15.000
+              </div>
+            </div>
+            <div class="field">
+              <label for="fnJumlah">jumlah</label>
+              <input
+                type="range"
+                id="fnJumlah"
+                min="1"
+                max="10"
+                step="1"
+                value="3"
+              />
+              <div
+                class="sliderval"
+                id="fnJumlahVal"
+                style="font-size: 16px; margin-top: 6px"
+              >
+                3
+              </div>
+            </div>
+          </div>
+          <div class="machine">
+            <div class="mbox">
+              <div class="mlab">Parameter masuk</div>
+              <div class="mval" id="mIn">15000, 3</div>
+            </div>
+            <div class="marrow">→</div>
+            <div class="mbox proc">
+              <div class="mlab">hitung_total()</div>
+              <div class="mval">harga × jumlah</div>
+            </div>
+            <div class="marrow">→</div>
+            <div class="mbox out">
+              <div class="mlab">return</div>
+              <div class="mval" id="mOut">45000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid2 rise" style="margin-top: 20px">
+          <div class="card">
+            <p class="h3">Default parameter</p>
+            <pre
+              style="margin-bottom: 12px"
+            ><span class="kw">def</span> hitung_diskon(total, persen=<span class="st">0.10</span>):
+    <span class="kw">return</span> total * persen</pre>
+            <p class="muted">
+              Kalau <code>persen</code> tidak diisi saat dipanggil, otomatis
+              pakai <code>0.10</code>. Contoh:
+              <code>hitung_diskon(200000)</code> →
+              <strong style="color: var(--gold)">20000.0</strong>.
+            </p>
+          </div>
+          <div class="card">
+            <p class="h3">print() vs return</p>
+            <p class="muted">
+              <code>print()</code> cuma menampilkan ke layar, hasilnya tidak
+              bisa disimpan (jadi <code>None</code> kalau ditampung variabel).
+              <code>return</code> mengirim nilainya keluar, bisa dipakai lagi —
+              persis seperti kotak "return" di diagram mesin di atas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 9. LIST COMPREHENSION ═══════════════════════ -->
+    <section id="comprehension">
+      <div class="wrap">
+        <p class="tag rise">Teori 14</p>
+        <h2 class="rise">Dua Cara, Hasil Sama</h2>
+        <p class="lead rise">
+          List comprehension bukan hal baru — cuma bentuk ringkas dari
+          <code>for</code> yang sudah kamu pahami. Bandingkan sendiri.
+        </p>
+
+        <div class="toggle rise" id="compToggle" role="tablist">
+          <button
+            role="tab"
+            aria-selected="true"
+            data-view="loop"
+            type="button"
+          >
+            Cara biasa (for)
+          </button>
+          <button
+            role="tab"
+            aria-selected="false"
+            data-view="comp"
+            type="button"
+          >
+            List comprehension
+          </button>
+        </div>
+
+        <div class="card rise stage-box" style="padding: 26px">
+          <div class="view show" id="viewLoop">
+            <pre>hasil_kategori = []
+<span class="kw">for</span> nilai <span class="kw">in</span> penjualan:
+    hasil_kategori.append(kategori_penjualan(nilai))</pre>
+          </div>
+          <div class="view" id="viewComp">
+            <pre>hasil_kategori = [kategori_penjualan(nilai) <span class="kw">for</span> nilai <span class="kw">in</span> penjualan]</pre>
+          </div>
+        </div>
+
+        <div class="card alt rise" style="margin-top: 20px">
+          <label>Output (sama, apa pun caranya)</label>
+          <div class="out">
+            ['Rendah', 'Sedang', 'Tinggi', 'Rendah', 'Sedang']
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10. OOP SEKILAS ═════════════════════════════ -->
+    <section id="oop">
+      <div class="wrap">
+        <p class="tag rise">Teori 15</p>
+        <h2 class="rise">Class = Cetakan, Object = Hasilnya</h2>
+        <p class="lead rise">
+          Klik salah satu produk untuk melihat <code>.info()</code>-nya. Dua
+          object ini dibuat dari cetakan (class) yang sama, tapi datanya
+          masing-masing berbeda.
+        </p>
+
+        <pre
+          class="rise"
+          style="margin-bottom: 20px"
+        ><span class="kw">class</span> Produk:
+    <span class="kw">def</span> __init__(self, nama, harga):
+        self.nama = nama
+        self.harga = harga
+
+    <span class="kw">def</span> info(self):
+        <span class="kw">return</span> f<span class="st">"{self.nama} - Rp {self.harga}"</span></pre>
+
+        <div class="grid2 rise">
+          <div
+            class="objcard on"
+            id="obj1"
+            data-nama="Headset"
+            data-harga="250000"
+          >
+            <p class="otag">produk1 = Produk(...)</p>
+            <p class="oname">Headset — Rp 250.000</p>
+          </div>
+          <div class="objcard" id="obj2" data-nama="Mouse" data-harga="150000">
+            <p class="otag">produk2 = Produk(...)</p>
+            <p class="oname">Mouse — Rp 150.000</p>
+          </div>
+        </div>
+
+        <div class="card alt rise" style="margin-top: 20px">
+          <label>Output .info()</label>
+          <div class="out" id="oopOut">Headset - Rp 250000</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 11. KUIS ═════════════════════════════════════ -->
+    <section id="kuis">
+      <div class="wrap">
+        <p class="tag rise">Uji Pemahaman</p>
+        <h2 class="rise">Kuis Cepat — 6 Soal</h2>
+        <p class="lead rise">
+          Bukan penilaian, cuma cek diri. Soal di sini beda dari soal kuis kelas
+          — jawabannya tetap tidak dibocorkan di sini.
+        </p>
+        <div class="quiz rise" id="quiz"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 12. PRAKTIK ══════════════════════════════════ -->
+    <section id="praktik">
+      <div class="wrap">
+        <p class="tag rise">Hands-on</p>
+        <h2 class="rise">Checklist 20 Langkah</h2>
+        <p class="lead rise">
+          Satu langkah = satu cell baru di Colab. Centang sambil mengerjakan
+          supaya tidak ada yang terlewat. Detail tiap langkah, bagian
+          <em>Cek hasil</em> dan <em>Kalau error</em>, ada di README pertemuan
+          ini.
+        </p>
+
+        <div class="rise">
+          <div class="pbar"><i id="pbar"></i></div>
+          <p
+            class="muted"
+            id="pText"
+            style="margin: 0 0 24px; font-size: 13.5px"
+          ></p>
+          <div class="steps" id="steps"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p style="margin: 0 0 8px; color: var(--dim)">
+          Data Analyst UNSIKA · Haltev Study Club · Pertemuan 2
+        </p>
+        <p style="margin: 0">
+          Halaman ini pendamping visual. Materi lengkapnya ada di
+          <code>materi-pertemuan/pert2-materi/README.md</code>, notebook-nya di
+          <code>pertemuan-2.ipynb</code>, latihannya di
+          <code>latihan-soal-pertemuan/kuis-latihan-2.md</code>.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        "use strict";
+        var $ = function (s) {
+          return document.querySelector(s);
+        };
+        var $$ = function (s) {
+          return Array.prototype.slice.call(document.querySelectorAll(s));
+        };
+        var REDUCE = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        function esc(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+        function rupiah(n) {
+          return "Rp " + Number(n).toLocaleString("id-ID");
+        }
+
+        /* ═══ XP ═══ */
+        var TOTAL_XP = 12,
+          earned = {};
+        function xp(key) {
+          var g = String(key).replace(/\d+$/, "");
+          if (earned[g]) return;
+          earned[g] = true;
+          var n = Object.keys(earned).length,
+            pct = Math.round((n / TOTAL_XP) * 100);
+          $("#xpBar").style.width = pct + "%";
+          $("#xpNum").textContent = pct + "%";
+          if (n === TOTAL_XP) {
+            $("#xpNum").textContent = "Lengkap";
+            burst();
+          }
+        }
+
+        /* ═══ Reveal ═══ */
+        if ("IntersectionObserver" in window && !REDUCE) {
+          var io = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+          );
+          $$(".rise").forEach(function (el, i) {
+            el.style.transitionDelay = (i % 7) * 55 + "ms";
+            io.observe(el);
+          });
+        } else {
+          $$(".rise").forEach(function (el) {
+            el.classList.add("in");
+          });
+        }
+
+        /* ═══ Progress bar gulir + nav aktif ═══ */
+        var secs = $$("section[id]"),
+          links = $$(".navlinks a");
+        function onScroll() {
+          var h = document.documentElement.scrollHeight - window.innerHeight;
+          $("#scrollbar").style.width =
+            (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+          var cur = null;
+          secs.forEach(function (s) {
+            if (s.getBoundingClientRect().top <= 140) cur = s.id;
+          });
+          links.forEach(function (a) {
+            a.classList.toggle(
+              "active",
+              cur !== null && a.getAttribute("href") === "#" + cur,
+            );
+          });
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        /* ═══ Konfeti ═══ */
+        function burst() {
+          if (REDUCE) return;
+          var box = document.createElement("div");
+          box.className = "confetti";
+          document.body.appendChild(box);
+          var cols = ["#C9A66B", "#7C9473", "#F6F3E7", "#8FBF7F", "#E0A07A"];
+          for (var i = 0; i < 70; i++) {
+            var c = document.createElement("div");
+            c.className = "cf";
+            c.style.left = Math.random() * 100 + "vw";
+            c.style.top = "-24px";
+            c.style.background = cols[i % cols.length];
+            c.style.animationDuration = 2 + Math.random() * 1.9 + "s";
+            c.style.animationDelay = Math.random() * 0.55 + "s";
+            c.style.opacity = 0.55 + Math.random() * 0.45;
+            box.appendChild(c);
+          }
+          setTimeout(function () {
+            box.remove();
+          }, 5200);
+        }
+
+        /* ═══ 1. DISKON (if/elif/else) ═══ */
+        var belanjaSlider = $("#belanjaSlider"),
+          belanjaVal = $("#belanjaVal"),
+          dpath = $("#dpath"),
+          diskonCode = $("#diskonCode"),
+          diskonOut = $("#diskonOut");
+        var DPATH_STEPS = [
+          {
+            k: "if >= 200000",
+            test: function (v) {
+              return v >= 200000;
+            },
+          },
+          {
+            k: "elif >= 100000",
+            test: function (v) {
+              return v >= 100000;
+            },
+          },
+          {
+            k: "else",
+            test: function () {
+              return true;
+            },
+          },
+        ];
+        DPATH_STEPS.forEach(function (s) {
+          var el = document.createElement("span");
+          el.className = "dstep";
+          el.textContent = s.k;
+          dpath.appendChild(el);
+        });
+        function renderDiskon() {
+          var v = Number(belanjaSlider.value);
+          belanjaVal.textContent = rupiah(v);
+          var diskon = 0,
+            hit = -1;
+          if (v >= 200000) {
+            diskon = 0.15;
+            hit = 0;
+          } else if (v >= 100000) {
+            diskon = 0.1;
+            hit = 1;
+          } else {
+            diskon = 0;
+            hit = 2;
+          }
+          $$("#dpath .dstep").forEach(function (el, i) {
+            el.classList.toggle("hit", i === hit);
+            el.classList.toggle("skip", i < hit);
+          });
+          diskonCode.innerHTML =
+            'total_belanja = <span class="st">' +
+            v +
+            "</span>\n\n" +
+            '<span class="kw">if</span> total_belanja &gt;= <span class="st">200000</span>:\n    diskon = <span class="st">0.15</span>\n' +
+            '<span class="kw">elif</span> total_belanja &gt;= <span class="st">100000</span>:\n    diskon = <span class="st">0.10</span>\n' +
+            '<span class="kw">else</span>:\n    diskon = <span class="st">0</span>\n\n' +
+            'print(f<span class="st">"Diskon: {diskon:.0%}"</span>)';
+          diskonOut.textContent = "Diskon: " + Math.round(diskon * 100) + "%";
+          xp("diskon");
+        }
+        belanjaSlider.addEventListener("input", renderDiskon);
+        renderDiskon();
+
+        /* ═══ 2. OPERATOR LOGIKA ═══ */
+        var member = true,
+          belanjaOk = true;
+        function renderLogika() {
+          $("#swMember .sw").classList.toggle("on", member);
+          $("#swMemberVal").textContent = member;
+          $("#swBelanja .sw").classList.toggle("on", belanjaOk);
+          $("#swBelanjaVal").textContent = belanjaOk;
+          var ok = member && belanjaOk;
+          $("#logikaOut").textContent = ok
+            ? "Dapat promo member!"
+            : "Belum memenuhi syarat promo";
+          xp("logika");
+        }
+        $("#swMember").addEventListener("click", function () {
+          member = !member;
+          renderLogika();
+        });
+        $("#swBelanja").addEventListener("click", function () {
+          belanjaOk = !belanjaOk;
+          renderLogika();
+        });
+        renderLogika();
+
+        /* ═══ 3. FOR & RANGE ═══ */
+        var rangeChain = $("#rangeChain"),
+          rangeOut = $("#rangeOut"),
+          rangeTimer = null;
+        var RVALS = [1, 2, 3, 4];
+        function buildRangeChain() {
+          rangeChain.innerHTML = "";
+          RVALS.forEach(function (v) {
+            var p = document.createElement("div");
+            p.className = "pill";
+            p.textContent = v;
+            rangeChain.appendChild(p);
+          });
+          var ghost = document.createElement("div");
+          ghost.className = "pill ghost";
+          ghost.textContent = "5 (tidak ikut)";
+          rangeChain.appendChild(ghost);
+        }
+        buildRangeChain();
+        $("#playRange").addEventListener("click", function () {
+          if (rangeTimer) return;
+          buildRangeChain();
+          rangeOut.textContent = "";
+          var pills = $$("#rangeChain .pill:not(.ghost)");
+          pills.forEach(function (p) {
+            p.classList.remove("on", "done");
+          });
+          var i = 0;
+          $("#rangeIcon").textContent = "■";
+          rangeTimer = setInterval(
+            function () {
+              if (i > 0) pills[i - 1].classList.remove("on");
+              pills[i - 1] && pills[i - 1].classList.add("done");
+              if (i >= pills.length) {
+                clearInterval(rangeTimer);
+                rangeTimer = null;
+                $("#rangeIcon").textContent = "▶";
+                xp("range");
+                return;
+              }
+              pills[i].classList.add("on");
+              rangeOut.textContent +=
+                (rangeOut.textContent ? "\n" : "") + RVALS[i];
+              i++;
+            },
+            REDUCE ? 60 : 550,
+          );
+        });
+
+        /* ═══ 4. ENUMERATE ═══ */
+        var ENUM_DATA = [
+          [1, 120],
+          [2, 80],
+          [3, 150],
+        ];
+        var enumRows = $("#enumRows"),
+          enumTimer = null;
+        function buildEnumRows() {
+          enumRows.innerHTML = "";
+          ENUM_DATA.forEach(function (d) {
+            var r = document.createElement("div");
+            r.className = "rowitem";
+            r.innerHTML =
+              '<span class="idxbadge">' +
+              d[0] +
+              "</span><span>Hari " +
+              d[0] +
+              ": " +
+              d[1] +
+              " transaksi</span><span></span>";
+            enumRows.appendChild(r);
+          });
+        }
+        buildEnumRows();
+        $("#playEnum").addEventListener("click", function () {
+          if (enumTimer) return;
+          buildEnumRows();
+          var rows = $$("#enumRows .rowitem"),
+            i = 0;
+          enumTimer = setInterval(
+            function () {
+              if (i >= rows.length) {
+                clearInterval(enumTimer);
+                enumTimer = null;
+                xp("enum");
+                return;
+              }
+              rows[i].classList.add("on");
+              i++;
+            },
+            REDUCE ? 60 : 480,
+          );
+        });
+
+        /* ═══ 5. AKUMULASI ═══ */
+        var AKUM_DATA = [120000, 85000, 200000];
+        var akumRows = $("#akumRows"),
+          akumTotal = $("#akumTotal"),
+          akumTimer = null;
+        function buildAkumRows() {
+          akumRows.innerHTML = "";
+          AKUM_DATA.forEach(function (v) {
+            var r = document.createElement("div");
+            r.className = "rowitem";
+            r.innerHTML =
+              '<span class="idxbadge">+</span><span>' +
+              rupiah(v) +
+              "</span><span></span>";
+            akumRows.appendChild(r);
+          });
+        }
+        buildAkumRows();
+        $("#playAkum").addEventListener("click", function () {
+          if (akumTimer) return;
+          buildAkumRows();
+          akumTotal.textContent = "0";
+          var rows = $$("#akumRows .rowitem"),
+            i = 0,
+            total = 0;
+          akumTimer = setInterval(
+            function () {
+              if (i >= rows.length) {
+                clearInterval(akumTimer);
+                akumTimer = null;
+                xp("akum");
+                return;
+              }
+              rows[i].classList.add("on");
+              total += AKUM_DATA[i];
+              akumTotal.textContent = total.toLocaleString("id-ID");
+              i++;
+            },
+            REDUCE ? 60 : 550,
+          );
+        });
+
+        /* ═══ 6. WHILE ═══ */
+        var whileOut = $("#whileOut"),
+          whileFill = $("#whileFill"),
+          whileTimer = null;
+        function runWhile(buggy) {
+          if (whileTimer) return;
+          whileOut.textContent = "";
+          whileFill.style.width = "0%";
+          whileFill.style.background = buggy
+            ? "var(--warn)"
+            : "linear-gradient(90deg,var(--sage),var(--gold))";
+          var total = 0,
+            hari = 0,
+            target = 500000,
+            steps = 0,
+            MAXSTEP = 12;
+          whileTimer = setInterval(
+            function () {
+              steps++;
+              if (!buggy) total += 100000;
+              hari++;
+              var pct = Math.min(100, (total / target) * 100);
+              whileFill.style.width = pct + "%";
+              whileOut.textContent =
+                "hari " + hari + " -> total_terkumpul: " + rupiah(total);
+              var done = buggy ? steps >= MAXSTEP : total >= target;
+              if (done) {
+                clearInterval(whileTimer);
+                whileTimer = null;
+                whileOut.textContent += buggy
+                  ? "\n\n⚠ INFINITE LOOP — total_terkumpul tidak pernah berubah (lupa += di dalam loop),\nkondisi while selalu True. Dihentikan paksa di sini setelah " +
+                    MAXSTEP +
+                    " langkah demo."
+                  : "\n\nTarget tercapai dalam " + hari + " hari";
+                xp("while");
+              }
+            },
+            REDUCE ? 60 : 420,
+          );
+        }
+        $("#playWhile").addEventListener("click", function () {
+          runWhile(false);
+        });
+        $("#playWhileBug").addEventListener("click", function () {
+          runWhile(true);
+        });
+
+        /* ═══ 7. BREAK / CONTINUE ═══ */
+        var STOK = [5, 3, 0, 8],
+          PJ = [120000, 0, 95000, 0, 200000];
+        var breakTimer = null,
+          contTimer = null;
+        function buildRows(container, data, labelFn) {
+          container.innerHTML = "";
+          data.forEach(function (v) {
+            var r = document.createElement("div");
+            r.className = "rowitem";
+            r.innerHTML =
+              "<span></span><span>" + labelFn(v) + "</span><span></span>";
+            container.appendChild(r);
+          });
+        }
+        $("#playBreak").addEventListener("click", function () {
+          if (breakTimer) return;
+          var c = $("#breakRows");
+          buildRows(c, STOK, function (v) {
+            return v === 0 ? "jumlah == 0" : "Sisa stok: " + v;
+          });
+          var rows = $$("#breakRows .rowitem"),
+            i = 0;
+          breakTimer = setInterval(
+            function () {
+              if (i >= rows.length) {
+                clearInterval(breakTimer);
+                breakTimer = null;
+                xp("bc");
+                return;
+              }
+              if (STOK[i] === 0) {
+                rows[i].classList.add("stopped");
+                for (var j = i + 1; j < rows.length; j++)
+                  rows[j].classList.add("skipped");
+                clearInterval(breakTimer);
+                breakTimer = null;
+                xp("bc");
+                return;
+              }
+              rows[i].classList.add("on");
+              i++;
+            },
+            REDUCE ? 60 : 500,
+          );
+        });
+        $("#playCont").addEventListener("click", function () {
+          if (contTimer) return;
+          var c = $("#contRows");
+          buildRows(c, PJ, function (v) {
+            return v === 0
+              ? "nilai == 0 (dilewati)"
+              : "Transaksi: " + rupiah(v);
+          });
+          var rows = $$("#contRows .rowitem"),
+            i = 0;
+          contTimer = setInterval(
+            function () {
+              if (i >= rows.length) {
+                clearInterval(contTimer);
+                contTimer = null;
+                xp("bc");
+                return;
+              }
+              if (PJ[i] === 0) {
+                rows[i].classList.add("skipped");
+              } else {
+                rows[i].classList.add("on");
+              }
+              i++;
+            },
+            REDUCE ? 60 : 420,
+          );
+        });
+
+        /* ═══ 8. FUNCTION ═══ */
+        var fnHarga = $("#fnHarga"),
+          fnJumlah = $("#fnJumlah");
+        function renderFn() {
+          var h = Number(fnHarga.value),
+            j = Number(fnJumlah.value);
+          $("#fnHargaVal").textContent = rupiah(h);
+          $("#fnJumlahVal").textContent = j;
+          $("#mIn").textContent = h + ", " + j;
+          $("#mOut").textContent = (h * j).toLocaleString("id-ID");
+          xp("fn");
+        }
+        fnHarga.addEventListener("input", renderFn);
+        fnJumlah.addEventListener("input", renderFn);
+        renderFn();
+
+        /* ═══ 9. LIST COMPREHENSION TOGGLE ═══ */
+        $$("#compToggle button").forEach(function (b) {
+          b.addEventListener("click", function () {
+            $$("#compToggle button").forEach(function (o) {
+              o.setAttribute("aria-selected", o === b ? "true" : "false");
+            });
+            var comp = b.dataset.view === "comp";
+            $("#viewLoop").classList.toggle("show", !comp);
+            $("#viewComp").classList.toggle("show", comp);
+            xp("comp");
+          });
+        });
+
+        /* ═══ 10. OOP ═══ */
+        $$(".objcard").forEach(function (card) {
+          card.addEventListener("click", function () {
+            $$(".objcard").forEach(function (c) {
+              c.classList.remove("on");
+            });
+            card.classList.add("on");
+            $("#oopOut").textContent =
+              card.dataset.nama + " - Rp " + card.dataset.harga;
+            xp("oop");
+          });
+        });
+
+        /* ═══ 11. KUIS ═══ (soal beda dari pilgan kelas, konsep sama) */
+        var QUIZ = [
+          {
+            q: 'Apa hasil dari kode berikut?\n<code>nilai = 45\nif nilai &gt;= 50:\n    hasil = "Lulus"\nelif nilai &gt;= 30:\n    hasil = "Remedial"\nelse:\n    hasil = "Gagal"</code>',
+            opts: [
+              "Lulus",
+              "Remedial",
+              "Gagal",
+              "Error, karena elif tidak boleh setelah if",
+            ],
+            right: 1,
+            fb: '45 tidak >= 50, tapi 45 >= 30, jadi masuk elif dan hasil-nya "Remedial".',
+          },
+          {
+            q: "Berapa banyak kali angka dicetak oleh <code>for x in range(2, 6):</code>?",
+            opts: ["3 kali", "4 kali", "5 kali", "6 kali"],
+            right: 1,
+            fb: "range(2, 6) menghasilkan 2, 3, 4, 5 — 4 angka, berhenti sebelum 6.",
+          },
+          {
+            q: "Kondisi <code>hujan = True</code> dan <code>bawa_payung = False</code>. Apa hasil <code>hujan and bawa_payung</code>?",
+            opts: ["True", "False", "Error", "Tidak bisa ditentukan"],
+            right: 1,
+            fb: "and butuh KEDUA kondisi True. hujan True tapi bawa_payung False, jadi hasilnya False.",
+          },
+          {
+            q: "Dalam loop <code>while x &lt; 5:</code>, apa yang WAJIB ada di dalam blok supaya tidak infinite loop?",
+            opts: [
+              "print(x)",
+              "Sesuatu yang mengubah nilai x",
+              "Kata kunci break di baris pertama",
+              "Tidak ada yang wajib",
+            ],
+            right: 1,
+            fb: "Kalau x tidak pernah berubah, kondisi x < 5 selalu True selamanya — harus ada baris yang mengubah x.",
+          },
+          {
+            q: "Function berikut: <code>def kali(a, b=2): return a * b</code>. Berapa hasil <code>kali(10)</code>?",
+            opts: ["10", "20", "Error, b wajib diisi", "None"],
+            right: 1,
+            fb: "b tidak diisi saat dipanggil, jadi otomatis pakai default 2. kali(10) = 10 * 2 = 20.",
+          },
+          {
+            q: "Apa perbedaan utama <code>break</code> dan <code>continue</code>?",
+            opts: [
+              "Tidak ada bedanya",
+              "break lewati satu item, continue hentikan semua",
+              "break hentikan seluruh loop, continue lewati satu item lalu lanjut",
+              "Keduanya hanya bisa dipakai di while",
+            ],
+            right: 2,
+            fb: "break = stop total. continue = skip item ini saja, loop tetap lanjut ke item berikutnya.",
+          },
+        ];
+        var qIdx = 0,
+          qScore = 0;
+        var quizEl = $("#quiz");
+        function renderQuiz() {
+          if (qIdx >= QUIZ.length) {
+            quizEl.innerHTML =
+              '<div class="qcard result"><p class="muted">SKOR KAMU</p>' +
+              '<p class="big">' +
+              qScore +
+              " / " +
+              QUIZ.length +
+              "</p>" +
+              '<p class="muted" style="margin-bottom:22px">' +
+              (qScore === QUIZ.length
+                ? "Sempurna! Konsepnya sudah matang."
+                : qScore >= QUIZ.length - 2
+                  ? "Bagus, tinggal cek lagi bagian yang meleset."
+                  : "Coba baca ulang bagian yang terkait, lalu ulangi kuisnya.") +
+              "</p>" +
+              '<button class="btn" id="quizAgain" type="button">Ulangi Kuis</button></div>';
+            $("#quizAgain").addEventListener("click", function () {
+              qIdx = 0;
+              qScore = 0;
+              renderQuiz();
+            });
+            xp("quiz");
+            if (qScore === QUIZ.length) burst();
+            return;
+          }
+          var item = QUIZ[qIdx];
+          var h =
+            '<div class="qcard"><div class="qmeta"><span>Soal ' +
+            (qIdx + 1) +
+            " / " +
+            QUIZ.length +
+            "</span><span>Skor: " +
+            qScore +
+            "</span></div>" +
+            '<div class="qbar"><i style="width:' +
+            (qIdx / QUIZ.length) * 100 +
+            '%"></i></div>' +
+            '<p class="qtext">' +
+            item.q +
+            '</p><div class="opts">';
+          item.opts.forEach(function (o, i) {
+            h +=
+              '<button class="opt" data-i="' +
+              i +
+              '" type="button"><span class="k">' +
+              String.fromCharCode(65 + i) +
+              "</span><span>" +
+              o +
+              "</span></button>";
+          });
+          h += '</div><div class="qfb" id="qfb"></div></div>';
+          quizEl.innerHTML = h;
+          $$("#quiz .opt").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              var i = Number(btn.dataset.i);
+              $$("#quiz .opt").forEach(function (b) {
+                b.disabled = true;
+              });
+              if (i === item.right) {
+                btn.classList.add("right");
+                qScore++;
+              } else {
+                btn.classList.add("wrong");
+                $$("#quiz .opt")[item.right].classList.add("right");
+              }
+              var fb = $("#qfb");
+              fb.innerHTML =
+                "<b>" +
+                (i === item.right ? "Benar. " : "Kurang tepat. ") +
+                "</b>" +
+                item.fb;
+              fb.classList.add("show");
+              setTimeout(function () {
+                qIdx++;
+                renderQuiz();
+              }, 1900);
+            });
+          });
+        }
+        renderQuiz();
+
+        /* ═══ 12. CHECKLIST ═══ */
+        var STEPS = [
+          "Mengecek stok dengan if",
+          "if/else — dua jalur",
+          "if/elif/else — diskon toko",
+          "Sengaja salah indentasi",
+          "Operator logika — syarat promo",
+          "for pada list kategori",
+          "for dengan range()",
+          "enumerate() — penjualan harian",
+          "Akumulasi — total penjualan",
+          "while — kejar target penjualan",
+          "break — berhenti saat stok habis",
+          "continue — lewati data kosong",
+          "Function pertama tanpa parameter",
+          "Function dengan parameter + return",
+          "Default parameter",
+          "Beda print() dan return",
+          "Gabungan — kategori_penjualan untuk semua data",
+          "List comprehension",
+          "Coba sendiri — cek_stok()",
+          "Sekilas OOP — class Produk",
+        ];
+        var stepsEl = $("#steps");
+        STEPS.forEach(function (t, i) {
+          var s = document.createElement("div");
+          s.className = "step";
+          s.tabIndex = 0;
+          s.innerHTML =
+            '<span class="box">✓</span><span class="txt">Langkah ' +
+            (i + 1) +
+            " — " +
+            t +
+            "</span>";
+          s.addEventListener("click", function () {
+            s.classList.toggle("done");
+            updateProgress();
+          });
+          stepsEl.appendChild(s);
+        });
+        function updateProgress() {
+          var done = $$(".step.done").length,
+            pct = Math.round((done / STEPS.length) * 100);
+          $("#pbar").style.width = pct + "%";
+          $("#pText").textContent =
+            done + " dari " + STEPS.length + " langkah selesai (" + pct + "%)";
+          if (done > 0) xp("praktik");
+          if (done === STEPS.length) burst();
+        }
+        updateProgress();
+      })();
+    </script>
+  </body>
+</html>
