@@ -14,7 +14,7 @@
 - Memahami Series dan DataFrame sebagai struktur data Pandas.
 - Membaca file CSV dan melakukan inspeksi awal (`head`, `info`, `describe`).
 - Mengenali tanda-tanda data yang belum siap pakai (data kosong, duplikat, tipe data keliru) — sebagai observasi, sebelum dibereskan di pertemuan 4.
-- Menyeleksi kolom, baris, dan memfilter data berdasarkan kondisi tertentu.
+- Menyeleksi kolom, baris, dan memfilter data berdasarkan satu atau beberapa kondisi sekaligus (AND/OR/NOT).
 - Membuat kolom baru sederhana dari kolom yang sudah ada (feature engineering ringan), termasuk menemukan produk termahal/termurah dan paling untung/rugi.
 - (Bonus) Menggabungkan dua tabel dengan `merge()` (`inner`/`left`/`right`/`outer` join) dan menyimpan hasil olahan ke file CSV baru.
 
@@ -271,7 +271,8 @@ print(df.duplicated().sum())
 
 - `.isna()` — mengecek tiap nilai, `True` kalau kosong (`NaN`), `False` kalau terisi. `.sum()` di belakangnya menjumlahkan per kolom (`True` dihitung sebagai 1).
 - `.duplicated()` — mengecek tiap baris, `True` kalau seluruh isinya sama persis dengan baris sebelumnya. `.sum()` menjumlahkan totalnya.
-- **Penting:** dua baris kode ini cuma **melaporkan**, tidak menghapus atau mengubah apa pun. `df` tetap 133 baris setelah ini dijalankan. Membuang data kosong/duplikat (`dropna()`, `drop_duplicates()`) itu keputusan tersendiri, dipelajari pertemuan 4.
+- Default `.duplicated()` cuma menandai salinan ke-2 dan seterusnya (baris aslinya tidak dianggap "duplikat"). Pakai `.duplicated(keep=False)` buat menandai **semua** baris yang punya kembaran — baris asli maupun salinannya — kalau mau lihat baris-barisnya langsung, bukan cuma angka totalnya.
+- **Penting:** kode-kode ini cuma **melaporkan**, tidak menghapus atau mengubah apa pun. `df` tetap 133 baris setelah ini dijalankan. Membuang data kosong/duplikat (`dropna()`, `drop_duplicates()`) itu keputusan tersendiri, dipelajari pertemuan 4.
 
 ### Memilih Kolom dan Baris
 
@@ -286,6 +287,24 @@ df[df["harga"] > 100000]                        # baris yang memenuhi syarat
 - `df["kolom"]` (satu tanda kurung siku) — mengambil satu kolom, hasilnya Series.
 - `df[["kolom_a", "kolom_b"]]` (dua tanda kurung siku, isinya list nama kolom) — mengambil beberapa kolom sekaligus, hasilnya tetap DataFrame.
 - `df["harga"] > 100000` — menghasilkan Series berisi `True`/`False` per baris (mirip operator perbandingan di pertemuan 2). `df[...]` dengan Series `True`/`False` di dalamnya cuma mengambil baris yang `True`-nya — ini disebut **boolean filtering**, pola yang sama seperti `if` cuma diterapkan ke seluruh tabel sekaligus.
+
+Satu kondisi sering tidak cukup. Beberapa kondisi bisa digabung pakai `&` (AND), `|` (OR), dan `~` (NOT) — mirip `and`/`or`/`not` di pertemuan 2, cuma simbolnya beda karena ini beroperasi ke seluruh kolom (Series), bukan satu nilai `True`/`False` tunggal.
+
+```python
+# AND (&) — harga di atas 100000 DAN kategorinya Elektronik
+df[(df["harga"] > 100000) & (df["kategori"] == "Elektronik")]
+
+# OR (|) — kategorinya Elektronik ATAU Fashion
+df[(df["kategori"] == "Elektronik") | (df["kategori"] == "Fashion")]
+
+# NOT — dua cara: != buat satu kondisi simpel, ~ buat membalik kondisi apa pun
+df[df["kategori"] != "Buku"]
+df[~(df["kategori"] == "Buku")]
+```
+
+- `&`, `|`, `~` — versi Pandas dari `and`/`or`/`not`. Wajib pakai simbol ini (bukan kata `and`/`or`/`not` biasa), karena yang dibandingkan bukan satu `True`/`False`, tapi Series berisi banyak `True`/`False` sekaligus.
+- **Tiap kondisi wajib dikurung `()`** — `df[df["harga"] > 100000 & df["kategori"] == "Elektronik"]` (tanpa kurung) akan error, karena `&` di Python punya prioritas lebih tinggi dari `>`/`==`, jadi urutan pembacaannya jadi kacau. Ini jebakan yang paling sering dialami pemula.
+- `!=` cocok buat negasi satu kondisi langsung. `~` lebih fleksibel — bisa membalik kondisi gabungan yang sudah dikurung, misalnya `~((df["harga"] > 100000) & (df["kategori"] == "Elektronik"))` artinya "bukan (harga di atas 100rb DAN Elektronik)".
 
 ### Menghitung Kolom Turunan: Nilai Penjualan dan Untung/Rugi
 
@@ -342,6 +361,34 @@ df_gabung = pd.merge(df, diskon_kategori, on="kategori", how="left")
 Perhatikan: `diskon_kategori` di atas sengaja **tidak** punya baris "Buku". Kalau di-`merge()` pakai `how="left"`, baris-baris kategori Buku di `df` tetap ada (tidak hilang), cuma kolom `diskon_persen`-nya kosong (`NaN`). Kalau pakai `how="inner"`, baris-baris kategori Buku itu justru **hilang** dari hasilnya — karena `inner` cuma menyisakan yang match di dua-duanya.
 
 > Slide visual: diagram lingkaran Venn (dua lingkaran bertumpuk) — irisan ditandai "inner", lingkaran kiri penuh ditandai "left", kanan penuh ditandai "right", gabungan semua ditandai "outer".
+
+**Biar kelihatan jelas bedanya keempat `how` itu**, coba dulu di tabel kecil yang sengaja "gak nyambung semua" — satu pelanggan belum pernah pesan, satu pesanan pelanggannya gak diketahui:
+
+```python
+pelanggan = pd.DataFrame({
+    "id_pelanggan": [1, 2, 3],
+    "nama": ["Andi", "Budi", "Citra"],
+})
+
+pesanan = pd.DataFrame({
+    "id_pelanggan": [1, 2, 4],   # 4 sengaja tidak ada di tabel pelanggan
+    "produk": ["Mouse", "Kaos", "Novel"],
+})
+```
+
+`pelanggan` (kiri) — Citra (id 3) belum pernah pesan apa-apa. `pesanan` (kanan) — pesanan "Novel" punya `id_pelanggan` 4, padahal tidak ada pelanggan dengan id itu.
+
+| `how="inner"` | `how="left"` | `how="right"` | `how="outer"` |
+|---|---|---|---|
+| id 1 Andi–Mouse | id 1 Andi–Mouse | id 1 Andi–Mouse | id 1 Andi–Mouse |
+| id 2 Budi–Kaos | id 2 Budi–Kaos | id 2 Budi–Kaos | id 2 Budi–Kaos |
+| — | id 3 Citra–**NaN** | — | id 3 Citra–**NaN** |
+| — | — | id 4 **NaN**–Novel | id 4 **NaN**–Novel |
+
+- `inner`: cuma Andi dan Budi yang tersisa — keduanya sama-sama ada di dua tabel.
+- `left`: semua baris `pelanggan` dipertahankan (termasuk Citra), kolom `produk`-nya `NaN` karena dia belum pesan.
+- `right`: semua baris `pesanan` dipertahankan (termasuk pesanan id 4), kolom `nama`-nya `NaN` karena pelanggannya tidak diketahui.
+- `outer`: gabungan semuanya — Citra dan pesanan id 4 sama-sama masuk, dua-duanya dengan `NaN` di kolom pasangannya.
 
 ### Bonus: Menyimpan Hasil Olahan ke File CSV Baru
 
@@ -578,6 +625,19 @@ print(df.duplicated().sum())
 
 Ada 3 baris yang isinya sama persis dengan baris lain. Belum dihapus — cuma dicatat.
 
+Angka `3` itu baru jumlahnya — buat lihat **baris mana** yang duplikat, buat cell baru:
+
+```python
+baris_duplikat = df[df.duplicated(keep=False)].sort_values("id_pesanan")
+print(baris_duplikat.shape)
+display(baris_duplikat)
+```
+
+**Cek hasil:** `(6, 8)` — 6 baris, bukan 3. Tampil 3 pasang baris yang isinya identik: `id_pesanan` 1029 (Keripik Singkong) muncul 2 kali, 1071 (Buku Motivasi) 2 kali, dan 1118 (Charger) 2 kali.
+
+- `df.duplicated(keep=False)` — beda dari `.duplicated()` biasa. Default (`keep="first"`) cuma menandai `True` pada **salinan ke-2 dan seterusnya**, baris aslinya dianggap bukan duplikat (makanya `.sum()` di Langkah 11 kasih 3, bukan 6). `keep=False` menandai `True` pada **semua** baris yang punya kembaran — baris asli DAN salinannya — biar bisa dibandingkan langsung.
+- `.sort_values("id_pesanan")` — biar tiap pasang baris identik nempel berdekatan di tabel, gampang dibandingin, bukan kepencar di posisi asalnya.
+
 ### 12. Memilih Satu Kolom
 
 Buat cell baru:
@@ -611,6 +671,61 @@ display(produk_mahal.head())
 **Cek hasil:** `(51, 8)` — dari 133 baris, 51 di antaranya harganya di atas 100.000. Baris pertama Mouse (150000) ikut masuk hasil filter.
 
 **Kalau error:** kalau muncul error `TypeError` soal perbandingan `str` dan `int`, cek kolom `harga` — kemungkinan tipe datanya `object` (teks) bukan angka, biasanya karena CSV-nya salah baca. Cek ulang Langkah 7.
+
+Satu kondisi doang kadang belum cukup. Buat cell baru buat coba gabungan kondisi:
+
+```python
+# AND (&) -- harga di atas 100rb DAN kategorinya Elektronik
+elektronik_mahal = df[(df["harga"] > 100000) & (df["kategori"] == "Elektronik")]
+print("Elektronik mahal:", elektronik_mahal.shape)
+display(elektronik_mahal[["nama_produk", "kategori", "harga"]].head())
+
+# Satu kondisi lain -- semua produk yang terjual di wilayah tertentu
+produk_jakarta = df[df["wilayah"] == "Jakarta"]
+print("Produk di Jakarta:", produk_jakarta.shape)
+display(produk_jakarta[["nama_produk", "wilayah"]].head())
+
+# NOT (!= atau ~) -- semua produk SELAIN kategori Buku
+bukan_buku = df[df["kategori"] != "Buku"]
+print("Bukan kategori Buku:", bukan_buku.shape)
+display(bukan_buku[["nama_produk", "kategori"]].head())
+```
+
+**Cek hasil:**
+```text
+Elektronik mahal: (18, 8)
+```
+| | nama_produk | kategori | harga |
+|---|---|---|---|
+| 0 | Mouse | Elektronik | 150000.0 |
+| 1 | Mouse | Elektronik | 155000.0 |
+| 8 | Speaker Bluetooth | Elektronik | 317000.0 |
+| 16 | Keyboard | Elektronik | 234000.0 |
+| 27 | Power Bank | Elektronik | 174000.0 |
+
+```text
+Produk di Jakarta: (32, 8)
+```
+| | nama_produk | wilayah |
+|---|---|---|
+| 0 | Mouse | Jakarta |
+| 6 | Madu Hutan 250ml | Jakarta |
+| 8 | Speaker Bluetooth | Jakarta |
+| 10 | Tas Ransel | Jakarta |
+| 12 | Jaket Hoodie | Jakarta |
+
+```text
+Bukan kategori Buku: (103, 8)
+```
+| | nama_produk | kategori |
+|---|---|---|
+| 0 | Mouse | Elektronik |
+| 1 | Mouse | Elektronik |
+| 2 | Speaker Bluetooth | Elektronik |
+| 4 | Matras Yoga | Olahraga |
+| 6 | Madu Hutan 250ml | Makanan |
+
+**Kalau error:** kalau muncul `TypeError` pas pakai `&`/`|`, hampir pasti lupa kurung `()` di tiap kondisi — `df["harga"] > 100000 & df["kategori"] == "Elektronik"` (tanpa kurung) dibaca Python dengan urutan yang salah. Harus `(df["harga"] > 100000) & (df["kategori"] == "Elektronik")`.
 
 ### 15. Feature Engineering: Kolom `nilai_penjualan`
 
@@ -697,7 +812,30 @@ print(df[df["kategori"] == "Buku"].shape)
 
 ### 18. (Bonus) Menggabungkan Dua Tabel dengan `merge()`
 
-Buat cell baru:
+Sebelum ke data asli, coba dulu di tabel kecil biar keempat jenis join-nya keliatan jelas. Buat cell baru:
+
+```python
+pelanggan = pd.DataFrame({
+    "id_pelanggan": [1, 2, 3],
+    "nama": ["Andi", "Budi", "Citra"],
+})
+
+pesanan = pd.DataFrame({
+    "id_pelanggan": [1, 2, 4],
+    "produk": ["Mouse", "Kaos", "Novel"],
+})
+
+display(pelanggan)
+display(pesanan)
+
+for cara in ["inner", "left", "right", "outer"]:
+    print(f"\n--- how={cara} ---")
+    display(pd.merge(pelanggan, pesanan, on="id_pelanggan", how=cara))
+```
+
+**Cek hasil:** `inner` cuma nyisain Andi dan Budi (dua-duanya match). `left` nyisain Citra juga (kolom `produk`-nya `NaN`, dia belum pernah pesan). `right` nyisain pesanan "Novel" juga (kolom `nama`-nya `NaN`, pelanggan id 4 gak ada). `outer` nyisain Citra DAN pesanan "Novel" sekaligus — gabungan semuanya.
+
+Sekarang terapkan ke data asli — tapi dites dulu di potongan kecil (4 baris) biar hasil tiap join masih kebaca penuh sebagai tabel, sebelum diterapkan ke semua 133 baris. Buat cell baru:
 
 ```python
 diskon_kategori = pd.DataFrame({
@@ -706,15 +844,44 @@ diskon_kategori = pd.DataFrame({
 })
 display(diskon_kategori)
 
-df_inner = pd.merge(df, diskon_kategori, on="kategori", how="inner")
-print("INNER JOIN shape:", df_inner.shape)
+# Contoh kecil: 2 produk Elektronik (kategorinya ADA di diskon_kategori)
+# + 2 produk Buku (kategorinya TIDAK ADA di diskon_kategori)
+bersih = df[df["harga"].notna()]
+contoh = bersih[bersih["kategori"].isin(["Elektronik", "Buku"])].head(4)[["nama_produk", "kategori", "harga"]]
+display(contoh)
+
+for cara in ["inner", "left", "right", "outer"]:
+    print(f"\n--- how={cara} ---")
+    display(pd.merge(contoh, diskon_kategori, on="kategori", how=cara))
+```
+
+**Cek hasil:** `contoh` isinya 2 baris Mouse (Elektronik) + 2 baris Buku (Novel Fiksi, Notebook Polos).
+
+- `inner`: cuma 2 baris Mouse yang tersisa — Buku hilang (tidak match), Fashion/Makanan/Olahraga di `diskon_kategori` juga tidak ikut (tidak ada di `contoh`).
+- `left`: 4 baris `contoh` semua dipertahankan — 2 Buku tetap ada, `diskon_persen`-nya `NaN`.
+- `right`: 2 baris Mouse + **3 baris baru** dari `diskon_kategori` yang tidak match (Fashion, Makanan, Olahraga) — `nama_produk`/`harga`-nya `NaN` karena `contoh` tidak punya produk kategori itu.
+- `outer`: gabungan semuanya — 2 Buku (dari kiri) + 3 kategori tanpa produk (dari kanan) + 2 Mouse yang match.
+
+Sekarang terapkan ke keseluruhan data (133 baris) — cukup lihat ukurannya, tabelnya kepanjangan buat ditampilkan penuh. Buat cell baru:
+
+```python
+for cara in ["inner", "left", "right", "outer"]:
+    hasil = pd.merge(df, diskon_kategori, on="kategori", how=cara)
+    print(f"{cara.upper()} JOIN shape:", hasil.shape)
 
 df_gabung = pd.merge(df, diskon_kategori, on="kategori", how="left")
-print("LEFT JOIN shape:", df_gabung.shape)
 display(df_gabung[df_gabung["kategori"] == "Buku"][["nama_produk", "kategori", "diskon_persen"]].head(3))
 ```
 
-**Cek hasil:** tabel `diskon_kategori` (4 baris) tampil. `INNER JOIN shape: (103, 11)` — 30 baris kategori Buku hilang karena tidak ada pasangannya di `diskon_kategori`. `LEFT JOIN shape: (133, 11)` — semua baris `df` tetap ada. Tabel baris Buku menunjukkan kolom `diskon_persen` isinya `NaN` — baris itu dipertahankan (bukti `left` join), cuma tidak dapat data diskon karena memang tidak ada.
+**Cek hasil:**
+```text
+INNER JOIN shape: (103, 11)
+LEFT JOIN shape: (133, 11)
+RIGHT JOIN shape: (103, 11)
+OUTER JOIN shape: (133, 11)
+```
+
+`INNER` dan `RIGHT` sama-sama `(103, 11)`, `LEFT` dan `OUTER` sama-sama `(133, 11)` — beda dari contoh kecil tadi, karena kali ini **semua** kategori di `diskon_kategori` (Elektronik/Fashion/Makanan/Olahraga) memang ada di `df` (bukan cuma Elektronik+Buku seperti `contoh`). Tidak ada baris "kanan" yang yatim seperti di contoh kecil, jadi `right` tidak beda efeknya dari `inner`, dan `outer` tidak beda dari `left`. 30 baris kategori Buku tetap hilang di `inner`/`right`, tapi tetap ada di `left`/`outer` — tabel baris Buku di bawah menunjukkan kolom `diskon_persen`-nya `NaN`.
 
 **Kalau error:** kalau muncul `MergeError`, cek nama kolom `on="kategori"` sudah persis sama di kedua tabel (huruf besar/kecil, spasi).
 
@@ -731,7 +898,7 @@ print("Tersimpan sebagai data_dengan_diskon.csv")
 
 ### Hasil Akhir Sesi Ini
 
-Notebook `pertemuan-3.ipynb` berisi 20 cell: array NumPy, Series, DataFrame manual, baca CSV, inspeksi (`head`/`tail`/`shape`/`info`/`describe`), statistik satu angka (`min`/`max`/`mean`/`median`/`quantile`/`sum`), produk termahal/termurah (`idxmax`/`idxmin`), cek data kosong & duplikat, seleksi kolom, filter baris, bikin kolom baru (`nilai_penjualan`, `untung`) sampai cari produk paling untung/rugi, ditutup bonus menggabungkan tabel (`merge()`) dan menyimpan hasilnya ke CSV baru (`to_csv()`). Data yang dipakai (`data.csv`) sudah kelihatan beberapa "gejala" yang belum dibereskan: 6 harga kosong, 3 baris duplikat, kolom tanggal belum bertipe tanggal, dan ada outlier di kolom harga — semua itu jadi bahan pertemuan 4.
+Notebook `pertemuan-3.ipynb` berisi 25 cell: array NumPy, Series, DataFrame manual, baca CSV, inspeksi (`head`/`tail`/`shape`/`info`/`describe`), statistik satu angka (`min`/`max`/`mean`/`median`/`quantile`/`sum`), produk termahal/termurah (`idxmax`/`idxmin`), cek data kosong & duplikat, seleksi kolom, filter baris (termasuk gabungan AND/OR/NOT: `&`/`|`/`~`), bikin kolom baru (`nilai_penjualan`, `untung`) sampai cari produk paling untung/rugi, ditutup bonus menggabungkan tabel (`merge()` — dicoba dulu di tabel kecil buat lihat keempat jenis join, baru diterapkan ke data asli) dan menyimpan hasilnya ke CSV baru (`to_csv()`). Data yang dipakai (`data.csv`) sudah kelihatan beberapa "gejala" yang belum dibereskan: 6 harga kosong, 3 baris duplikat, kolom tanggal belum bertipe tanggal, dan ada outlier di kolom harga — semua itu jadi bahan pertemuan 4.
 
 ## Catatan AI
 
@@ -743,7 +910,7 @@ Pakai `data.csv` yang sama: tampilkan 5 baris pertama, hitung jumlah baris dan k
 
 ## Rangkuman
 
-NumPy efisien buat mengolah angka lewat operasi vectorized; Pandas membangun DataFrame dari situ buat bekerja dengan tabel. Sebelum data dianalisis, ada tahap **Data Understanding**: `head()`/`tail()`/`shape` buat bentuknya, `info()` buat struktur dan tipe data, `describe()` buat statistik cepat (plus versi satu-satunya lewat `min()`/`max()`/`mean()`/`median()`/`quantile()`/`sum()`), `isna().sum()` dan `duplicated().sum()` buat mengenali data kosong dan duplikat — semuanya sekadar **melihat**, belum **membereskan**. Setelah paham kondisinya, data bisa diseleksi (`df["kolom"]`), difilter (`df[df["harga"] > 100000]`), bahkan ditambah kolom baru hasil olahan (feature engineering ringan) — termasuk kolom `nilai_penjualan` dan `untung`, lalu dicari produk termahal/termurah dan paling untung/rugi lewat `.idxmax()`/`.idxmin()`. Sebagai bonus, dua tabel bisa digabung pakai `merge()` (`inner`/`left`/`right`/`outer` join), dan hasil olahan bisa disimpan jadi file CSV baru lewat `to_csv()`. Hari ini kita baru **melihat** kondisi data `data.csv` — sudah ketemu beberapa yang janggal (data kosong, duplikat, tanggal belum jadi tipe tanggal, outlier di harga). Minggu depan kita **bereskan** semua temuan itu (data cleaning) dan gali lebih dalam pakai `groupby` untuk mencari insight (EDA).
+NumPy efisien buat mengolah angka lewat operasi vectorized; Pandas membangun DataFrame dari situ buat bekerja dengan tabel. Sebelum data dianalisis, ada tahap **Data Understanding**: `head()`/`tail()`/`shape` buat bentuknya, `info()` buat struktur dan tipe data, `describe()` buat statistik cepat (plus versi satu-satunya lewat `min()`/`max()`/`mean()`/`median()`/`quantile()`/`sum()`), `isna().sum()` dan `duplicated().sum()` buat mengenali data kosong dan duplikat — semuanya sekadar **melihat**, belum **membereskan**. Setelah paham kondisinya, data bisa diseleksi (`df["kolom"]`), difilter (`df[df["harga"] > 100000]`), digabung jadi beberapa kondisi sekaligus pakai `&`/`|`/`~` (AND/OR/NOT), bahkan ditambah kolom baru hasil olahan (feature engineering ringan) — termasuk kolom `nilai_penjualan` dan `untung`, lalu dicari produk termahal/termurah dan paling untung/rugi lewat `.idxmax()`/`.idxmin()`. Sebagai bonus, dua tabel bisa digabung pakai `merge()` (`inner`/`left`/`right`/`outer` join), dan hasil olahan bisa disimpan jadi file CSV baru lewat `to_csv()`. Hari ini kita baru **melihat** kondisi data `data.csv` — sudah ketemu beberapa yang janggal (data kosong, duplikat, tanggal belum jadi tipe tanggal, outlier di harga). Minggu depan kita **bereskan** semua temuan itu (data cleaning) dan gali lebih dalam pakai `groupby` untuk mencari insight (EDA).
 
 ## Istilah Penting
 
@@ -761,6 +928,7 @@ NumPy efisien buat mengolah angka lewat operasi vectorized; Pandas membangun Dat
 | Duplikat | Baris yang isinya sama persis dengan baris lain |
 | Outlier | Nilai yang jauh menyimpang dari kebanyakan data lain di kolom yang sama |
 | Boolean filtering | Menyeleksi baris DataFrame berdasarkan kondisi `True`/`False` |
+| `&` / `\|` / `~` | Versi Pandas dari AND/OR/NOT, dipakai buat menggabungkan beberapa kondisi filter sekaligus (tiap kondisi wajib dikurung) |
 | Feature engineering | Membuat kolom baru yang lebih berguna dari kolom-kolom yang sudah ada |
 | Modal | Biaya beli/produksi satu unit produk — dibandingkan dengan `harga` (harga jual) buat menghitung untung/rugi |
 | Untung/Rugi | Selisih harga jual dan modal dikali jumlah; positif berarti untung, negatif berarti rugi |
