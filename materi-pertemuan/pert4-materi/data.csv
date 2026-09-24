@@ -1,0 +1,134 @@
+id_pesanan,tanggal,nama_produk,kategori,harga,jumlah,wilayah,modal
+1001,2026-01-05,Mouse,Elektronik,150000.0,2,Jakarta,95000
+1002,2026-01-29,Mouse,Elektronik,155000.0,2,Bandung,113000
+1003,2026-01-12,Speaker Bluetooth,Elektronik,,5,Karawang,196000
+1004,2026-01-30,Novel Fiksi,Buku,62000.0,2,Karawang,39000
+1005,2026-02-23,Matras Yoga,Olahraga,121000.0,5,Bandung,71000
+1006,2026-01-21,Notebook Polos,Buku,14000.0,1,Medan,10000
+1007,2026-01-14,Madu Hutan 250ml,Makanan,89000.0,3,Jakarta,72000
+1008,2026-03-19,Novel Fiksi,Buku,66000.0,3,Surabaya,46000
+1009,2026-02-18,Speaker Bluetooth,Elektronik,317000.0,1,Jakarta,179000
+1010,2026-02-16,Sarung Tangan Gym,Olahraga,57000.0,5,Karawang,33000
+1011,2026-02-07,Tas Ransel,Fashion,153000.0,2,Jakarta,94000
+1012,2026-03-23,Kaos Polos,Fashion,73000.0,4,Surabaya,47000
+1013,2026-03-31,Jaket Hoodie,Fashion,190000.0,3,Jakarta,123000
+1014,2026-01-21,Botol Minum Olahraga,Olahraga,38000.0,2,Medan,29000
+1015,2026-01-29,Komik,Buku,48000.0,5,Surabaya,30000
+1016,2026-02-21,Keyboard,Elektronik,,3,Surabaya,166000
+1017,2026-02-10,Keyboard,Elektronik,234000.0,5,Bandung,165000
+1018,2026-01-19,Buku Resep Masakan,Buku,61000.0,4,Surabaya,33000
+1019,2026-02-03,Celana Jeans,Fashion,218000.0,5,Karawang,122000
+1020,2026-01-18,Notebook Polos,Buku,14000.0,2,Karawang,11000
+1021,2026-01-20,Novel Fiksi,Buku,70000.0,1,Bandung,37000
+1022,2026-03-18,Notebook Polos,Buku,13000.0,4,Medan,9000
+1023,2026-03-29,Sarung Tangan Gym,Olahraga,59000.0,1,Jakarta,41000
+1024,2026-01-15,Sarung Tangan Gym,Olahraga,57000.0,3,Surabaya,33000
+1025,2026-03-06,Buku Motivasi,Buku,71000.0,3,Bandung,53000
+1026,2026-03-23,Matras Yoga,Olahraga,127000.0,3,Karawang,92000
+1027,2026-03-11,Botol Minum Olahraga,Olahraga,35000.0,2,Karawang,28000
+1028,2026-01-15,Power Bank,Elektronik,174000.0,1,Surabaya,112000
+1029,2026-01-11,Keripik Singkong,Makanan,20000.0,5,Jakarta,13000
+1030,2026-01-17,Novel Fiksi,Buku,73000.0,5,Bandung,43000
+1031,2026-03-19,Notebook Polos,Buku,14000.0,5,Medan,8000
+1032,2026-02-09,Sepatu Sneakers,Fashion,364000.0,2,Medan,194000
+1033,2026-01-16,Teh Celup Box,Makanan,26000.0,4,Bandung,15000
+1034,2026-03-12,Kaos Polos,Fashion,73000.0,5,Bandung,44000
+1035,2026-01-30,Botol Minum Olahraga,Olahraga,35000.0,1,Jakarta,27000
+1036,2026-02-05,Headset,Elektronik,232000.0,2,Medan,158000
+1037,2026-03-15,Sepatu Sneakers,Fashion,329000.0,5,Medan,197000
+1038,2026-01-13,Topi,Fashion,47000.0,2,Jakarta,28000
+1039,2026-01-07,Komik,Buku,44000.0,4,Jakarta,26000
+1040,2026-02-01,Charger,Elektronik,88000.0,1,Bandung,47000
+1041,2026-01-24,Sepatu Sneakers,Fashion,8900000.0,4,Surabaya,245000
+1042,2026-02-26,Buku Motivasi,Buku,76000.0,1,Karawang,43000
+1043,2026-01-02,Mouse,Elektronik,153000.0,5,Jakarta,92000
+1044,2026-01-28,Celana Jeans,Fashion,206000.0,4,Medan,226000
+1045,2026-02-03,Keyboard,Elektronik,,4,Medan,154000
+1046,2026-03-26,Teh Celup Box,Makanan,25000.0,5,Medan,18000
+1047,2026-03-16,Celana Jeans,Fashion,203000.0,1,Karawang,164000
+1048,2026-03-16,Speaker Bluetooth,Elektronik,310000.0,1,Medan,249000
+1049,2026-01-11,Skipping Rope,Olahraga,28000.0,5,Bandung,18000
+1050,2026-02-21,Power Bank,Elektronik,167000.0,2,Jakarta,126000
+1051,2026-03-21,Botol Minum Olahraga,Olahraga,38000.0,1,Jakarta,23000
+1052,2026-02-03,Notebook Polos,Buku,15000.0,3,Bandung,8000
+1053,2026-03-27,Keripik Singkong,Makanan,21000.0,2,Surabaya,14000
+1054,2026-01-02,Komik,Buku,48000.0,1,Medan,35000
+1055,2026-03-10,Skipping Rope,Olahraga,32000.0,1,Bandung,19000
+1056,2026-01-09,Laptop Gaming (Bonus),Elektronik,10500000.0,3,Bandung,9600000
+1057,2026-02-08,Madu Hutan 250ml,Makanan,89000.0,5,Karawang,64000
+1058,2026-02-08,Matras Yoga,Olahraga,123000.0,5,Jakarta,89000
+1059,2026-03-12,Jaket Hoodie,Fashion,183000.0,1,Bandung,111000
+1060,2026-01-27,Madu Hutan 250ml,Makanan,96000.0,3,Surabaya,52000
+1061,2026-01-12,Raket Badminton,Olahraga,264000.0,1,Medan,211000
+1062,2026-03-23,Kopi Bubuk 200g,Makanan,44000.0,2,Surabaya,36000
+1063,2026-03-13,Tas Ransel,Fashion,163000.0,4,Jakarta,116000
+1064,2026-03-11,Mouse,Elektronik,160000.0,2,Jakarta,112000
+1065,2026-01-17,Cokelat Batang,Makanan,32000.0,4,Jakarta,24000
+1066,2026-02-15,Madu Hutan 250ml,Makanan,101000.0,1,Bandung,69000
+1067,2026-02-22,Tas Ransel,Fashion,154000.0,5,Karawang,130000
+1068,2026-02-22,Celana Jeans,Fashion,222000.0,2,Jakarta,158000
+1069,2026-03-27,Tas Ransel,Fashion,176000.0,4,Bandung,131000
+1070,2026-02-18,Keripik Singkong,Makanan,23000.0,1,Jakarta,16000
+1071,2026-02-14,Buku Motivasi,Buku,68000.0,4,Surabaya,40000
+1072,2026-02-21,Celana Jeans,Fashion,193000.0,2,Surabaya,140000
+1073,2026-02-14,Kopi Bubuk 200g,Makanan,51000.0,3,Karawang,27000
+1074,2026-01-15,Notebook Polos,Buku,,1,Surabaya,10000
+1075,2026-01-05,Sepatu Sneakers,Fashion,375000.0,3,Jakarta,196000
+1076,2026-02-25,Raket Badminton,Olahraga,268000.0,3,Karawang,319000
+1077,2026-01-25,Matras Yoga,Olahraga,117000.0,5,Surabaya,89000
+1078,2026-03-10,Speaker Bluetooth,Elektronik,316000.0,5,Bandung,179000
+1079,2026-03-21,Teh Celup Box,Makanan,23000.0,3,Surabaya,14000
+1080,2026-02-09,Speaker Bluetooth,Elektronik,,5,Medan,217000
+1081,2026-01-17,Teh Celup Box,Makanan,25000.0,5,Bandung,19000
+1082,2026-03-20,Buku Resep Masakan,Buku,59000.0,2,Karawang,46000
+1083,2026-02-08,Teh Celup Box,Makanan,25000.0,1,Surabaya,18000
+1084,2026-03-25,Topi,Fashion,47000.0,5,Surabaya,33000
+1085,2026-03-07,Buku Resep Masakan,Buku,57000.0,2,Medan,36000
+1086,2026-03-26,Tas Ransel,Fashion,154000.0,5,Karawang,122000
+1087,2026-03-28,Kopi Bubuk 200g,Makanan,50000.0,2,Surabaya,33000
+1088,2026-02-01,Celana Jeans,Fashion,198000.0,1,Medan,139000
+1089,2026-01-25,Matras Yoga,Olahraga,119000.0,5,Medan,86000
+1090,2026-01-14,Buku Resep Masakan,Buku,55000.0,1,Medan,32000
+1091,2026-03-01,Celana Jeans,Fashion,220000.0,5,Jakarta,132000
+1092,2026-02-28,Botol Minum Olahraga,Olahraga,40000.0,1,Bandung,25000
+1093,2026-02-10,Notebook Polos,Buku,16000.0,5,Medan,9000
+1094,2026-02-27,Skipping Rope,Olahraga,29000.0,5,Bandung,21000
+1095,2026-03-23,Buku Resep Masakan,Buku,55000.0,2,Surabaya,46000
+1096,2026-02-26,Raket Badminton,Olahraga,280000.0,3,Jakarta,168000
+1097,2026-03-11,Keripik Singkong,Makanan,21000.0,3,Jakarta,13000
+1098,2026-01-28,Celana Jeans,Fashion,200000.0,2,Jakarta,151000
+1099,2026-02-23,Buku Resep Masakan,Buku,,4,Jakarta,40000
+1100,2026-03-31,Topi,Fashion,44000.0,5,Jakarta,29000
+1101,2026-02-08,Raket Badminton,Olahraga,273000.0,3,Medan,184000
+1102,2026-03-19,Notebook Polos,Buku,15000.0,5,Bandung,9000
+1103,2026-01-04,Buku Motivasi,Buku,69000.0,4,Medan,52000
+1104,2026-01-22,Kacang Mete 100g,Makanan,41000.0,4,Medan,22000
+1105,2026-03-17,Sepatu Sneakers,Fashion,351000.0,4,Karawang,262000
+1106,2026-03-01,Mouse,Elektronik,153000.0,2,Bandung,91000
+1107,2026-02-28,Headset,Elektronik,245000.0,2,Surabaya,163000
+1108,2026-02-02,Teh Celup Box,Makanan,24000.0,4,Jakarta,16000
+1109,2026-02-14,Novel Fiksi,Buku,70000.0,1,Bandung,47000
+1110,2026-02-01,Speaker Bluetooth,Elektronik,296000.0,1,Bandung,202000
+1111,2026-03-02,Power Bank,Elektronik,169000.0,2,Jakarta,107000
+1112,2026-02-17,Botol Minum Olahraga,Olahraga,37000.0,3,Bandung,29000
+1113,2026-01-21,Skipping Rope,Olahraga,32000.0,1,Surabaya,16000
+1114,2026-03-15,Power Bank,Elektronik,166000.0,3,Medan,143000
+1115,2026-01-14,Buku Motivasi,Buku,67000.0,2,Surabaya,44000
+1116,2026-01-06,Matras Yoga,Olahraga,125000.0,5,Surabaya,77000
+1117,2026-03-06,Raket Badminton,Olahraga,282000.0,1,Surabaya,190000
+1118,2026-02-25,Charger,Elektronik,89000.0,1,Surabaya,53000
+1119,2026-03-25,Buku Motivasi,Buku,71000.0,5,Surabaya,52000
+1120,2026-02-25,Skipping Rope,Olahraga,31000.0,4,Karawang,18000
+1121,2026-02-05,Madu Hutan 250ml,Makanan,100000.0,1,Medan,69000
+1122,2026-02-13,Topi,Fashion,45000.0,4,Jakarta,27000
+1123,2026-02-15,Komik,Buku,42000.0,2,Surabaya,29000
+1124,2026-03-13,Madu Hutan 250ml,Makanan,100000.0,3,Jakarta,65000
+1125,2026-03-04,Botol Minum Olahraga,Olahraga,35000.0,4,Karawang,22000
+1126,2026-02-27,Tas Ransel,Fashion,164000.0,4,Jakarta,130000
+1127,2026-02-09,Headset,Elektronik,238000.0,2,Karawang,296000
+1128,2026-02-24,Teh Celup Box,Makanan,25000.0,3,Karawang,17000
+1129,2026-02-09,Madu Hutan 250ml,Makanan,98000.0,3,Surabaya,75000
+1130,2026-01-16,Kaos Polos,Fashion,77000.0,3,Karawang,44000
+1029,2026-01-11,Keripik Singkong,Makanan,20000.0,5,Jakarta,13000
+1071,2026-02-14,Buku Motivasi,Buku,68000.0,4,Surabaya,40000
+1118,2026-02-25,Charger,Elektronik,89000.0,1,Surabaya,53000
